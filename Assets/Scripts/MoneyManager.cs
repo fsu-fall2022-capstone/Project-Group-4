@@ -13,11 +13,14 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
+    public static MoneyManager main;
+    
     private int currPlayerMoney;
     public int startMoney;
 
     public void Start()
     {
+        if (main == null) main = this;
         currPlayerMoney = startMoney;
     }
 
