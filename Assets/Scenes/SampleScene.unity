@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -176,7 +177,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -207,6 +208,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c80366d854f554a8fb9137df064cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!850595691 &1000766990
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -350,6 +363,16 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3700337749193925924, guid: b2b2046b1573d774d97fb90e558fd1a9,
+        type: 3}
+      propertyPath: mask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700337749193925924, guid: b2b2046b1573d774d97fb90e558fd1a9,
+        type: 3}
+      propertyPath: towerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6303140622305713497, guid: b2b2046b1573d774d97fb90e558fd1a9,
         type: 3}
       propertyPath: m_RootOrder
@@ -423,6 +446,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MapGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165870802493753038, guid: e360c4a6d9501fc4986d225a9e7203a7,
+        type: 3}
+      propertyPath: endColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165870802493753038, guid: e360c4a6d9501fc4986d225a9e7203a7,
+        type: 3}
+      propertyPath: pathColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165870802493753038, guid: e360c4a6d9501fc4986d225a9e7203a7,
+        type: 3}
+      propertyPath: startColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4165870802493753039, guid: e360c4a6d9501fc4986d225a9e7203a7,
         type: 3}

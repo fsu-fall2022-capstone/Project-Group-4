@@ -12,6 +12,7 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public static MapGenerator main; // for access by other systems
     public GameObject mapTile;
 
     [SerializeField] private int tilesetWidth;
@@ -35,12 +36,15 @@ public class MapGenerator : MonoBehaviour
 
     private void Start()
     {
+        if (main == null) main = this;
         mapSize.width = tilesetWidth;
         mapSize.height = tilesetHeight;
         generateMap();
     }
 
-        //This function was modified to allow any sized map based on mapSize.width variable
+    public (int width, int height) getMapSize(){ return mapSize; }
+
+    //This function was modified to allow any sized map based on mapSize.width variable
     private List<GameObject> getFrontEdgeTiles()
     {
         List<GameObject> edgeTiles = new List<GameObject>();
@@ -52,6 +56,10 @@ public class MapGenerator : MonoBehaviour
         }
 
         return edgeTiles;
+    }
+
+    public GameObject getCornerTile() {
+        return mapTiles[mapSize.width * (mapSize.height-1)];
     }
 
     //This function was modified to allow any sized map based on mapSize.width variable
