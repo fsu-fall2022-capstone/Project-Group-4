@@ -13,6 +13,8 @@ using UnityEngine;
 
 public class RoundController : MonoBehaviour
 {
+    public static RoundController main;
+
     public GameObject basicEnemy;
 
     public float timeBtwWaves;
@@ -27,6 +29,7 @@ public class RoundController : MonoBehaviour
 
     private void Start()
     {
+        if (main == null) main = this;
         isRoundGoing = false;
         isIntermission = false;
         isStartOfRound = true;

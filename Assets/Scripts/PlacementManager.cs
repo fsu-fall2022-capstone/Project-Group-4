@@ -13,6 +13,8 @@ using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
 {
+    public static PlacementManager main;
+
     public ShopManager shopManager;
 
     public GameObject basicTowerObject;
@@ -32,7 +34,7 @@ public class PlacementManager : MonoBehaviour
 
     public void Start()
     {
-        
+        if (main == null) main = this;
     }
 
     public Vector2 GetMousePosition()

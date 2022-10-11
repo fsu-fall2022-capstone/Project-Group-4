@@ -13,11 +13,18 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
+    public static ShopManager main;
+
     public MoneyManager moneyManager;
 
     public GameObject basicTowerPrefab;
 
     public int basicTowerCost;
+
+    private void Start()
+    {
+        if (main == null) main = this;
+    }
 
     public int GetTowerCost(GameObject towerPrefab)
     {
