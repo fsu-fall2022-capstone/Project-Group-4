@@ -1,4 +1,4 @@
-﻿/*
+/*
     Most code in this file was written out by Nathan Granger based on the free tutorial 
     videos posted by youtube user ZeveonHD, found at 
     https://www.youtube.com/playlist?list=PL5AKnriDHZs5a8De2wK_qqrwBUqjZo0hN. Many
