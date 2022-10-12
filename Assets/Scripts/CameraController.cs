@@ -1,8 +1,6 @@
 /*
     Developing the camera boundary limits, scroll wheel and middle mouse
     is based on this tutorial: https://www.youtube.com/watch?v=IfbMKe6p9nM
-    The camera boundary limits was the most beneficial of the bunch, was having issues
-    with getting lost in the environment space.
     More work needs to be done with this.
 */
 
@@ -35,8 +33,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!HandleArrowInput()){
-            HandleMiddleMouseBtn();
+        if(!HandleKeyInput()){
+            HandleMouseInput();
         }
         HandleWheelScroll();
         RestrictToBoundaryLimits();
@@ -72,22 +70,22 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private bool HandleArrowInput() 
+    private bool HandleKeyInput() 
     {
         Vector3 movement = Vector3.zero;
-        if (Input.GetKey("up")) {
+        if (Input.GetKey("w") || Input.GetKey("up")) {
             movement = new Vector3(0,MoveSpeed * Time.deltaTime,0);
             mainCamera.transform.position += movement;
         }
-        if(Input.GetKey("down")) {
+        if(Input.GetKey("s") || Input.GetKey("down")) {
             movement = new Vector3(0,-MoveSpeed * Time.deltaTime,0);
             mainCamera.transform.position += movement;
         }
-        if(Input.GetKey("left")) {
+        if(Input.GetKey("a") || Input.GetKey("left")) {
             movement = new Vector3(-MoveSpeed * Time.deltaTime,0,0);
             mainCamera.transform.position += movement;
         }
-        if(Input.GetKey("right")) {
+        if(Input.GetKey("d") || Input.GetKey("right")) {
             movement = new Vector3(MoveSpeed * Time.deltaTime,0,0);
             mainCamera.transform.position += movement;
         }
@@ -99,14 +97,14 @@ public class CameraController : MonoBehaviour
         return false;
     }
 
-    private bool HandleMiddleMouseBtn()
+    private bool HandleMouseInput()
     {
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(2))
         {
             MouseScrollStartPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         }
 
-        if (Input.GetMouseButton(2)){
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(2)){
             Vector3 movement = mainCamera.ScreenToWorldPoint(Input.mousePosition) - MouseScrollStartPos;
             mainCamera.transform.position -= movement;
             return true;
