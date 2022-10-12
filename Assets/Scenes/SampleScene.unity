@@ -220,6 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c80366d854f554a8fb9137df064cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 20
+  EdgeScrollSpeed: 1
+  ZoomSpeed: 80
 --- !u!850595691 &1000766990
 LightingSettings:
   m_ObjectHideFlags: 0

@@ -1,5 +1,9 @@
-/* built based on: https://www.youtube.com/watch?v=IfbMKe6p9nM
-   this will be requiring some tweaking to perfect for this
+/*
+    Developing the camera boundary limits, scroll wheel and middle mouse
+    is based on this tutorial: https://www.youtube.com/watch?v=IfbMKe6p9nM
+    The camera boundary limits was the most beneficial of the bunch, was having issues
+    with getting lost in the environment space.
+    More work needs to be done with this.
 */
 
 using System.Collections;
@@ -8,15 +12,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public static CameraController main;
+    public static CameraController main; 
 
     private Vector3 MouseScrollStartPos;
     private Camera mainCamera;
-    //private MapGenerator gen;
-    private int BorderSize=30;
-    private float MoveSpeed = 5f;
-    private float EdgeScrollSpeed = 1f;
-    private float ZoomSpeed = 10f;
+    
+    [SerializeField] private int BorderSize = 15;
+
+    // different speed values, serialized for editor adjustment to save in the code
+    [SerializeField] private float MoveSpeed = 20f;
+    [SerializeField] private float EdgeScrollSpeed = 1f;
+    [SerializeField] private float ZoomSpeed = 80f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,15 +35,15 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleBtnInput();
-        HandleMiddleMouseBtn();
-        HandleEdgeScroll();
+        if(!HandleArrowInput()){
+            HandleMiddleMouseBtn();
+        }
         HandleWheelScroll();
         RestrictToBoundaryLimits();
     }
 
-    public Rect GetBoundaryLimits()
-    {
+    public Rect GetBoundaryLimits() // sets the maximum boundary the camera can roam
+    {   // this way people don't lost in the void
         (int w, int h) size = MapGenerator.main.getMapSize();
         GameObject cornerTile = MapGenerator.main.getCornerTile();
         return new Rect(new Vector2(cornerTile.transform.position.x,
@@ -46,22 +52,27 @@ public class CameraController : MonoBehaviour
 
     private void RestrictToBoundaryLimits()
     {
-        Rect boundaries = GetBoundaryLimits();
+        Rect boundaries = GetBoundaryLimits(); // limits are based on the rectangle generated
+        // around the map size
         if (boundaries.xMin > mainCamera.transform.position.x){
-            mainCamera.transform.position = new Vector3(boundaries.xMin, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            mainCamera.transform.position = new Vector3(boundaries.xMin, 
+                mainCamera.transform.position.y, mainCamera.transform.position.z);
         }
         if (boundaries.xMax < mainCamera.transform.position.x){
-            mainCamera.transform.position = new Vector3(boundaries.xMax, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            mainCamera.transform.position = new Vector3(boundaries.xMax, 
+                mainCamera.transform.position.y, mainCamera.transform.position.z);
         }
         if (boundaries.yMin > mainCamera.transform.position.y){
-            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, boundaries.yMin, mainCamera.transform.position.z);
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, 
+                boundaries.yMin, mainCamera.transform.position.z);
         }
         if (boundaries.yMax < mainCamera.transform.position.y){
-            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, boundaries.yMax, mainCamera.transform.position.z);
+            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, 
+                boundaries.yMax, mainCamera.transform.position.z);
         }
     }
 
-    private void HandleBtnInput() 
+    private bool HandleArrowInput() 
     {
         Vector3 movement = Vector3.zero;
         if (Input.GetKey("up")) {
@@ -80,9 +91,15 @@ public class CameraController : MonoBehaviour
             movement = new Vector3(MoveSpeed * Time.deltaTime,0,0);
             mainCamera.transform.position += movement;
         }
+
+        if(movement != Vector3.zero) {
+            return true;
+        }
+
+        return false;
     }
 
-    private void HandleMiddleMouseBtn()
+    private bool HandleMiddleMouseBtn()
     {
         if (Input.GetMouseButtonDown(2))
         {
@@ -90,37 +107,20 @@ public class CameraController : MonoBehaviour
         }
 
         if (Input.GetMouseButton(2)){
-            Vector3 movement = Vector3.zero;
-            movement = mainCamera.ScreenToWorldPoint(Input.mousePosition) - MouseScrollStartPos;
+            Vector3 movement = mainCamera.ScreenToWorldPoint(Input.mousePosition) - MouseScrollStartPos;
             mainCamera.transform.position -= movement;
+            return true;
         }
+        return false;
     }
 
-    private void HandleEdgeScroll() 
-    {
-        int distanceToTop = mainCamera.pixelHeight - (int)Input.mousePosition.y;
-        int distanceToBottom = (int)Input.mousePosition.y;
-        int distanceToRight = mainCamera.pixelWidth - (int)Input.mousePosition.x;
-        int distanceToLeft = (int)Input.mousePosition.x;
-
-        if(distanceToTop < BorderSize && distanceToTop > 0){
-            mainCamera.transform.position += Vector3.up * Time.deltaTime * (BorderSize - distanceToTop) * EdgeScrollSpeed;
-        } else if(distanceToBottom < BorderSize && distanceToBottom > 0){
-             mainCamera.transform.position += Vector3.down * Time.deltaTime * (BorderSize - distanceToBottom) * EdgeScrollSpeed;
-        }
-
-        if(distanceToLeft < BorderSize && distanceToLeft > 0) {
-            mainCamera.transform.position += Vector3.left * Time.deltaTime * (BorderSize - distanceToLeft) * EdgeScrollSpeed;
-        } else if(distanceToRight < BorderSize && distanceToRight > 0) {
-            mainCamera.transform.position += Vector3.right * Time.deltaTime * (BorderSize - distanceToRight) * EdgeScrollSpeed;
-        }       
-    }
-
-    private void HandleWheelScroll() 
+    private bool HandleWheelScroll() 
     {
         if(Input.mouseScrollDelta.y != 0) {
             mainCamera.orthographicSize += Input.mouseScrollDelta.y * Time.deltaTime * ZoomSpeed;
-            mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, 2, 10);
-        }
+            mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, 2, 8);
+            return true;
+        } 
+        return false;
     }
 }
