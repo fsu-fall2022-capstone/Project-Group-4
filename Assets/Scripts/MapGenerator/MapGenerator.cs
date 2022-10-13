@@ -58,15 +58,13 @@ public class MapGenerator : MonoBehaviour
 
     public void expandMap()
     {   // expands the map
-        TileSetGenerator newTileSet = new TileSetGenerator(tilesetWidth, tilesetHeight);
-
+        TileSetGenerator newTileSet = new TileSetGenerator(tilesetWidth, tilesetHeight, tileSets[tileSets.Count-1].startTile);
     }
 
     private void generateMap()
     {   // generates the initial map
         TileSetGenerator newTileSet = new TileSetGenerator(tilesetWidth, tilesetHeight);
-        newTileSet.generateTileset;
-        (int x, int y) start = newTileSet.getStartCoord();
-        (int x, int y) end = newTileSet.getEndCoord();
+        Debug.Log($"{newTileSet.ToString()}");
+        tileSets.Add(newTileSet.getTileSet());
     }
 }
