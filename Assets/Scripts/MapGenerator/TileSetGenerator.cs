@@ -190,7 +190,7 @@ public class TileSetGenerator
         // edge tiles for tile selection randomness
         List<Tile> startEdgeTiles = new List<Tile>();
 
-        if(DirCardinals.start == null) { // start cardinal can be set by MapGenerator
+        if(tileSet.DirCardinals.start == -1) { // start cardinal can be set by MapGenerator
                                         // if random start is not desired
                                         // this is to keep the same capability as before
             tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals

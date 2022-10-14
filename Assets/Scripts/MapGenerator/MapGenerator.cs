@@ -53,6 +53,22 @@ public class MapGenerator : MonoBehaviour
 
     }
 
+    /*
+    public bool checkExpandability() 
+    {
+        // this'll be used to check if the map can be expanded based on the location
+        // data of the recent tileset stored in mapLayout and 
+        // the most recent direction data TileSet stored in tileSets.
+        // this'll be used for any UI buttons that expand the map before calling it
+    }
+
+    private bool checkTileSetExpandability(TileSet checkTileSet) 
+    {   
+        // while this'll follow similarly to checkExpandability(), it'll use the direction data
+        // stored in checkTileSet to see if this tileSet is valid for expansion
+    }
+    */
+
     public void expandMap()
     {   // expands the map
         MapLayout locTileInfo = new MapLayout();
