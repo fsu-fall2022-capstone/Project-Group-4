@@ -244,7 +244,7 @@ public class MapGenerator : MonoBehaviour
         GameObject replacedTile = Instantiate(pathTile, oldPos, Quaternion.identity);
         pathTiles.Add(replacedTile);
 
-        for(int i = 0; i < newTileSet.pathTiles.Count; i++) {
+        for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
             (int x, int y) newPos;
             newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
@@ -289,7 +289,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        for(int i = 0; i < newTileSet.pathTiles.Count; i++) {
+        for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
             Vector3 tilePos = new Vector3(currTile.position.x, currTile.position.y, 0);
             switch(currTile.type) {

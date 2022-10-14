@@ -68,7 +68,7 @@ public class Enemies : MonoBehaviour
             {
                 int currIndex = MapGenerator.pathTiles.IndexOf(targetTile);
 
-                targetTile = MapGenerator.pathTiles[currIndex + 1];
+                targetTile = MapGenerator.pathTiles[currIndex - 1];
             }
         }
     }
