@@ -14,13 +14,13 @@ using UnityEngine;
 public class Enemies : MonoBehaviour
 {
     [SerializeField] private float enemyHealth;
-
     [SerializeField] private float movementSpeed;
 
     private int killReward;     //Money for killing enemy
-    private int damage;       //Damage enemy does when hitting the end
+    public static float damage;       //Damage enemy does when hitting the endTile
 
     private GameObject targetTile;
+    private bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
     private void Awake()
     {
@@ -47,8 +47,16 @@ public class Enemies : MonoBehaviour
         }
     }
 
+    //Modified to allow the updating of the health/lives bar 
     private void enemyDead()
     {
+        if (enemyFinished)
+        {
+            damage = 1f;
+            HealthBar.lives -= damage;
+            enemyFinished = false;
+        }
+
         Counter.enemies.Remove(gameObject);
         Destroy(transform.gameObject);
     }
@@ -58,7 +66,8 @@ public class Enemies : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * Time.deltaTime);
     }
 
-    private void checkPosition()
+    //Modified to check if an enemy has hit the endTile, then update player health
+    public void checkPosition()
     {
         if (targetTile != null && targetTile != MapGenerator.endTile)
         {
@@ -70,6 +79,11 @@ public class Enemies : MonoBehaviour
 
                 targetTile = MapGenerator.pathTiles[currIndex - 1];
             }
+        }
+        else if (targetTile == MapGenerator.endTile)
+        {
+            enemyFinished = true;
+            enemyDead();
         }
     }
 
