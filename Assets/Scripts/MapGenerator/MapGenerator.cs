@@ -107,37 +107,37 @@ public class MapGenerator : MonoBehaviour
         {
             case 0: // bottom
                 validPos = (lastTilePos.x, lastTilePos.y - 1);
-                checkPos = (validPos.x, validPos.y - 2); // down
+                checkPos = (validPos.x, validPos.y - 1); // down
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x + 1, validPos.y - 1); // right
+                checkPos = (validPos.x + 1, validPos.y); // right
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x - 1, validPos.y - 1); // left
+                checkPos = (validPos.x - 1, validPos.y); // left
                 checkVectors.Add(checkPos);
                 break;
             case 1: // right
                 validPos = (lastTilePos.x + 1, lastTilePos.y);
-                checkPos = (validPos.x - 1, validPos.y - 1); // left
+                checkPos = (validPos.x + 1, validPos.y); // right
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x + 1, validPos.y - 1); // down
+                checkPos = (validPos.x, validPos.y - 1); // down
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x + 1, validPos.y + 1); // up
+                checkPos = (validPos.x, validPos.y + 1); // up
                 break;
             case 2: // top
                 validPos = (lastTilePos.x, lastTilePos.y + 1);
-                checkPos = (validPos.x, validPos.y + 2); // up
+                checkPos = (validPos.x, validPos.y + 1); // up
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x + 1, validPos.y + 1); // right
+                checkPos = (validPos.x + 1, validPos.y); // right
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x - 1, validPos.y + 1); // left
+                checkPos = (validPos.x - 1, validPos.y); // left
                 checkVectors.Add(checkPos);
                 break;
             case 3: // left
                 validPos = (lastTilePos.x - 1, lastTilePos.y);
-                checkPos = (validPos.x + 1, validPos.y - 1); // right
+                checkPos = (validPos.x - 1, validPos.y); // left
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x - 1, validPos.y - 1); // down
+                checkPos = (validPos.x, validPos.y - 1); // down
                 checkVectors.Add(checkPos);
-                checkPos = (validPos.x - 1, validPos.y + 1); // up
+                checkPos = (validPos.x, validPos.y + 1); // up
                 checkVectors.Add(checkPos);
                 break;
         }
@@ -189,10 +189,11 @@ public class MapGenerator : MonoBehaviour
         TileSetGenerator tileSetGen;
         if(availableDirections.Count == 0 || availableDirections.Count == 3) { 
             // direction won't matter, just pick a random one
-            Debug.Log("No available directions after.");
+            Debug.Log("Any direction is available.");
             tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile);
         } else {
-            int rand = Random.Range(0, availableDirections.Count);
+            int rand = UnityEngine.Random.Range(0, availableDirections.Count);
+            Debug.Log($"Random number: {rand}");
             int randDir = availableDirections[rand];
             Debug.Log($"Random direction: {randDir}");
             tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile, randDir);

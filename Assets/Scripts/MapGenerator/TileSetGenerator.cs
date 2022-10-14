@@ -104,10 +104,10 @@ public class TileSetGenerator
             tileSet.DirCardinals.end = 0;
             tileSet.endTile.position.y = 0;
         } else if(tileSet.endTile.position.x == 0) {
-            tileSet.DirCardinals.end = 3;
+            tileSet.DirCardinals.end = 1;
             tileSet.endTile.position.x = tileSetWidth - 1;
         } else if(tileSet.endTile.position.x == (tileSetWidth-1)) {
-            tileSet.DirCardinals.end = 1;
+            tileSet.DirCardinals.end = 3;
             tileSet.endTile.position.x = 0;
         }
 
@@ -197,8 +197,8 @@ public class TileSetGenerator
                                         // this is to keep the same capability as before
             tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
 
-            if(tileSet.DirCardinals.end == tileSet.DirCardinals.start){
-                while(tileSet.DirCardinals.end == tileSet.DirCardinals.start) {
+            if(tileSet.DirCardinals.start == tileSet.DirCardinals.end){
+                while(tileSet.DirCardinals.start == tileSet.DirCardinals.end) {
                     tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4);
                 }
             }
