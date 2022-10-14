@@ -15,11 +15,11 @@ public class CameraController : MonoBehaviour
     private Vector3 MouseScrollStartPos;
     private Camera mainCamera;
     
-    [SerializeField] private int BorderSize = 15;
+    //[SerializeField] private int BorderSize = 15;
 
     // different speed values, serialized for editor adjustment to save in the code
     [SerializeField] private float MoveSpeed = 20f;
-    [SerializeField] private float EdgeScrollSpeed = 1f;
+    //[SerializeField] private float EdgeScrollSpeed = 1f;
     [SerializeField] private float ZoomSpeed = 80f;
 
     // Start is called before the first frame update

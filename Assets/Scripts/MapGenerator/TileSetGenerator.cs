@@ -141,8 +141,8 @@ public class TileSetGenerator
         int startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand1]);
         int endTileIndex = tileSet.tiles.IndexOf(endEdgeTiles[rand2]);
 
-        tileSet.tiles[startTileIndex].type = 1;
-        tileSet.tiles[endTileIndex].type = 1;
+        tileSet.tiles[startTileIndex].type = 2;
+        tileSet.tiles[endTileIndex].type = 3;
 
         tileSet.startTile = tileSet.tiles[startTileIndex];
         tileSet.endTile = tileSet.tiles[endTileIndex];
@@ -199,7 +199,7 @@ public class TileSetGenerator
 
         int startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand]);
 
-        tileSet.tiles[startTileIndex].type = 1;
+        tileSet.tiles[startTileIndex].type = 2;
 
         tileSet.startTile = tileSet.tiles[startTileIndex];
 
@@ -211,7 +211,8 @@ public class TileSetGenerator
     {
         Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
-        tileSet.tiles[currIndex].type = 1;
+        if(tileSet.tiles[currIndex].type == 0)
+            tileSet.tiles[currIndex].type = 1;
         nextIndex = currIndex - tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Down.");
@@ -221,7 +222,8 @@ public class TileSetGenerator
     {
         Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
-        tileSet.tiles[currIndex].type = 1;
+        if(tileSet.tiles[currIndex].type == 0)
+            tileSet.tiles[currIndex].type = 1;
         nextIndex = currIndex + tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Up.");
@@ -231,7 +233,8 @@ public class TileSetGenerator
     {
         Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
-        tileSet.tiles[currIndex].type = 1;
+        if(tileSet.tiles[currIndex].type == 0)
+            tileSet.tiles[currIndex].type = 1;
         nextIndex = ++currIndex;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Right.");
@@ -241,7 +244,8 @@ public class TileSetGenerator
     {
         Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
-        tileSet.tiles[currIndex].type = 1;
+        if(tileSet.tiles[currIndex].type == 0)
+            tileSet.tiles[currIndex].type = 1;
         nextIndex = --currIndex;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Left.");

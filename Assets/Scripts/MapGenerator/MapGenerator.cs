@@ -12,14 +12,10 @@ public class MapGenerator : MonoBehaviour
     public GameObject mapTile2; // flora1
     public GameObject mapTile3; // flora2
 
-    public GameObject pathTile1; // straight
-    public GameObject pathTile2; // left turn
-    public GameObject pathTile3; // right turn
+    public GameObject pathTile; // straight
 
-    public GameObject portalTileNS; // enemy spawn point tile | N&S
-    public GameObject portalTileWE; // W&E
-    public GameObject homeTileNS; // end point tile | N&S
-    public GameObject homeTileWE; // W&E
+    public GameObject portalTile; // enemy spawn tile
+    public GameObject homeTile; // player home point tile
 
     [SerializeField] private int tilesetWidth;
     [SerializeField] private int tilesetHeight;
@@ -37,11 +33,11 @@ public class MapGenerator : MonoBehaviour
     public static GameObject startTile { get; private set; } // starting position of enemy
     public static GameObject endTile { get; private set; } // home position of player
 
-    // for path generation
-    private (bool x, bool y) reached = (false, false);
-    private GameObject currentTile;
-    private int currIndex;
-    private int nextIndex;
+    // may be needed
+    //private (bool x, bool y) reached = (false, false);
+    //private GameObject currentTile;
+    //private int currIndex;
+    //private int nextIndex;
 
     private void Start()
     {
@@ -58,7 +54,8 @@ public class MapGenerator : MonoBehaviour
 
     public void expandMap()
     {   // expands the map
-        TileSetGenerator newTileSet = new TileSetGenerator(tilesetWidth, tilesetHeight, tileSets[tileSets.Count-1].startTile);
+        Tile genStichTile = new Tile(tileSets[tileSets.Count-1].startTile.position, 3);
+        TileSetGenerator newTileSet = new TileSetGenerator(tilesetWidth, tilesetHeight, genStichTile);
     }
 
     private void generateMap()
