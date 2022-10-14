@@ -25,9 +25,9 @@ public class TileSetGenerator
         tileSet.height = tileSetHeight;
         tileSet.width = tileSetWidth;
         tileSet.endTile = previousTileSetStart;
+        adjustImportedEnd();
         generateTileset();
     }
-
 
     public TileSet getTileSet() { return tileSet; }
     
@@ -71,7 +71,6 @@ public class TileSetGenerator
         return edgeTiles;
     }
 
-
     private List<Tile> getBottomEdgeTiles()
     {
         List<Tile> edgeTiles = new List<Tile>();
@@ -81,6 +80,30 @@ public class TileSetGenerator
         }
 
         return edgeTiles;
+    }
+
+    private void adjustImportedEnd() 
+    {
+        // normal directions are this
+        // 0 for bottom, 1 for right, 2 for top, 3 for left
+        // but since we're stitching from the end tile, we need to reverse the directions
+        // and adjust the position of the end tile to match the new edge
+        if(tileSet.endTile.position.y == 0) {
+            tileSet.DirCardinals.end = 2;
+            tileSet.endTile.position.y = tileSetHeight - 1;
+        } else if(tileSet.endTile.position.y == (tileSetHeight-1)) {
+            tileSet.DirCardinals.end = 0;
+            tileSet.endTile.position.y = 0;
+        } else if(tileSet.endTile.position.x == 0) {
+            tileSet.DirCardinals.end = 1;
+            tileSet.endTile.position.x = tileSetWidth - 1;
+        } else if(tileSet.endTile.position.x == (tileSetWidth-1)) {
+            tileSet.DirCardinals.end = 3;
+            tileSet.endTile.position.x = 0;
+        }
+
+        Debug.Log($"{tileSet.DirCardinals.end}");
+        tileSet.endTile.type = 3;
     }
 
     private void generateStartEnd()
@@ -153,19 +176,6 @@ public class TileSetGenerator
 
     private void generateStart() 
     {
-        // 0 for bottom, 1 for right, 2 for top, 3 for left
-        if(tileSet.endTile.position.y == 0) {
-            tileSet.DirCardinals.end = 0;
-        } else if(tileSet.endTile.position.y == (tileSetHeight-1)) {
-            tileSet.DirCardinals.end = 2;
-        } else if(tileSet.endTile.position.x == 0) {
-            tileSet.DirCardinals.end = 3;
-        } else if(tileSet.endTile.position.x == (tileSetWidth-1)) {
-            tileSet.DirCardinals.end = 1;
-        }
-
-        Debug.Log($"{tileSet.DirCardinals.end}");
-
         // edge tiles for tile selection randomness
         List<Tile> startEdgeTiles = new List<Tile>();
 
@@ -213,6 +223,7 @@ public class TileSetGenerator
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
+        tileSet.pathTiles.Add(tileSet.tiles[currIndex]);
         nextIndex = currIndex - tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Down.");
@@ -224,6 +235,7 @@ public class TileSetGenerator
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
+        tileSet.pathTiles.Add(tileSet.tiles[currIndex]);
         nextIndex = currIndex + tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Up.");
@@ -235,6 +247,7 @@ public class TileSetGenerator
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
+        tileSet.pathTiles.Add(tileSet.tiles[currIndex]);
         nextIndex = ++currIndex;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Right.");
@@ -246,6 +259,7 @@ public class TileSetGenerator
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
+        tileSet.pathTiles.Add(tileSet.tiles[currIndex]);
         nextIndex = --currIndex;
         currentTile = tileSet.tiles[nextIndex];
         Debug.Log("Moved Left.");
@@ -331,11 +345,12 @@ public class TileSetGenerator
                 tileSet.tiles.Add(newTile);
             }
         }
-        if(tileSet.startTile == null)
+        if(tileSet.endTile == null)
             generateStartEnd();
         else
             generateStart();
         generatePath();
+        tileSet.pathTiles.Add(endTile);
     }
 
     public override string ToString() {
