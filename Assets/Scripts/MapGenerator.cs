@@ -45,7 +45,7 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < mapWidth * mapHeight; i++)
         {
-            if ((i % mapWidth) == 0)            //Changed to allow any size map
+            if ((i % mapWidth) == 0)            //Changed to allow any size square map
                 edgeTiles.Add(mapTiles[i]);
         }
 
@@ -60,12 +60,11 @@ public class MapGenerator : MonoBehaviour
         for (int i = mapWidth-1; i < mapWidth * mapHeight; i++)
         {
             edgeTiles.Add(mapTiles[i]);
-            i += (mapWidth - 1);            //Changed to allow any size map
+            i += (mapWidth - 1);            //Changed to allow any size square map
         }
 
         return edgeTiles;
     }
-
 
     //MoveDown, moveUp, moveRight all modified to select path tiles from left to right
     private void moveDown()
