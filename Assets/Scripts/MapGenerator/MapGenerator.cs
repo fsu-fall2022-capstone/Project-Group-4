@@ -107,37 +107,37 @@ public class MapGenerator : MonoBehaviour
         {
             case 0: // bottom
                 validPos = (lastTilePos.x, lastTilePos.y - 1);
-                checkPos = (lastTilePos.x, lastTilePos.y - 2); // down
+                checkPos = (validPos.x, validPos.y - 2); // down
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x + 1, lastTilePos.y - 1); // right
+                checkPos = (validPos.x + 1, validPos.y - 1); // right
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x - 1, lastTilePos.y - 1); // left
+                checkPos = (validPos.x - 1, validPos.y - 1); // left
                 checkVectors.Add(checkPos);
                 break;
             case 1: // right
                 validPos = (lastTilePos.x + 1, lastTilePos.y);
-                checkPos = (lastTilePos.x - 1, lastTilePos.y - 1); // left
+                checkPos = (validPos.x - 1, validPos.y - 1); // left
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x + 1, lastTilePos.y - 1); // down
+                checkPos = (validPos.x + 1, validPos.y - 1); // down
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x + 1, lastTilePos.y + 1); // up
+                checkPos = (validPos.x + 1, validPos.y + 1); // up
                 break;
             case 2: // top
                 validPos = (lastTilePos.x, lastTilePos.y + 1);
-                checkPos = (lastTilePos.x, lastTilePos.y + 2); // up
+                checkPos = (validPos.x, validPos.y + 2); // up
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x + 1, lastTilePos.y + 1); // right
+                checkPos = (validPos.x + 1, validPos.y + 1); // right
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x - 1, lastTilePos.y + 1); // left
+                checkPos = (validPos.x - 1, validPos.y + 1); // left
                 checkVectors.Add(checkPos);
                 break;
             case 3: // left
                 validPos = (lastTilePos.x - 1, lastTilePos.y);
-                checkPos = (lastTilePos.x + 1, lastTilePos.y - 1); // right
+                checkPos = (validPos.x + 1, validPos.y - 1); // right
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x - 1, lastTilePos.y - 1); // down
+                checkPos = (validPos.x - 1, validPos.y - 1); // down
                 checkVectors.Add(checkPos);
-                checkPos = (lastTilePos.x - 1, lastTilePos.y + 1); // up
+                checkPos = (validPos.x - 1, validPos.y + 1); // up
                 checkVectors.Add(checkPos);
                 break;
         }
