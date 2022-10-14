@@ -76,7 +76,6 @@ public class MapGenerator : MonoBehaviour
         return edgeTiles;
     }
 
-
     //MoveDown, moveUp, moveRight all modified to select path tiles from left to right
     private void moveDown()
     {
