@@ -29,6 +29,17 @@ public class TileSetGenerator
         generateTileset();
     }
 
+    public TileSetGenerator(int tilesHeight, int tilesWidth, Tile previousTileSetStart, int givenStartCardinal) {
+        tileSetHeight = tilesHeight;
+        tileSetWidth = tilesWidth;
+        tileSet.height = tileSetHeight;
+        tileSet.width = tileSetWidth;
+        tileSet.endTile = previousTileSetStart;
+        adjustImportedEnd();
+        tileSet.DirCardinals.start = givenStartCardinal;
+        generateTileset();
+    }
+
     public TileSet getTileSet() { return tileSet; }
     
     private List<Tile> getTopEdgeTiles()
@@ -179,11 +190,15 @@ public class TileSetGenerator
         // edge tiles for tile selection randomness
         List<Tile> startEdgeTiles = new List<Tile>();
 
-        tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
+        if(DirCardinals.start == null) { // start cardinal can be set by MapGenerator
+                                        // if random start is not desired
+                                        // this is to keep the same capability as before
+            tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
 
-        if(tileSet.DirCardinals.end == tileSet.DirCardinals.start){
-            while(tileSet.DirCardinals.end == tileSet.DirCardinals.start) {
-                tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4);
+            if(tileSet.DirCardinals.end == tileSet.DirCardinals.start){
+                while(tileSet.DirCardinals.end == tileSet.DirCardinals.start) {
+                    tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4);
+                }
             }
         }
 
@@ -350,7 +365,9 @@ public class TileSetGenerator
         else
             generateStart();
         generatePath();
-        tileSet.pathTiles.Add(endTile);
+        Debug.Log($"Checking for end: {tileSet.pathTiles[tileSet.pathTiles.Count - 1].position}");
+        tileSet.pathTiles.Add(tileSet.endTile);
+        Debug.Log($"Checking for end: {tileSet.pathTiles[tileSet.pathTiles.Count - 1].position}");
     }
 
     public override string ToString() {
