@@ -15,11 +15,11 @@ public class CameraController : MonoBehaviour
     private Vector3 MouseScrollStartPos;
     private Camera mainCamera;
     
-    [SerializeField] private int BorderSize = 15;
+    //[SerializeField] private int BorderSize = 15;
 
     // different speed values, serialized for editor adjustment to save in the code
     [SerializeField] private float MoveSpeed = 20f;
-    [SerializeField] private float EdgeScrollSpeed = 1f;
+    //[SerializeField] private float EdgeScrollSpeed = 1f;
     [SerializeField] private float ZoomSpeed = 80f;
 
     // Start is called before the first frame update
@@ -37,9 +37,10 @@ public class CameraController : MonoBehaviour
             HandleMouseInput();
         }
         HandleWheelScroll();
-        RestrictToBoundaryLimits();
+//        RestrictToBoundaryLimits();
     }
 
+/*
     public Rect GetBoundaryLimits() // sets the maximum boundary the camera can roam
     {   // this way people don't lost in the void
         (int w, int h) size = MapGenerator.main.getMapSize();
@@ -47,6 +48,7 @@ public class CameraController : MonoBehaviour
         return new Rect(new Vector2(cornerTile.transform.position.x,
                         cornerTile.transform.position.y/(size.h/2)), new Vector2(size.w, size.h));
     }
+
 
     private void RestrictToBoundaryLimits()
     {
@@ -69,7 +71,7 @@ public class CameraController : MonoBehaviour
                 boundaries.yMax, mainCamera.transform.position.z);
         }
     }
-
+*/
     private bool HandleKeyInput() 
     {
         Vector3 movement = Vector3.zero;
