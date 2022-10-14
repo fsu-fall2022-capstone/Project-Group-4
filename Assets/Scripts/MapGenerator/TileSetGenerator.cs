@@ -83,12 +83,6 @@ public class TileSetGenerator
         return edgeTiles;
     }
 
-    private Tile getMiddleTile()
-    {
-        return tileSet.tiles[((int)(tileSetHeight / 2))*
-                    (((int)(tileSetWidth / 2)) - 1) + ((int)(tileSetWidth / 2))];
-    }
-
     private void generateStartEnd()
     {
         // edge tiles for tile selection randomness
@@ -140,8 +134,9 @@ public class TileSetGenerator
                 break;            
         }
 
-        int rand1 = UnityEngine.Random.Range(1, startEdgeTiles.Count);
-        int rand2 = UnityEngine.Random.Range(1, endEdgeTiles.Count);
+        //randomize and exclude corner pieces
+        int rand1 = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
+        int rand2 = UnityEngine.Random.Range(1, endEdgeTiles.Count - 1);
     
         int startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand1]);
         int endTileIndex = tileSet.tiles.IndexOf(endEdgeTiles[rand2]);
@@ -200,7 +195,7 @@ public class TileSetGenerator
                 break;                 
         }
 
-        int rand = UnityEngine.Random.Range(1, startEdgeTiles.Count);
+        int rand = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
 
         int startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand]);
 
@@ -252,6 +247,11 @@ public class TileSetGenerator
         Debug.Log("Moved Left.");
     }
 
+    // path generation needs some peeking functions, will be reutilizing the move functions for peeking purposes
+
+    // path generation needs to be improved upon with a quadrant-point picker
+    // to make the path more complex for each generation. 0-4 needs to be the random
+    // number of nodes for this
     private void generatePath() 
     {
         int counter = 0;
@@ -335,13 +335,16 @@ public class TileSetGenerator
     }
 
     public override string ToString() {
-        string output = "\n\n";
-        for(int i = tileSet.tiles.Count-1; i >= 0; i--) {
-            output += tileSet.tiles[i].type.ToString();
-            if(i % (tileSetWidth-1) == 0) {
-                output+="\n";
+        string output = "Grid View\n";
+
+        for(int y = tileSetHeight - 1; y >= 0; y--) {
+            for(int x = 0; x < tileSetWidth; x++) {
+                int i = x + y * tileSetWidth;
+                output += tileSet.tiles[i].type.ToString() + " ";
             }
+            output+="\n";
         }
+        output+=$"\ntileSetWidth: {tileSetWidth}\ntileSetHeight: {tileSetHeight}";
 
         return output;
     }
