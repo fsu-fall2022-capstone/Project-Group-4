@@ -21,9 +21,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int tilesetHeight;
     private (int width, int height) mapSize;
 
-    [SerializeField] private Color pathColor;
-    [SerializeField] private Color startColor;
-    [SerializeField] private Color endColor;
+    [SerializeField] private float spriteSize = 1f;
 
     public static List<GameObject> mapTiles = new List<GameObject>();
     public static List<GameObject> pathTiles = new List<GameObject>();
@@ -222,11 +220,16 @@ public class MapGenerator : MonoBehaviour
 
         mapLayout.Add(locTileInfo);
 
+        Debug.Log($"Location tile info: {locTileInfo.position}");
+
+        (float x, float y) newPos;
+
         for(int i = 0; i < newTileSet.tiles.Count; i++) {
             Tile currTile = newTileSet.tiles[i];
-            (int x, int y) newPos;
-            newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
-            newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
+            newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
+            newPos.y = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f;
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             if(currTile.type == 0) {
@@ -247,9 +250,10 @@ public class MapGenerator : MonoBehaviour
 
         for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
-            (int x, int y) newPos;
-            newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
-            newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
+            newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
+            newPos.y = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f;
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             switch(currTile.type) {
@@ -279,10 +283,13 @@ public class MapGenerator : MonoBehaviour
         
         locTileInfo.position = (0, 0);
         mapLayout.Add(locTileInfo);
+        (float x, float y) pos;
 
         for(int i = 0; i < newTileSet.tiles.Count; i++) {
             Tile currTile = newTileSet.tiles[i];
-            Vector3 tilePos = new Vector3(currTile.position.x, currTile.position.y, 0);
+            pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
+            pos.y = (currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f;
+            Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
             if(currTile.type == 0) {
                 // can randomize between mapTile1, mapTile2, mapTile3 here if needed
                 GameObject newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
@@ -292,7 +299,10 @@ public class MapGenerator : MonoBehaviour
 
         for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
-            Vector3 tilePos = new Vector3(currTile.position.x, currTile.position.y, 0);
+            
+            pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
+            pos.y = (currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f;
+            Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
             switch(currTile.type) {
                 case 1:
                     GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
