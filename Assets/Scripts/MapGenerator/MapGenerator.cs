@@ -21,9 +21,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int tilesetHeight;
     private (int width, int height) mapSize;
 
-    [SerializeField] private Color pathColor;
-    [SerializeField] private Color startColor;
-    [SerializeField] private Color endColor;
+    [SerializeField] private float spriteSize = 1f;
 
     public static List<GameObject> mapTiles = new List<GameObject>();
     public static List<GameObject> pathTiles = new List<GameObject>();
@@ -33,6 +31,9 @@ public class MapGenerator : MonoBehaviour
 
     public static GameObject startTile { get; private set; } // starting position of enemy
     public static GameObject endTile { get; private set; } // home position of player
+
+    [SerializeField] private int maxDirectionalStraightness = 3;
+    private int straightLineCounter = 0; // counter for map path, to prevent too many straight lines
 
     // may be needed
     //private (bool x, bool y) reached = (false, false);
@@ -107,8 +108,11 @@ public class MapGenerator : MonoBehaviour
         {
             case 0: // bottom
                 validPos = (lastTilePos.x, lastTilePos.y - 1);
-                checkPos = (validPos.x, validPos.y - 1); // down
-                checkVectors.Add(checkPos);
+                if(straightLineCounter <= maxDirectionalStraightness)
+                {
+                    checkPos = (validPos.x, validPos.y - 1); // down
+                    checkVectors.Add(checkPos);
+                }
                 checkPos = (validPos.x + 1, validPos.y); // right
                 checkVectors.Add(checkPos);
                 checkPos = (validPos.x - 1, validPos.y); // left
@@ -116,16 +120,22 @@ public class MapGenerator : MonoBehaviour
                 break;
             case 1: // right
                 validPos = (lastTilePos.x + 1, lastTilePos.y);
-                checkPos = (validPos.x + 1, validPos.y); // right
-                checkVectors.Add(checkPos);
+                if(straightLineCounter <= maxDirectionalStraightness)
+                {
+                    checkPos = (validPos.x + 1, validPos.y); // right
+                    checkVectors.Add(checkPos);
+                }
                 checkPos = (validPos.x, validPos.y - 1); // down
                 checkVectors.Add(checkPos);
                 checkPos = (validPos.x, validPos.y + 1); // up
                 break;
             case 2: // top
                 validPos = (lastTilePos.x, lastTilePos.y + 1);
-                checkPos = (validPos.x, validPos.y + 1); // up
-                checkVectors.Add(checkPos);
+                if(straightLineCounter <= maxDirectionalStraightness)
+                {
+                    checkPos = (validPos.x, validPos.y + 1); // up
+                    checkVectors.Add(checkPos);
+                }
                 checkPos = (validPos.x + 1, validPos.y); // right
                 checkVectors.Add(checkPos);
                 checkPos = (validPos.x - 1, validPos.y); // left
@@ -133,8 +143,10 @@ public class MapGenerator : MonoBehaviour
                 break;
             case 3: // left
                 validPos = (lastTilePos.x - 1, lastTilePos.y);
-                checkPos = (validPos.x - 1, validPos.y); // left
-                checkVectors.Add(checkPos);
+                if(straightLineCounter <= maxDirectionalStraightness){
+                    checkPos = (validPos.x - 1, validPos.y); // left
+                    checkVectors.Add(checkPos);
+                }
                 checkPos = (validPos.x, validPos.y - 1); // down
                 checkVectors.Add(checkPos);
                 checkPos = (validPos.x, validPos.y + 1); // up
@@ -202,6 +214,13 @@ public class MapGenerator : MonoBehaviour
         Debug.Log($"{tileSetGen.ToString()}");
         TileSet newTileSet = tileSetGen.getTileSet();
         tileSets.Add(newTileSet);
+        
+        if(newTileSet.DirCardinals.start == lastDir.start) {
+            straightLineCounter++;
+        } else {
+            straightLineCounter = 0;
+        }
+        
         (int x, int y) lastPos = mapLayout[mapLayout.Count - 1].position;
 
         switch(lastDir.start)
@@ -222,11 +241,16 @@ public class MapGenerator : MonoBehaviour
 
         mapLayout.Add(locTileInfo);
 
+        Debug.Log($"Location tile info: {locTileInfo.position}");
+
+        (float x, float y) newPos;
+
         for(int i = 0; i < newTileSet.tiles.Count; i++) {
             Tile currTile = newTileSet.tiles[i];
-            (int x, int y) newPos;
-            newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
-            newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
+            newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
+            newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             if(currTile.type == 0) {
@@ -247,9 +271,10 @@ public class MapGenerator : MonoBehaviour
 
         for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
-            (int x, int y) newPos;
-            newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
-            newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
+            newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
+            newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+             * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             switch(currTile.type) {
@@ -279,10 +304,13 @@ public class MapGenerator : MonoBehaviour
         
         locTileInfo.position = (0, 0);
         mapLayout.Add(locTileInfo);
+        (float x, float y) pos;
 
         for(int i = 0; i < newTileSet.tiles.Count; i++) {
             Tile currTile = newTileSet.tiles[i];
-            Vector3 tilePos = new Vector3(currTile.position.x, currTile.position.y, 0);
+            pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
+            pos.y = ((currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f) * -1;
+            Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
             if(currTile.type == 0) {
                 // can randomize between mapTile1, mapTile2, mapTile3 here if needed
                 GameObject newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
@@ -292,7 +320,10 @@ public class MapGenerator : MonoBehaviour
 
         for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
-            Vector3 tilePos = new Vector3(currTile.position.x, currTile.position.y, 0);
+            
+            pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
+            pos.y = ((currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f) * -1;
+            Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
             switch(currTile.type) {
                 case 1:
                     GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
