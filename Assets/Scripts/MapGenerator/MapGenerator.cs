@@ -21,6 +21,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int tilesetHeight;
     private (int width, int height) mapSize;
 
+    [SerializeField] private bool generateAsIsometric = true;
     [SerializeField] private float spriteSize = 1f;
 
     public static List<GameObject> mapTiles = new List<GameObject>();
@@ -247,10 +248,15 @@ public class MapGenerator : MonoBehaviour
 
         for(int i = 0; i < newTileSet.tiles.Count; i++) {
             Tile currTile = newTileSet.tiles[i];
-            newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-             * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
-            newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-             * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
+            if(generateAsIsometric){
+                newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+                 * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
+                newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+                 * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
+            } else {
+                newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
+                newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
+            }
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             if(currTile.type == 0) {
@@ -271,10 +277,15 @@ public class MapGenerator : MonoBehaviour
 
         for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
-            newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-             * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
-            newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-             * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
+            if(generateAsIsometric) {
+                newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+                 * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
+                newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
+                 * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
+            } else {
+                newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
+                newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
+            }
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             switch(currTile.type) {
@@ -308,8 +319,15 @@ public class MapGenerator : MonoBehaviour
 
         for(int i = 0; i < newTileSet.tiles.Count; i++) {
             Tile currTile = newTileSet.tiles[i];
+
+            if(generateAsIsometric) {
             pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
             pos.y = ((currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f) * -1;
+            }
+            else {
+                pos.x = currTile.position.x;
+                pos.y = currTile.position.y;
+            }
             Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
             if(currTile.type == 0) {
                 // can randomize between mapTile1, mapTile2, mapTile3 here if needed
@@ -321,8 +339,15 @@ public class MapGenerator : MonoBehaviour
         for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[i];
             
-            pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
-            pos.y = ((currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f) * -1;
+            if(generateAsIsometric) {
+                pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
+                pos.y = ((currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f) * -1;
+            }
+            else {
+                pos.x = currTile.position.x;
+                pos.y = currTile.position.y;
+            }
+
             Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
             switch(currTile.type) {
                 case 1:
