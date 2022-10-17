@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TileSetGenerator
 {
-    TileSet tileSet = new TileSet();
-    int tileSetHeight, tileSetWidth;
-    Tile currentTile;
-    (bool x, bool y) reached = (false, false);
+    private TileSet tileSet = new TileSet();
+    private int tileSetHeight, tileSetWidth;
+    private Tile currentTile;
+    private (bool x, bool y) reached = (false, false);
 
-    int currIndex, nextIndex;
+    private int currIndex, nextIndex;
 
     public TileSetGenerator(int tilesHeight, int tilesWidth) {
         tileSetHeight = tilesHeight;

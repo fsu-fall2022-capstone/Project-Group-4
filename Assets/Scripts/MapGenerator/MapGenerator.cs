@@ -19,7 +19,6 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] private int tilesetWidth;
     [SerializeField] private int tilesetHeight;
-    private (int width, int height) mapSize;
 
     [SerializeField] private bool generateAsIsometric = true;
     [SerializeField] private float spriteSize = 1f;
@@ -45,8 +44,6 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         if (main == null) main = this;
-        mapSize.width = tilesetWidth;
-        mapSize.height = tilesetHeight;
         generateMap();
     }
 
