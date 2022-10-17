@@ -1,0 +1,80 @@
+@startuml
+    class Tile {
+        + {field} (int x, int y) position;
+        + int type;
+        + Tile();
+        + Tile((int x, int y) newPosition, int newType);
+    }
+
+    class MapLayout {
+        + {field} (int x, int y) position;
+        + MapLayout();
+        + MapLayout((int x, int y) newPosition);
+    }
+
+    class TileSet {
+        + List<Tile> tiles;
+        + List<Tile> pathTiles;
+        + Tile startTile, endTile;
+        + {field} (int start, int end) DirCardinals;
+        + int height, width;
+    }
+
+    class TileSetGenerator {
+        - TileSet tileSet;
+        - int tileSetHeight, tileSetWidth;
+        - Tile currentTile;
+        - {field} (bool x, bool y) reached;
+        + TileSetGenerator(int tilsSetHeight, int tileSetWidth);
+        + TileSetGenerator(int tilsSetHeight, int tileSetWidth, Tile previousTileSetStart);
+        + TileSetGenerator(int tilsSetHeight, int tileSetWidth, Tile previousTileSetStart, int givenStartCardinal);
+        + TileSet getTileSet();
+        - List<Tile> getTopEdgeTiles();
+        - List<Tile> getLeftEdgeTiles();
+        - List<Tile> getRightEdgeTiles();
+        - List<Tile> getBottomEdgeTiles();
+        - void adjustImportedEnd();
+        - void generateStartEnd();
+        - void generateStart();
+        - void moveDown();
+        - void moveUp();
+        - void moveRight();
+        - void moveLeft();
+        - void generatePath();
+        - void generateTileset();
+        + override string ToString();
+    }
+
+    class MapGenerator {
+        + {static} MapGenerator main;
+        + GameObject mapTile1;
+        + GameObject mapTile2;
+        + GameObject mapTile3;
+        + GameObject pathTile;
+        + GameObject portalTile;
+        + GameObject homeTile;
+        - int tilesetWidth, tilesetHeight;
+        - bool generateAsIsometric;
+        - float spriteSize;
+        + {static} List<GameObject> mapTiles;
+        + {static} List<GameObject> pathTiles;
+        + {static} List<TileSet> tileSets;
+        + {static} List<MapLayout> mapLayout;
+        + {static} GameObject startTile;
+        + {static} GameObject endTile;
+        - int maxDirectionalStraightness;
+        - int straightLineCounter;
+        - private void Start();
+        - private void Update();
+        + bool checkExpandability();
+        - List<int> checkAvailableExpansionDirections();
+        + void expandMap();
+        + void generateMap();
+    }
+
+    MapLayout -* MapGenerator: Stores MapLayout for layout of the map
+    MapGenerator o-- TileSetGenerator: Generates TileSets for Map
+    TileSetGenerator o- TileSet: Creates TileSet
+    TileSet *-- Tile: Contains Tiles
+    MapGenerator *-- TileSet: Stores TileSets for Map
+@enduml
