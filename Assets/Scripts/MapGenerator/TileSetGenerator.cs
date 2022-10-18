@@ -333,19 +333,25 @@ public class TileSetGenerator
             }
         }
 
-        int rand1 = UnityEngine.Random.Range(0, quadrant1.Count);
-        int rand2 = UnityEngine.Random.Range(0, quadrant2.Count);
-        int rand3 = UnityEngine.Random.Range(0, quadrant3.Count);
-        int rand4 = UnityEngine.Random.Range(0, quadrant4.Count);
+        if(quadrant1.Count > 0) {
+            quadrantNodes.Add(quadrant1[UnityEngine.Random.Range(0, quadrant1.Count)]);
+        }
 
-        quadrantNodes.Add(quadrant1[rand1]);
-        quadrantNodes.Add(quadrant2[rand2]);
-        quadrantNodes.Add(quadrant3[rand3]);
-        quadrantNodes.Add(quadrant4[rand4]);
+        if(quadrant2.Count > 0) {
+            quadrantNodes.Add(quadrant2[UnityEngine.Random.Range(0, quadrant2.Count)]);
+        }
+
+        if(quadrant3.Count > 0) {
+            quadrantNodes.Add(quadrant3[UnityEngine.Random.Range(0, quadrant3.Count)]);
+        }
+
+        if(quadrant4.Count > 0) {
+            quadrantNodes.Add(quadrant4[UnityEngine.Random.Range(0, quadrant4.Count)]);
+        }
 
         // time to cull through these random nodes to the lowered limit
         // only will want a max of 3 nodes total
-        int randNodeCount = UnityEngine.Random.Range(1, 5);
+        int randNodeCount = UnityEngine.Random.Range(1, quadrantNodes.Count+1);
         int randNode;
 
         for(int i = 0; i < randNodeCount; i++) {
