@@ -15,6 +15,10 @@ public class Enemies : MonoBehaviour
 {
     [SerializeField] private float enemyHealth;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private string status = null;
+    
+    private float statusDuration;
+    public float timeCheck;
 
     private int killReward;     //Money for killing enemy
     public static float damage;       //Damage enemy does when hitting the endTile
@@ -30,6 +34,7 @@ public class Enemies : MonoBehaviour
     private void Start()
     {
         initailizeEnemy();
+        timeCheck = Time.time;
     }
 
     private void initailizeEnemy()
@@ -87,11 +92,40 @@ public class Enemies : MonoBehaviour
         }
     }
 
+    private void checkStatus()
+    {
+        if (status != null)
+        {
+            switch (status)
+            {
+                case "Frozen":
+                    statusDuration -= Time.time - timeCheck;
+                    if (statusDuration <= 0f)
+                    {
+                        movementSpeed = 0.5f;
+                        statusDuration = 0f;
+                        status = null;
+                    }
+                    else
+                        movementSpeed = 0f;
+                    break;
+            }
+            timeCheck = Time.time;
+        }
+    }
+    
+    public void setStatus(string Status, float duration)
+    {
+        status = Status;
+        statusDuration = duration;
+        timeCheck = Time.time;
+    }
+
     private void Update()
     {
+        checkStatus();
         checkPosition();
         moveEnemy();
-
         takeDamage(0);
     }
 }

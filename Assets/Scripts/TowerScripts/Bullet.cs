@@ -16,12 +16,12 @@ public class Bullet : MonoBehaviour
     public float Damage;
     public GameObject Target;
 
-    private void Start()
+    protected void Start()
     {
         Destroy(gameObject, 10f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision Detected!");
         Enemies enemyScript = Target.GetComponent<Enemies>();
@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Update()
+    protected void Update()
     {
         transform.position += transform.right * 0.25f;
     }
