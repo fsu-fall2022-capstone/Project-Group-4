@@ -181,6 +181,79 @@ public class MapGenerator : MonoBehaviour
         return availableDirections;
     }
 
+    private void drawTileSet(TileSet newTileSet, (int x, int y) displacement = (0,0), bool attachStitch = false) {
+        (float x, float y) newPos;
+
+        for(int i = 0; i < newTileSet.tiles.Count; i++) {
+            Tile currTile = newTileSet.tiles[i];
+            if(generateAsIsometric){
+                newPos.x = (((displacement.x) + currTile.position.x)
+                 * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
+                newPos.y = ((((displacement.x) + currTile.position.x)
+                 * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
+            } else {
+                newPos.x = (displacement.x) + currTile.position.x;
+                newPos.y = (displacement.y) + currTile.position.y;
+            }
+            //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
+            Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
+            if(currTile.type == 0) {
+                // can randomize between mapTile1, mapTile2, mapTile3 here if needed
+                GameObject newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
+                mapTiles.Add(newTile);
+            }
+        }
+
+        if(attachStitch) {
+            // old end tile info
+            Vector3 oldPos = startTile.transform.position;
+            pathTiles.Remove(startTile);
+            Destroy(startTile);
+
+            // converting the end tile sprite to a path tile sprite
+            GameObject replacedTile = Instantiate(pathTile, oldPos, Quaternion.identity);
+            pathTiles.Add(replacedTile);
+        }
+
+        for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
+            Tile currTile = newTileSet.pathTiles[i];
+            if(generateAsIsometric) {
+                newPos.x = (((displacement.x) + currTile.position.x)
+                 * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
+                newPos.y = ((((displacement.x) + currTile.position.x)
+                 * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
+            } else {
+                newPos.x = (displacement.x) + currTile.position.x;
+                newPos.y = (displacement.y) + currTile.position.y;
+            }
+            //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
+            Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
+            switch(currTile.type) {
+                case 1: 
+                    GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                    pathTiles.Add(newPathTile);
+                    break;                
+                case 2:
+                    // the sprite will be rotated to face the correct direction based on the cardinal direction
+                    // though this is still a work in progress as we actually need an actual sprite to rotate
+                    GameObject newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
+                    pathTiles.Add(newStartTile);
+                    startTile = newStartTile;
+                    break;
+                case 3:
+                    if (!attachStitch) {
+                        GameObject newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
+                        pathTiles.Add(newEndTile);
+                        endTile = newEndTile;
+                    } else {
+                        GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                        pathTiles.Add(newPathTile);
+                    }
+                    break;
+            }
+        }
+    }
+
     public void expandMap()
     {   // expands the map
         if(!checkExpandability())
@@ -241,64 +314,7 @@ public class MapGenerator : MonoBehaviour
 
         Debug.Log($"Location tile info: {locTileInfo.position}");
 
-        (float x, float y) newPos;
-
-        for(int i = 0; i < newTileSet.tiles.Count; i++) {
-            Tile currTile = newTileSet.tiles[i];
-            if(generateAsIsometric){
-                newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-                 * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
-                newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-                 * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
-            } else {
-                newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
-                newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
-            }
-            //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
-            Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
-            if(currTile.type == 0) {
-                // can randomize between mapTile1, mapTile2, mapTile3 here if needed
-                GameObject newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
-                mapTiles.Add(newTile);
-            }
-        }
-
-        // old end tile info
-        Vector3 oldPos = startTile.transform.position;
-        pathTiles.Remove(startTile);
-        Destroy(startTile);
-
-        // converting the end tile sprite to a path tile sprite
-        GameObject replacedTile = Instantiate(pathTile, oldPos, Quaternion.identity);
-        pathTiles.Add(replacedTile);
-
-        for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
-            Tile currTile = newTileSet.pathTiles[i];
-            if(generateAsIsometric) {
-                newPos.x = (((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-                 * spriteSize + ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 2f;
-                newPos.y = ((((locTileInfo.position.x * tilesetWidth) + currTile.position.x)
-                 * spriteSize - ((locTileInfo.position.y * tilesetWidth) + currTile.position.y) * spriteSize) / 4f) * -1;
-            } else {
-                newPos.x = (locTileInfo.position.x * tilesetWidth) + currTile.position.x;
-                newPos.y = (locTileInfo.position.y * tilesetHeight) + currTile.position.y;
-            }
-            //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
-            Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
-            switch(currTile.type) {
-                case 1: case 3:
-                    GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
-                    pathTiles.Add(newPathTile);
-                    break;
-                case 2:
-                    // the sprite will be rotated to face the correct direction based on the cardinal direction
-                    // though this is still a work in progress as we actually need an actual sprite to rotate
-                    GameObject newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
-                    pathTiles.Add(newStartTile);
-                    startTile = newStartTile;
-                    break;
-            }
-        }
+        drawTileSet(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true);
     }
 
     private void generateMap()
@@ -307,63 +323,12 @@ public class MapGenerator : MonoBehaviour
         TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight);
 
         Debug.Log($"{tileSetGen.ToString()}");
-        TileSet newTileSet = tileSetGen.getTileSet();
-        tileSets.Add(newTileSet);
+        tileSets.Add(tileSetGen.getTileSet());
         
         locTileInfo.position = (0, 0);
         mapLayout.Add(locTileInfo);
         (float x, float y) pos;
 
-        for(int i = 0; i < newTileSet.tiles.Count; i++) {
-            Tile currTile = newTileSet.tiles[i];
-
-            if(generateAsIsometric) {
-            pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
-            pos.y = ((currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f) * -1;
-            }
-            else {
-                pos.x = currTile.position.x;
-                pos.y = currTile.position.y;
-            }
-            Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
-            if(currTile.type == 0) {
-                // can randomize between mapTile1, mapTile2, mapTile3 here if needed
-                GameObject newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
-                mapTiles.Add(newTile);
-            }
-        }
-
-        for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
-            Tile currTile = newTileSet.pathTiles[i];
-            
-            if(generateAsIsometric) {
-                pos.x = (currTile.position.x * spriteSize + currTile.position.y * spriteSize) / 2f;
-                pos.y = ((currTile.position.x * spriteSize - currTile.position.y * spriteSize) / 4f) * -1;
-            }
-            else {
-                pos.x = currTile.position.x;
-                pos.y = currTile.position.y;
-            }
-
-            Vector3 tilePos = new Vector3(pos.x, pos.y, 0);
-            switch(currTile.type) {
-                case 1:
-                    GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
-                    pathTiles.Add(newPathTile);
-                    break;
-                case 2:
-                    // the sprite will be rotated to face the correct direction based on the cardinal direction
-                    // though this is still a work in progress as we actually need an actual sprite to rotate
-                    GameObject newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
-                    pathTiles.Add(newStartTile);
-                    startTile = newStartTile;
-                    break;
-                case 3:
-                    GameObject newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
-                    pathTiles.Add(newEndTile);
-                    endTile = newEndTile;
-                    break;
-            }
-        }
+        drawTileSet(tileSets[0], (0, 0));
     }
 }
