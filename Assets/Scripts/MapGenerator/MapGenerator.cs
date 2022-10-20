@@ -181,8 +181,9 @@ public class MapGenerator : MonoBehaviour
         return availableDirections;
     }
 
-    private void drawTileSet(TileSet newTileSet, (int x, int y) displacement = (0,0), bool attachStitch = false) {
+    private void drawTileSet(TileSet newTileSet, (int x, int y) displacement, bool attachStitch = false) {
         (float x, float y) newPos;
+        GameObject newPathTile, newStartTile, newEndTile, newTile;
 
         for(int i = 0; i < newTileSet.tiles.Count; i++) {
             Tile currTile = newTileSet.tiles[i];
@@ -199,7 +200,7 @@ public class MapGenerator : MonoBehaviour
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             if(currTile.type == 0) {
                 // can randomize between mapTile1, mapTile2, mapTile3 here if needed
-                GameObject newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
+                newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
                 mapTiles.Add(newTile);
             }
         }
@@ -226,27 +227,28 @@ public class MapGenerator : MonoBehaviour
                 newPos.x = (displacement.x) + currTile.position.x;
                 newPos.y = (displacement.y) + currTile.position.y;
             }
+
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
             switch(currTile.type) {
                 case 1: 
-                    GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                    newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                     pathTiles.Add(newPathTile);
                     break;                
                 case 2:
                     // the sprite will be rotated to face the correct direction based on the cardinal direction
                     // though this is still a work in progress as we actually need an actual sprite to rotate
-                    GameObject newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
+                    newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
                     pathTiles.Add(newStartTile);
                     startTile = newStartTile;
                     break;
                 case 3:
                     if (!attachStitch) {
-                        GameObject newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
+                        newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
                         pathTiles.Add(newEndTile);
                         endTile = newEndTile;
                     } else {
-                        GameObject newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                        newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                         pathTiles.Add(newPathTile);
                     }
                     break;
@@ -327,7 +329,6 @@ public class MapGenerator : MonoBehaviour
         
         locTileInfo.position = (0, 0);
         mapLayout.Add(locTileInfo);
-        (float x, float y) pos;
 
         drawTileSet(tileSets[0], (0, 0));
     }
