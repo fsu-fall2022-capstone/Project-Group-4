@@ -18,6 +18,11 @@ public class BasicTowers : Towers
 	public Transform pivot;
 	public Transform barrel;
 	public GameObject bullet;
+    
+    public float getDamage()
+    {
+        return damage;
+    }
 
     public int getCost(){
         return towerCost;
@@ -29,9 +34,10 @@ public class BasicTowers : Towers
     
     protected override void shoot()
     {
-    	base.shoot();
-
     	GameObject newBullet = Instantiate(bullet, barrel.position, pivot.rotation);
-
+        Bullet currentBullet = newBullet.GetComponent<Bullet>();
+        currentBullet.Damage = getDamage();
+        currentBullet.Target = currentTarget;
+//      base.shoot();
     }
 }

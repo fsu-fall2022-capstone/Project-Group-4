@@ -13,6 +13,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float Damage;
+    public GameObject Target;
+
     private void Start()
     {
         Destroy(gameObject, 10f);
@@ -20,6 +23,9 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Collision Detected!");
+        Enemies enemyScript = Target.GetComponent<Enemies>();
+        enemyScript.takeDamage(Damage);
         Destroy(gameObject);
     }
 
