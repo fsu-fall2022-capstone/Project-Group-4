@@ -1,0 +1,131 @@
+@startuml
+scale 1.5
+left to right direction
+skinparam packageStyle rect
+actor "Player" as user
+
+rectangle "Map System" as map_system {
+  rectangle "Map Generator" as mapgen {
+    (Generate Map) as (genMap)
+    (Expand Map) as (expandMap)
+    (Draw Map) as (drawMap)
+    (Validate Expandability) as (validateExpansion)
+    (Call TileSet Generator to Generate Map Portion) as (callTileSet)
+  }
+
+  rectangle "TileSet Generator" as tileset {
+    (Generate TileSet) as (genTileSet)
+    (Generate Path) as (genPath)
+  }
+
+  (genMap) --> (drawMap)
+  (expandMap) --> (drawMap)
+  (expandMap)..> (validateExpansion): <<include>>
+  (validateExpansion)..> (callTileSet): <<include>>
+  (genMap)..> (callTileSet): <<include>>
+
+  (callTileSet)..> (genTileSet): <<include>>
+  (genTileSet)..> (genPath): <<include>>
+}
+
+rectangle "Enemy System" as enemy_system {
+  rectangle "Enemy" as enemy {
+    (Get Attributes) as getEnemyAttributes
+    (Move Enemy Location) as moveEnemy
+    (Attack Player Home) as attackHome
+    (Kill Enemy) as killEnemy
+    (Rotate Enemy) as rotateEnemy
+    (New Enemy Instance) as newEnemy
+  }
+  
+  moveEnemy ..> rotateEnemy: <<include>>
+  moveEnemy ..> attackHome: <<extends>>
+
+}
+
+rectangle "Tower System" as tower_system {
+  rectangle "Tower" as tower {
+    (Get Attributes) as getTowerAttributes
+    (Attack Enemy) as attackEnemy
+    (Find Enemy in Range) as findEnemy
+  }
+
+  rectangle "Bullet" as bullet {
+    (Detect Collision) as detectCollision
+    (Damage Enemy) as damageEnemy
+  }
+
+  rectangle "BarrelRotation" as barrelRotation {
+    (Rotate Barrel) as rotateBarrel
+  }
+
+  rectangle "AOETower" as aoeTower {
+    (Calculate Splash Damage) as splashDamage
+    (Calculate Splash Range) as splashRange
+  }
+
+  aoeTower --|> tower: <<extend>>
+  rotateBarrel --> findEnemy
+  findEnemy --> attackEnemy
+  attackEnemy --> damageEnemy
+  damageEnemy ..> getTowerAttributes: <<include>>
+  detectCollision --> damageEnemy
+  splashRange --> detectCollision
+  splashDamage --> damageEnemy
+}
+
+rectangle "Gameplay Loop" as gameplay {
+  rectangle "RoundController" as roundController {
+    (Start Round) as startRound
+    (Spawn Enemies) as spawnEnemies
+    (Give Player Money) as givePlayerMoney
+  }
+  rectangle "ShopManager" as shopManager {
+    (Buy Tower) as buyTower
+    (Sell Tower) as sellTower
+    (Upgrade Tower) as upgradeTower
+  }
+  rectangle "MoneyManager" as moneyManager {
+    (Add Money) as addMoney
+    (Remove Money) as removeMoney
+  }
+  rectangle "HealthBar" as healthBar {
+    (Update Health Bar) as updateHealthBar
+  }
+
+  (Start Game) as startGame
+  (Quit Game) as quitGame
+  (Pause Game) as pauseGame
+  (Resume Game) as resumeGame
+  (Select Tile) as selectMapTile
+  (Check for Tower) as checkTowerPresence
+  (Place Tower) as placeTower
+  startGame ..> startRound: <<include>>
+  startRound ..> spawnEnemies: <<include>>
+  startRound ..> givePlayerMoney: <<include>>
+  givePlayerMoney ..> addMoney: <<include>>
+  sellTower ..> addMoney: <<include>>
+  buyTower ..> removeMoney: <<include>>
+  upgradeTower ..> removeMoney: <<include>>
+  placeTower ..> buyTower: <<include>>
+  selectMapTile --> placeTower
+  selectMapTile --> checkTowerPresence
+  checkTowerPresence ..> sellTower: <<include>>
+  checkTowerPresence ..> upgradeTower: <<include>>
+
+  user --> startGame
+  user --> quitGame
+  user --> pauseGame
+  user --> resumeGame
+  user --> selectMapTile
+  user --> placeTower
+}
+
+
+getEnemyAttributes <.. damageEnemy: <<include>>
+startGame --> genMap
+startRound --> expandMap
+attackHome --> updateHealthBar
+spawnEnemies --> newEnemy
+
+@enduml
