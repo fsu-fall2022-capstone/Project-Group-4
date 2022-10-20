@@ -5,6 +5,8 @@
     function and variable names may have been changed and some parts of the code may
     have been modified to fit our game scheme, these sections will be marked with 
     comments. 
+
+    //GetCost and GetName made by Alex Martinez
 */
 
 using System.Collections;
@@ -17,6 +19,14 @@ public class BasicTowers : Towers
 	public Transform barrel;
 	public GameObject bullet;
 
+    public int getCost(){
+        return towerCost;
+    }
+
+    public string getName(){
+        return towerName;
+    }
+    
     protected override void shoot()
     {
     	base.shoot();

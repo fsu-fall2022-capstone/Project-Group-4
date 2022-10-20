@@ -16,10 +16,13 @@ public class Towers : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private float damage;
     [SerializeField] private float timeBtwShots;     //Time in between shots (in seconds)
+    [SerializeField] protected int towerCost;       //Saves Tower Cost
+    [SerializeField] protected string towerName;    //Saves Tower Name
 
     private float nextTimeToShoot;
 
     public GameObject currentTarget;
+
 
     private void Start()
     {
