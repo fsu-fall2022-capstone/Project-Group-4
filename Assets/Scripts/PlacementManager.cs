@@ -94,6 +94,7 @@ public class PlacementManager : MonoBehaviour
                 else
                 {
                     Debug.Log("Not enough money for Tower.. \n");
+                    EndBuilding();
                 }
             }
         }
@@ -124,6 +125,7 @@ public class PlacementManager : MonoBehaviour
 
         if (dummyPlacement != null)
         {
+            Debug.Log("Destroying dummyPlacement.. \n");
             Destroy(dummyPlacement);
         }
     }
