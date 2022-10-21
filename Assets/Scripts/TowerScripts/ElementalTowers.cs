@@ -15,17 +15,14 @@ using UnityEngine;
 
 public class ElementalTowers : Towers
 {
-    public Transform pivot;
-    public Transform barrel;
-    public GameObject projectile;
     public string element;
     public float effectDuration;
 
     protected override void shoot()
     {
-        GameObject newProjectile = Instantiate(projectile, barrel.position, pivot.rotation);
+        GameObject newProjectile = Instantiate(base.projectile, barrel.position, pivot.rotation);
         ElementalShot currentProjectile = newProjectile.GetComponent<ElementalShot>();
-        currentProjectile.Damage = getDamage();
+        currentProjectile.Damage = base.getDamage();
         currentProjectile.Target = currentTarget;
         currentProjectile.Element = element;
         currentProjectile.EffectDuration = effectDuration;

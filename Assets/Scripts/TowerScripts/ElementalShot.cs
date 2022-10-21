@@ -7,12 +7,7 @@ public class ElementalShot : Bullet
     public string Element;
     public float EffectDuration;
 
-    private void Start()
-    {
-        base.Start();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision Detected!");
         Enemies enemyScript = Target.GetComponent<Enemies>();
@@ -24,10 +19,5 @@ public class ElementalShot : Bullet
         }
         enemyScript.takeDamage(Damage);
         Destroy(gameObject);
-    }
-
-    private void Update()
-    {
-        base.Update();
     }
 }

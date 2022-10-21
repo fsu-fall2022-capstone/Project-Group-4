@@ -23,6 +23,10 @@ public class Towers : MonoBehaviour
 
     public GameObject currentTarget;
 
+    public Transform pivot;
+    public Transform barrel;
+    public GameObject projectile;
+
 
     private void Start()
     {

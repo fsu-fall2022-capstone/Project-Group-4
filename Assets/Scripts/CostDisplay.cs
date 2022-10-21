@@ -15,7 +15,7 @@ public class CostDisplay : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        BasicTowers x = BasicTower.GetComponent<BasicTowers>();//gets the data from the component
+        Towers x = BasicTower.GetComponent<Towers>();//gets the data from the component
         nameTxt.text = x.getName();//So it can pull its name and cost
         costTxt.text = "$" + x.getCost().ToString();
         

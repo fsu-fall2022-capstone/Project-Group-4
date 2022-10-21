@@ -150,7 +150,7 @@ MonoBehaviour:
   range: 3
   damage: 20
   timeBtwShots: 2
-  towerCost: 0
+  towerCost: 750
   towerName: Ice Tower
   currentTarget: {fileID: 0}
   pivot: {fileID: 7143855468726273586}

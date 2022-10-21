@@ -224,7 +224,8 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   pivot: {fileID: 2709913976877612840}
   barrel: {fileID: 5898224288146333944}
-  bullet: {fileID: 2365716209250289182, guid: d8583979da7e1a44297c0865c89708b5, type: 3}
+  projectile: {fileID: 2365716209250289182, guid: d8583979da7e1a44297c0865c89708b5,
+    type: 3}
 --- !u!114 &2663099874747289925
 MonoBehaviour:
   m_ObjectHideFlags: 0
