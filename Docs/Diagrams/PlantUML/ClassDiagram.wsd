@@ -73,11 +73,11 @@
         + void generateMap();
     }
 
-    MapLayout -* MapGenerator: Stores MapLayout for layout of the map
-    MapGenerator o-- TileSetGenerator: Generates TileSets for Map
-    TileSetGenerator o- TileSet: Creates TileSet
-    TileSet *-- Tile: Contains Tiles
-    MapGenerator *-- TileSet: Stores TileSets for Map
+    MapLayout <.* MapGenerator: Stores MapLayout for layout of the map
+    MapGenerator o..> TileSetGenerator: Generates TileSets for Map
+    TileSetGenerator o.> TileSet: Creates TileSet
+    TileSet *..> Tile: Contains Tiles
+    MapGenerator *--> TileSet: Stores TileSets for Map
 
     class BarrelRotation {
         + Transform pivot;
@@ -134,10 +134,14 @@
         * override void shoot();
     }
 
-    enum Elements {
-        Ice, Fire, Water, Lightning
-    }
+    ElementalTowers <--o Towers: Inherits from Towers
+    BasicTowers <--o Towers: Inherits from Towers
+    ElementalShot <--o Bullet: Inherits from Bullet
+    
 
+    enum Elements {
+        Ice, Fire, Water, Lightning;
+    }
 
     class Enemies {
         - float enemyHealth;
