@@ -145,10 +145,8 @@ public class TileSetGenerator
         }
 
         tileSet.DirCardinals.end = UnityEngine.Random.Range(0,4);
-        if(tileSet.DirCardinals.end == tileSet.DirCardinals.start){
-            while(tileSet.DirCardinals.end == tileSet.DirCardinals.start) {
-                tileSet.DirCardinals.end = UnityEngine.Random.Range(0,4);
-            }
+        while(tileSet.DirCardinals.end == tileSet.DirCardinals.start) {
+            tileSet.DirCardinals.end = UnityEngine.Random.Range(0,4);
         }
 
         Debug.Log($"{tileSet.DirCardinals.end}");
@@ -169,11 +167,18 @@ public class TileSetGenerator
         }
 
         //randomize and exclude corner pieces
-        int rand1 = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
-        int rand2 = UnityEngine.Random.Range(1, endEdgeTiles.Count - 1);
-    
-        int startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand1]);
-        int endTileIndex = tileSet.tiles.IndexOf(endEdgeTiles[rand2]);
+        int rand1, rand2, startTileIndex, endTileIndex, xDiff, yDiff;
+        do
+        {
+            rand1 = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
+            rand2 = UnityEngine.Random.Range(1, endEdgeTiles.Count - 1);
+
+            startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand1]);
+            endTileIndex = tileSet.tiles.IndexOf(endEdgeTiles[rand2]);
+
+            xDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.x - tileSet.tiles[endTileIndex].position.x);
+            yDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.y - tileSet.tiles[endTileIndex].position.y);
+        } while ((xDiff + yDiff) < 7); //Make sure enemy path is at least 7 tiles long
 
         tileSet.tiles[startTileIndex].type = 2;
         tileSet.tiles[endTileIndex].type = 3;
@@ -362,7 +367,7 @@ public class TileSetGenerator
                 tileSet.tiles.Add(newTile);
             }
         }
-        if(tileSet.endTile == null)
+        if (tileSet.endTile == null)
             generateStartEnd();
         else
             generateStart();

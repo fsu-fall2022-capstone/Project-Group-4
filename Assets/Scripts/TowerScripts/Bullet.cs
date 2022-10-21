@@ -13,17 +13,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private void Start()
+    public float Damage;
+    public GameObject Target;
+
+    protected void Start()
     {
         Destroy(gameObject, 10f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Collision Detected!");
+        Enemies enemyScript = Target.GetComponent<Enemies>();
+        enemyScript.takeDamage(Damage);
         Destroy(gameObject);
     }
 
-    private void Update()
+    protected void Update()
     {
         transform.position += transform.right * 0.25f;
     }
