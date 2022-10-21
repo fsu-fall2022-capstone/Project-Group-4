@@ -64,6 +64,12 @@ rectangle "Tower System" as tower_system {
     (Calculate Splash Range) as splashRange
   }
 
+  rectangle "ElementalTower" as elementalTower {
+    (Apply Elemental Effect) as elementalEffect
+    (Calculate Elemental Damage) as elementalDamage
+    
+  }
+
   aoeTower --|> tower: <<extend>>
   rotateBarrel --> findEnemy
   findEnemy --> attackEnemy
@@ -72,6 +78,8 @@ rectangle "Tower System" as tower_system {
   detectCollision --> damageEnemy
   splashRange --> detectCollision
   splashDamage --> damageEnemy
+  elementalDamage <.. elementalEffect: <<include>>
+  elementalEffect --> damageEnemy
 }
 
 rectangle "Gameplay Loop" as gameplay {
