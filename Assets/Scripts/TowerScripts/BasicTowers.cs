@@ -19,24 +19,11 @@ public class BasicTowers : Towers
 	public Transform barrel;
 	public GameObject bullet;
     
-    public float getDamage()
-    {
-        return damage;
-    }
-
-    public int getCost(){
-        return towerCost;
-    }
-
-    public string getName(){
-        return towerName;
-    }
-    
     protected override void shoot()
     {
     	GameObject newBullet = Instantiate(bullet, barrel.position, pivot.rotation);
         Bullet currentBullet = newBullet.GetComponent<Bullet>();
-        currentBullet.Damage = getDamage();
+        currentBullet.Damage = base.getDamage();
         currentBullet.Target = currentTarget;
 //      base.shoot();
     }

@@ -21,21 +21,6 @@ public class ElementalTowers : Towers
     public string element;
     public float effectDuration;
 
-    public float getDamage()
-    {
-        return damage;
-    }
-
-    public int getCost()
-    {
-        return towerCost;
-    }
-
-    public string getName()
-    {
-        return towerName;
-    }
-
     protected override void shoot()
     {
         GameObject newProjectile = Instantiate(projectile, barrel.position, pivot.rotation);

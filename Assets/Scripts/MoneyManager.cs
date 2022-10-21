@@ -18,7 +18,7 @@ public class MoneyManager : MonoBehaviour
     private int currPlayerMoney;
     public int startMoney;
 
-    public void Start()
+    private void Start()
     {
         if (main == null) main = this;
         currPlayerMoney = startMoney;
@@ -31,12 +31,13 @@ public class MoneyManager : MonoBehaviour
 
     public void addMoney(int amount)
     {
+        Debug.Log($"Money added: {amount}");
         currPlayerMoney += amount;
     }
 
     public void removeMoney(int amount)
     {
         currPlayerMoney -= amount;
-        Debug.Log("Removed" + amount + " from player's money! The player now has " + currPlayerMoney);
+        Debug.Log($"Removed {amount} from {currPlayerMoney+amount} to {currPlayerMoney}");
     }
 }

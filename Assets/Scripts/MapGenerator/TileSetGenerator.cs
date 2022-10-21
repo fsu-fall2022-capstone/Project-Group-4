@@ -202,10 +202,8 @@ public class TileSetGenerator
                                         // this is to keep the same capability as before
             tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
 
-            if(tileSet.DirCardinals.start == tileSet.DirCardinals.end){
-                while(tileSet.DirCardinals.start == tileSet.DirCardinals.end) {
-                    tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4);
-                }
+            while(tileSet.DirCardinals.start == tileSet.DirCardinals.end) {
+                tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4);
             }
         }
 
@@ -227,9 +225,17 @@ public class TileSetGenerator
                 break;                 
         }
 
-        int rand = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
+        int rand, startTileIndex, endTileIndex, xDiff, yDiff;
+        endTileIndex = tileSet.tiles.IndexOf(tileSet.endTile);
 
-        int startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand]);
+        do {
+            rand = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
+
+            startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand]);
+
+            xDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.x - tileSet.tiles[endTileIndex].position.x);
+            yDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.y - tileSet.tiles[endTileIndex].position.y);
+        } while ((xDiff + yDiff) < 7); //Make sure enemy path is at least 7 tiles long
 
         tileSet.tiles[startTileIndex].type = 2;
 

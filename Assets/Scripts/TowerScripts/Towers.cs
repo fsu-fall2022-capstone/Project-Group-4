@@ -63,6 +63,12 @@ public class Towers : MonoBehaviour
         enemyScript.takeDamage(damage);
     }
 
+    public float getDamage() { return damage;}
+
+    public int getCost() { return towerCost; }
+
+    public string getName() { return towerName; }
+
     private void Update()
     {
         updateClosestEnemy();
