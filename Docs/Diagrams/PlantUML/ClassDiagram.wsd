@@ -3,13 +3,13 @@
         + {field} (int x, int y) position;
         + int type;
         + Tile();
-        + Tile((int x, int y) newPosition, int newType);
+        + Tile((int x, int y), int);
     }
 
     class MapLayout {
         + {field} (int x, int y) position;
         + MapLayout();
-        + MapLayout((int x, int y) newPosition);
+        + MapLayout((int x, int y));
     }
 
     class TileSet {
@@ -25,9 +25,9 @@
         - int tileSetHeight, tileSetWidth;
         - Tile currentTile;
         - {field} (bool x, bool y) reached;
-        + TileSetGenerator(int tilsSetHeight, int tileSetWidth);
-        + TileSetGenerator(int tilsSetHeight, int tileSetWidth, Tile previousTileSetStart);
-        + TileSetGenerator(int tilsSetHeight, int tileSetWidth, Tile previousTileSetStart, int givenStartCardinal);
+        + TileSetGenerator(int, int);
+        + TileSetGenerator(int, int, Tile);
+        + TileSetGenerator(int, int, Tile, int);
         + TileSet getTileSet();
         - List<Tile> getTopEdgeTiles();
         - List<Tile> getLeftEdgeTiles();
@@ -64,10 +64,11 @@
         + {static} GameObject endTile;
         - int maxDirectionalStraightness;
         - int straightLineCounter;
-        - private void Start();
-        - private void Update();
+        - void Start();
+        - void Update();
         + bool checkExpandability();
         - List<int> checkAvailableExpansionDirections();
+        - void drawTileSet(TileSet, (int, int), bool);
         + void expandMap();
         + void generateMap();
     }
@@ -77,4 +78,178 @@
     TileSetGenerator o- TileSet: Creates TileSet
     TileSet *-- Tile: Contains Tiles
     MapGenerator *-- TileSet: Stores TileSets for Map
+
+    class BarrelRotation {
+        + Transform pivot;
+        + Transform barrel;
+        - void Update();
+    }
+
+    class Towers {
+        - float range;
+        * float damage;
+        - float timeBtwShots;
+        * int towerCost;
+        * string towerName;
+        - float nextTimeToShoot;
+        + GameObject currentTarget;
+        - void Start();
+        - void updateClosestEnemy();
+        * virtual void shoot();
+        + float getDamage();
+        + int getCost();
+        + string getName();
+        - void Update();
+    }
+
+    class BasicTowers {
+        + Transform pivot;
+        + Transform barrel;
+        + GameObject bullet;
+        * override void shoot();
+    }
+
+    class Bullet {
+        + float Damage;
+        + GameObject Target;
+        * void Start();
+        * void Update();
+        * void OnCollisionEnter2D(Collision2D);
+    }
+
+    class ElementalShot {
+        + string Element;
+        + float EffectDuration;
+        - void Start();
+        - void Update();
+        - void OnCollisionEnter2D(Collision2D);
+    }
+
+    class ElementalTowers {
+        + Transform pivot;
+        + Transform barrel;
+        + GameObject projectile;
+        + string element;
+        + float effectDuration;
+        * override void shoot();
+    }
+
+    enum Elements {
+        Ice, Fire, Water, Lightning
+    }
+
+
+    class Enemies {
+        - float enemyHealth;
+        - float movementSpeed;
+        - string status = null;
+        - float statusDuration;
+        + float timeCheck;
+        - int killReward;
+        + {static} float damage;
+        - GameObject targetTile;
+        - bool enemyFinished;
+        - void Awake();
+        - void Start();
+        - void initializeEnemy();
+        + void takeDamage(float);
+        - void enemyDead();
+        - void moveEnemy();
+        + void checkPosition();
+        - void checkStatus();
+        + void setStatus(string, float);
+        - void Update();
+    }
+
+    class CameraController {
+        + {static} CameraController main;
+        - Vector3 MouseScrollStartPos;
+        - Camera mainCamera;
+        - float MoveSpeed;
+        - float ZoomSpeed;
+        - void Start();
+        - void Update();
+        - bool HandleKeyInput();
+        - bool HandleMouseInput();
+        - void HandleWheelScroll();
+    }
+
+    class CostDisplay {
+        - Text nameTxt;
+        - Text costTxt;
+        - GameObject BasicTower;
+        - void Start();
+        - void Update();
+    }
+
+    class Counter {
+        + {static} List<GameObject> enemies;
+    }
+
+    class HealthBar {
+        - Image health;
+        - Text healthBarTxt;
+        + {static} float lives;
+        - void Start();
+        - void Update();
+        + void updatePLayerHealth(float, float);
+    }
+
+    class MoneyManager {
+        + {static} MoneyManager main;
+        - int currPlayerMoney;
+        + int startMoney;
+        + void Start();
+        + int GetCurrMoney();
+        + void AddMoney(int);
+        + void removeMoney(int);
+    }
+
+    class PlacementManager {
+        + static PlacementManager main;
+        + ShopManager shopManager;
+        + GameObject basicTowerObject;
+        - GameObject currTowerPlacing;
+        - GameObject dummyPlacement;
+        - GameObject hoverTile;
+        + Camera cam;
+        + LayerMask mask;
+        + LayerMask towerMask;
+        + bool isBuilding;
+        + void Start();
+        + Vector2 GetMousePosition();
+        + void GetCurrentHoverTile();
+        + bool checkForTower();
+        + void PlaceBuilding();
+        + void StartBuilding(GameObject);
+        + void EndBuilding();
+        + void Update();
+    }
+
+    class RoundController {
+        + static RoundController main;
+        + GameObject basicEnemy;
+        + float timeBtwWaves;
+        + float timeBeforeRoundStarts;
+        + float timeVar;
+        + bool isRoundGoing;
+        + bool isIntermission;
+        + bool isStartOfRound;
+        + int round;
+        - void Start();
+        - void spawnEnemies();
+        + IEnumerator ISpawnEnemies();
+        - void Update();
+    }
+
+    class ShopManager {
+        + static ShopManager main;
+        + MoneyManager moneyManager;
+        + GameObject basicTowerPrefab;
+        + int basicTowerCost;
+        - void Start();
+        + int GetTowerCost(GameObject);
+        + void buyTower(GameObject);
+        + bool canBuyTower(GameObject);
+    }
 @enduml
