@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float ZoomSpeed = 80f;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (main == null) main = this;
         mainCamera = GetComponent<Camera>();   
@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if(!HandleKeyInput()){
             HandleMouseInput();

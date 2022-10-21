@@ -32,7 +32,7 @@ public class PlacementManager : MonoBehaviour
 
     public bool isBuilding;
 
-    public void Start()
+    private void Start()
     {
         if (main == null) main = this;
     }
@@ -128,7 +128,7 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    public void Update()
+    private void Update()
     {
         if (isBuilding == true)
         {

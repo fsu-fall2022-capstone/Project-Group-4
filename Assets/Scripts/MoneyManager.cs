@@ -18,7 +18,7 @@ public class MoneyManager : MonoBehaviour
     private int currPlayerMoney;
     public int startMoney;
 
-    public void Start()
+    private void Start()
     {
         if (main == null) main = this;
         currPlayerMoney = startMoney;
