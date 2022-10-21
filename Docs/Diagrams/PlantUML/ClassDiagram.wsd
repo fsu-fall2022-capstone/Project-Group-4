@@ -1,0 +1,282 @@
+@startuml
+    hide empty members
+    class Tile {
+        + {field} position: (int x, int y);
+        + type : int;
+        + Tile();
+        + Tile((int x, int y), int);
+    }
+
+    class MapLayout {
+        + {field} position: (int x, int y);
+        + MapLayout();
+        + MapLayout((int x, int y));
+    }
+
+    class TileSet {
+        + tiles : List<Tile>;
+        + pathTiles : List<Tile>;
+        + startTile, endTile: Tile;
+        + {field} DirCardinals: (int start, int end);
+        + height, width: int;
+    }
+
+    class TileSetGenerator {
+        - tileSet: TileSet;
+        - tileSetHeight, tileSetWidth : int;
+        - currentTile : Tile;
+        - {field} reached : (bool x, bool y);
+        + TileSetGenerator(int, int);
+        + TileSetGenerator(int, int, Tile);
+        + TileSetGenerator(int, int, Tile, int);
+        + getTileSet() : TileSet;
+        - getTopEdgeTiles() : List<Tile>;
+        - getLeftEdgeTiles() : List<Tile>;
+        - getRightEdgeTiles() : List<Tile>;
+        - getBottomEdgeTiles() : List<Tile>;
+        - adjustImportedEnd() : void;
+        - generateStartEnd() : void;
+        - generateStart() : void;
+        - moveDown() : void;
+        - moveUp() : void;
+        - moveRight() : void;
+        - moveLeft() : void;
+        - generatePath() : void;
+        - generateTileset() : void;
+        + ToString() : string;
+    }
+
+    class MapGenerator {
+        + {static} main :  MapGenerator;
+        + mapTile1 : GameObject;
+        + mapTile2 : GameObject;
+        + mapTile3 : GameObject;
+        + pathTile : GameObject;
+        + portalTile : GameObject;
+        + homeTile : GameObject;
+        - tilesetWidth, tilesetHeight : int;
+        - generateAsIsometric : bool;
+        - spriteSize : float;
+        + {static} mapTiles : List<GameObject>;
+        + {static} pathTiles : List<GameObject>;
+        + {static} tileSets : List<TileSet>;
+        + {static} mapLayout : List<MapLayout>;
+        + {static} startTile : GameObject;
+        + {static} endTile : GameObject;
+        - maxDirectionalStraightness : int;
+        - straightLineCounter : int;
+        - Start() : void;
+        - Update() : void;
+        + checkExpandability() : bool;
+        - checkAvailableExpansionDirections() : List<int>;
+        - drawTileSet(TileSet, (int, int), bool) : void;
+        + expandMap() : void;
+        + generateMap() : void;
+    }
+
+    MapLayout <-* MapGenerator: Stores MapLayout for layout of the map
+    MapGenerator *--> TileSetGenerator: Generates TileSets for Map
+    TileSetGenerator *-> TileSet: Creates TileSet
+    TileSet *--> Tile: Contains Tiles
+    MapGenerator *--> TileSet: Stores TileSets for Map
+
+    class BarrelRotation {
+        + pivot : Transform;
+        + barrel : Transform;
+        - Update() : void;
+    }
+
+    class Towers {
+        - range : float;
+        # damage : float;
+        - timeBtwShots : float;
+        # towerCost : int;
+        # towerName : string;
+        - nextTimeToShoot : float;
+        + currentTarget : GameObject;
+        - Start() : void;
+        - updateClosestEnemy() : void;
+        # shoot() : void;
+        + getDamage() : float;
+        + getCost() : int;
+        + getName() : string;
+        - Update() : void;
+    }
+
+    class BasicTowers {
+        + pivot : Transform;
+        + barrel : Transform;
+        + bullet : GameObject;
+        # shoot() : void;
+    }
+
+    class Bullet {
+        + Damage : float;
+        + Target : GameObject;
+        # Start() : void;
+        # Update() : void;
+        # OnCollisionEnter2D(Collision2D) : void;
+    }
+
+    class ElementalShot {
+        + Element : string;
+        + EffectDuration : float;
+        - Start() : void;
+        - Update() : void;
+        - OnCollisionEnter2D(Collision2D) : void;
+    }
+
+    class ElementalTowers {
+        + pivot : Transform;
+        + barrel : Transform;
+        + projectile : GameObject;
+        + element : string;
+        + effectDuration : float;
+        # shoot() : void;
+    }
+
+    ElementalTowers <..o Towers: Inherits
+    BasicTowers <..o Towers: Inherits
+    ElementalShot <..o Bullet: Inherits
+    Bullet --> Towers: Is shot by
+    Towers --> BarrelRotation: Rotates barrel
+    ElementalShot --> ElementalTowers: Is shot by
+
+    enum Elements {
+        Ice, Fire, Water, Lightning;
+    }
+
+    class Enemies {
+        - enemyHealth : float;
+        - movementSpeed : float;
+        - status : string;
+        - statusDuration : float;
+        + timeCheck : float;
+        - killReward : int;
+        + {static} damage : float;
+        - targetTile : GameObject;
+        - enemyFinished : bool;
+        - Awake() : void;
+        - Start() : void;
+        - initializeEnemy() : void;
+        + takeDamage(float) : void;
+        - enemyDead() : void;
+        - moveEnemy() : void;
+        + checkPosition() : void;
+        - checkStatus() : void;
+        + setStatus(string, float) : void;
+        - Update() : void;
+    }
+
+    Towers --> Enemies: Can shoot
+    ElementalShot <--* Elements: Contains
+    Enemies <-- Elements: Effected by
+
+    class CameraController {
+        + {static} main : CameraController; 
+        - MouseScrollStartPos : Vector3;
+        - mainCamera : Camera;
+        - MoveSpeed : float;
+        - ZoomSpeed : float;
+        - Start() : void;
+        - Update() : void;
+        - HandleKeyInput() : bool;
+        - HandleMouseInput() : bool;
+        - HandleWheelScroll() : void;
+    }
+
+    class CostDisplay {
+        - nameTxt : Text;
+        - costTxt : Text;
+        - BasicTower : GameObject;
+        - Start() : void;
+        - Update() : void;
+    }
+
+    class Counter {
+        + {static} enemies : List<GameObject>;
+    }
+
+    Counter *--> Enemies: Stores Enemies
+
+    class HealthBar {
+        - health : Image;
+        - healthBarTxt : Text;
+        + {static} lives : float;
+        - Start() : void;
+        - Update() : void;
+        + updatePLayerHealth(float, float) : void;
+    }
+
+    class MoneyManager {
+        + {static} main : MoneyManager;
+        - currPlayerMoney : int;
+        + startMoney : int;
+        + Start() : void;
+        + GetCurrMoney() : int;
+        + AddMoney(int) : void;
+        + removeMoney(int) : void;
+    }
+
+    class ShopManager {
+        + {static} main : ShopManager;
+        + moneyManager : MoneyManager;
+        + basicTowerPrefab : GameObject;
+        + basicTowerCost : int;
+        - Start() : void;
+        + GetTowerCost(GameObject) : int;
+        + buyTower(GameObject) : void;
+        + canBuyTower(GameObject) : bool;
+    }
+
+    class PlacementManager {
+        + {static} main : PlacementManager;
+        + shopManager : ShopManager;
+        + basicTowerObject : GameObject;
+        - currTowerPlacing : GameObject;
+        - dummyPlacement : GameObject;
+        - hoverTile : GameObject;
+        + cam : Camera;
+        + mask : LayerMask;
+        + towerMask : LayerMask;
+        + isBuilding : bool;
+        + Start() : void;
+        + GetMousePosition() : Vector2;
+        + GetCurrentHoverTile() : void;
+        + checkForTower() : bool;
+        + PlaceBuilding() : void;
+        + StartBuilding(GameObject) : void;
+        + EndBuilding() : void;
+        + Update() : void;
+    }
+
+    ShopManager <--* PlacementManager: Stores ShopManager
+    ShopManager *--> MoneyManager: Stores MoneyManager
+    ShopManager <--o CostDisplay: Displays Cost
+    PlacementManager <--o Towers: Places Towers
+
+    class RoundController {
+        + {static} main : RoundController;
+        + basicEnemy : GameObject;
+        + timeBtwWaves : float;
+        + timeBeforeRoundStarts : float;
+        + timeVar : float;
+        + isRoundGoing : bool;
+        + isIntermission : bool;
+        + isStartOfRound : bool;
+        + round : int;
+        - Start() : void;
+        - spawnEnemies() : void;
+        + ISpawnEnemies() : IEnumerator;
+        - Update() : void;
+    }
+
+    entity GameScene {}
+    GameScene *--> RoundController: Uses RoundController to spawn Enemies
+    GameScene *--> PlacementManager: Uses PlacementManager for Towers
+    GameScene *--> HealthBar: Updates HealthBar in Canvas
+    GameScene *--> CameraController: Uses CameraController to move Camera
+    GameScene *--> MapGenerator: Uses MapGenerator to generate Map
+
+
+@enduml
