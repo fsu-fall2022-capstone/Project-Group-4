@@ -20,7 +20,7 @@ public class Enemies : MonoBehaviour
     private float statusDuration;
     public float timeCheck;
 
-    private int killReward;     //Money for killing enemy
+    [SerializeField] private int killReward;     //Money for killing enemy
     public static float damage;       //Damage enemy does when hitting the endTile
 
     private GameObject targetTile;
@@ -60,6 +60,9 @@ public class Enemies : MonoBehaviour
             damage = 1f;
             HealthBar.lives -= damage;
             enemyFinished = false;
+        }
+        if (enemyHealth <= 0) {
+            MoneyManager.main.addMoney(killReward);
         }
 
         Counter.enemies.Remove(gameObject);
