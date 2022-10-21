@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, 10f);
     }
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision Detected!");
         Enemies enemyScript = Target.GetComponent<Enemies>();

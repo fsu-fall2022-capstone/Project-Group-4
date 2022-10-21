@@ -15,13 +15,9 @@ using UnityEngine;
 
 public class BasicTowers : Towers
 {
-	public Transform pivot;
-	public Transform barrel;
-	public GameObject bullet;
-    
     protected override void shoot()
     {
-    	GameObject newBullet = Instantiate(bullet, barrel.position, pivot.rotation);
+    	GameObject newBullet = Instantiate(base.projectile, barrel.position, pivot.rotation);
         Bullet currentBullet = newBullet.GetComponent<Bullet>();
         currentBullet.Damage = base.getDamage();
         currentBullet.Target = currentTarget;
