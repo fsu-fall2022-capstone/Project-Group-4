@@ -29,7 +29,7 @@ public class ShopManager : MonoBehaviour
     //This function pulls its cost from BasicTowers function modified by Alex Martinez
     public int GetTowerCost(GameObject towerPrefab)
     {
-        BasicTowers tower = towerPrefab.GetComponent<BasicTowers>();
+        Towers tower = towerPrefab.GetComponent<Towers>();
 
         return tower.getCost();
     }
