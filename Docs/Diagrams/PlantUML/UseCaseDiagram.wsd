@@ -1,4 +1,4 @@
-@startuml
+@startuml UseCaseDiagram
 scale 1.5
 left to right direction
 skinparam packageStyle rect

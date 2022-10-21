@@ -1,4 +1,4 @@
-@startuml
+@startuml ClassDiagram
     hide empty members
     class Tile {
         + {field} position: (int x, int y);
@@ -41,6 +41,10 @@
         - moveUp() : void;
         - moveRight() : void;
         - moveLeft() : void;
+        - generateQuadrantNodes() : List<Tile>;
+        - cullLoopPaths() : void;
+        - patchPath() : void;
+        - PathingLogic(List<Title>, bool) : void;
         - generatePath() : void;
         - generateTileset() : void;
         + ToString() : string;
@@ -171,6 +175,7 @@
     Towers --> Enemies: Can shoot
     ElementalShot <--* Elements: Contains
     Enemies <-- Elements: Effected by
+    Bullet --> Enemies: Can damage
 
     class CameraController {
         + {static} main : CameraController; 
@@ -217,6 +222,8 @@
         + AddMoney(int) : void;
         + removeMoney(int) : void;
     }
+
+    MoneyManager --> Enemies: Adds money on kill
 
     class ShopManager {
         + {static} main : ShopManager;
@@ -269,6 +276,16 @@
         - spawnEnemies() : void;
         + ISpawnEnemies() : IEnumerator;
         - Update() : void;
+    }
+
+    class PauseMenu {
+        + {static} GameIsPaused : bool;
+        + pauseMenuUI : GameObject;
+        - Update() : void;
+        + Resume() : void;
+        + Pause() : void;
+        + LoadMenu() : void;
+        + QuitGame() : void;
     }
 
     entity GameScene {}
