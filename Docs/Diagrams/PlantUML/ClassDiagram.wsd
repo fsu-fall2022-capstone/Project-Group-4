@@ -1,4 +1,5 @@
 @startuml
+    hide empty members
     class Tile {
         + {field} position: (int x, int y);
         + type : int;
@@ -73,10 +74,10 @@
         + generateMap() : void;
     }
 
-    MapLayout <.* MapGenerator: Stores MapLayout for layout of the map
-    MapGenerator o..> TileSetGenerator: Generates TileSets for Map
-    TileSetGenerator o.> TileSet: Creates TileSet
-    TileSet *..> Tile: Contains Tiles
+    MapLayout <-* MapGenerator: Stores MapLayout for layout of the map
+    MapGenerator *--> TileSetGenerator: Generates TileSets for Map
+    TileSetGenerator *-> TileSet: Creates TileSet
+    TileSet *--> Tile: Contains Tiles
     MapGenerator *--> TileSet: Stores TileSets for Map
 
     class BarrelRotation {
@@ -134,10 +135,12 @@
         # shoot() : void;
     }
 
-    ElementalTowers <--o Towers: Inherits from Towers
-    BasicTowers <--o Towers: Inherits from Towers
-    ElementalShot <--o Bullet: Inherits from Bullet
-    
+    ElementalTowers <..o Towers: Inherits
+    BasicTowers <..o Towers: Inherits
+    ElementalShot <..o Bullet: Inherits
+    Bullet --> Towers: Is shot by
+    Towers --> BarrelRotation: Rotates barrel
+    ElementalShot --> ElementalTowers: Is shot by
 
     enum Elements {
         Ice, Fire, Water, Lightning;
@@ -165,6 +168,10 @@
         - Update() : void;
     }
 
+    Towers --> Enemies: Can shoot
+    ElementalShot <--* Elements: Contains
+    Enemies <-- Elements: Effected by
+
     class CameraController {
         + {static} main : CameraController; 
         - MouseScrollStartPos : Vector3;
@@ -190,6 +197,8 @@
         + {static} enemies : List<GameObject>;
     }
 
+    Counter *--> Enemies: Stores Enemies
+
     class HealthBar {
         - health : Image;
         - healthBarTxt : Text;
@@ -207,6 +216,17 @@
         + GetCurrMoney() : int;
         + AddMoney(int) : void;
         + removeMoney(int) : void;
+    }
+
+    class ShopManager {
+        + {static} main : ShopManager;
+        + moneyManager : MoneyManager;
+        + basicTowerPrefab : GameObject;
+        + basicTowerCost : int;
+        - Start() : void;
+        + GetTowerCost(GameObject) : int;
+        + buyTower(GameObject) : void;
+        + canBuyTower(GameObject) : bool;
     }
 
     class PlacementManager {
@@ -230,6 +250,11 @@
         + Update() : void;
     }
 
+    ShopManager <--* PlacementManager: Stores ShopManager
+    ShopManager *--> MoneyManager: Stores MoneyManager
+    ShopManager <--o CostDisplay: Displays Cost
+    PlacementManager <--o Towers: Places Towers
+
     class RoundController {
         + {static} main : RoundController;
         + basicEnemy : GameObject;
@@ -246,14 +271,12 @@
         - Update() : void;
     }
 
-    class ShopManager {
-        + {static} main : ShopManager;
-        + moneyManager : MoneyManager;
-        + basicTowerPrefab : GameObject;
-        + basicTowerCost : int;
-        - Start() : void;
-        + GetTowerCost(GameObject) : int;
-        + buyTower(GameObject) : void;
-        + canBuyTower(GameObject) : bool;
-    }
+    entity GameScene {}
+    GameScene *--> RoundController: Uses RoundController to spawn Enemies
+    GameScene *--> PlacementManager: Uses PlacementManager for Towers
+    GameScene *--> HealthBar: Updates HealthBar in Canvas
+    GameScene *--> CameraController: Uses CameraController to move Camera
+    GameScene *--> MapGenerator: Uses MapGenerator to generate Map
+
+
 @enduml
