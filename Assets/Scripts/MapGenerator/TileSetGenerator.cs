@@ -287,11 +287,86 @@ public class TileSetGenerator
         Debug.Log("Moved Left.");
     }
 
-    // path generation needs some peeking functions, will be reutilizing the move functions for peeking purposes
+    // Getting the different quadrants will require
+    // dividing the tileSetHeight and tileSetWidth by half
+    // Ex: tileSetHeight = 8, tileSetWidth = 8
+    //  1 2 3 4 5 6 7 8             0 1 2 3 4 5 6 7 
+    // 1      |                    0      |
+    // 2      |                    1      |
+    // 3      |                    2      |  
+    // 4______|________     ==>    3______|________
+    // 5      |                    4      |   
+    // 6      |                    5      |
+    // 7      |                    6      |
+    // 8      |                    7      |
+    // from there we'll iterate through the tileSet.tiles list
+    // and add the tiles to the appropriate quadrant list
+    // then we'll randomly select a tile from each quadrant.
 
-    // path generation needs to be improved upon with a quadrant-point picker
-    // to make the path more complex for each generation. 0-4 needs to be the random
-    // number of nodes for this
+    // The borders will have to be excluded to prevent potential conflict
+    // with the start and end tiles.
+
+    private List<Tile> generateQuadrantNodes() 
+    {
+        List<Tile> quadrantNodes = new List<Tile>();
+
+        int tileSetHeightHalf = tileSetHeight / 2;
+        int tileSetWidthHalf = tileSetWidth / 2;
+
+        List<Tile> quadrant1 = new List<Tile>();
+        List<Tile> quadrant2 = new List<Tile>();
+        List<Tile> quadrant3 = new List<Tile>();
+        List<Tile> quadrant4 = new List<Tile>();
+
+        (int x, int y) tilePos;
+
+        for(int i = 0; i < tileSet.tiles.Count; i++) {
+            tilePos = tileSet.tiles[i].position;
+            if(!((tilePos.x == 0 && tilePos.y <= tileSetHeight - 1) || 
+                (tilePos.y == 0 && tilePos.x <= tileSetWidth - 1) ||
+                (tilePos.x == tileSetWidth - 1 && tilePos.y <= tileSetHeight - 1) ||
+                (tilePos.y == tileSetHeight - 1 && tilePos.x <= tileSetWidth - 1))) {
+                if(tilePos.x < tileSetWidthHalf && tilePos.y < tileSetHeightHalf) {
+                    quadrant1.Add(tileSet.tiles[i]);
+                } else if(tilePos.x > tileSetWidthHalf && tilePos.y < tileSetHeightHalf) {
+                    quadrant2.Add(tileSet.tiles[i]);
+                } else if(tilePos.x < tileSetWidthHalf && tilePos.y > tileSetHeightHalf) {
+                    quadrant3.Add(tileSet.tiles[i]);
+                } else if(tilePos.x > tileSetWidthHalf && tilePos.y > tileSetHeightHalf) {
+                    quadrant4.Add(tileSet.tiles[i]);
+                }
+            }
+        }
+
+        if(quadrant1.Count > 0) {
+            quadrantNodes.Add(quadrant1[UnityEngine.Random.Range(0, quadrant1.Count)]);
+        }
+
+        if(quadrant2.Count > 0) {
+            quadrantNodes.Add(quadrant2[UnityEngine.Random.Range(0, quadrant2.Count)]);
+        }
+
+        if(quadrant3.Count > 0) {
+            quadrantNodes.Add(quadrant3[UnityEngine.Random.Range(0, quadrant3.Count)]);
+        }
+
+        if(quadrant4.Count > 0) {
+            quadrantNodes.Add(quadrant4[UnityEngine.Random.Range(0, quadrant4.Count)]);
+        }
+
+        // time to cull through these random nodes to the lowered limit
+        // only will want a max of 3 nodes total
+        int randNodeCount = UnityEngine.Random.Range(1, quadrantNodes.Count+1);
+        int randNode;
+
+        for(int i = 0; i < randNodeCount; i++) {
+            randNode = UnityEngine.Random.Range(0, quadrantNodes.Count);
+            quadrantNodes.RemoveAt(randNode);
+        }
+
+        return quadrantNodes;
+    }
+
     private void generatePath() 
     {
         int counter = 0;
