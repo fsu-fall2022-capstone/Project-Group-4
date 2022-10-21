@@ -10,14 +10,21 @@ public class ElementalShot : Bullet
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision Detected!");
-        Enemies enemyScript = Target.GetComponent<Enemies>();
-        switch (Element)
+        if (Target != null)
         {
-            case "Ice":
-                enemyScript.setStatus("Frozen", EffectDuration);
-                break;
+            if (collision.gameObject == Target)
+            {
+                Debug.Log("Target Hit!");
+                Enemies enemyScript = Target.GetComponent<Enemies>();
+                switch (Element)
+                {
+                    case "Ice":
+                        enemyScript.setStatus("Frozen", EffectDuration);
+                        break;
+                }
+                enemyScript.takeDamage(Damage);
+            }
         }
-        enemyScript.takeDamage(Damage);
         Destroy(gameObject);
     }
 }
