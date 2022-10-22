@@ -600,6 +600,11 @@ public class TileSetGenerator
         }
         output+=$"\ntileSetWidth: {tileSetWidth}\ntileSetHeight: {tileSetHeight}";
 
+        output+="\n\nPath Tiles\n";
+        foreach(Tile tile in tileSet.pathTiles) {
+            output += $"{tile.position}\n";
+        }
+
         return output;
     }
 }
