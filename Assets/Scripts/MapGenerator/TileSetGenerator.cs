@@ -370,6 +370,26 @@ public class TileSetGenerator
             quadrantNodes.RemoveAt(randNode);
         }
 
+        if(quadrantNodes.Count > 1) {
+            // need to reorganize the quadrantNodes to
+            // point close to start - loner choice - point close to end
+            // 
+            Tile closeStart, closeEnd, lonerChoice;
+            int closestDistance = tileSetWidth * tileSetHeight;
+            
+            for(int i = 0; i < quadrantNodes.Count; i++) {
+
+            }
+
+            if(lonerChoice != null) {
+
+            }
+
+            if(closeEnd != null) {
+                
+            }
+        }
+
         return quadrantNodes;
     }
 
