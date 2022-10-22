@@ -311,6 +311,9 @@ public class TileSetGenerator
 
     // The borders will have to be excluded to prevent potential conflict
     // with the start and end tiles.
+    // 1 | 2
+    // -----
+    // 3 | 4
 
     private List<Tile> generateQuadrantNodes() 
     {
@@ -361,50 +364,137 @@ public class TileSetGenerator
         }
 
         // time to cull through these random nodes to the lowered limit
-        // only will want a max of 3 nodes total
-        int randNodeCount = UnityEngine.Random.Range(1, quadrantNodes.Count+1);
-        int randNode;
+        // only will want a max of 2 nodes total
+        int randNodeCount = UnityEngine.Random.Range(1, quadrantNodes.Count - 1);
 
         for(int i = 0; i < randNodeCount; i++) {
-            randNode = UnityEngine.Random.Range(0, quadrantNodes.Count);
-            quadrantNodes.RemoveAt(randNode);
+            quadrantNodes.RemoveAt(UnityEngine.Random.Range(0, quadrantNodes.Count));
         }
+
+        Tile closeStart = null, lonerChoice = null;
 
         if(quadrantNodes.Count > 1) {
             // need to reorganize the quadrantNodes to
             // point close to start - loner choice - point close to end
             // 
-            Tile closeStart, closeEnd, lonerChoice;
-            int closestDistance = tileSetWidth * tileSetHeight;
+            float closestDistance = tileSetWidth * tileSetHeight;
             
             for(int i = 0; i < quadrantNodes.Count; i++) {
-
+                float distance = (float) Vector2.Distance(new Vector2(quadrantNodes[i].position.x, quadrantNodes[i].position.y), 
+                    new Vector2(tileSet.startTile.position.x, tileSet.startTile.position.y));
+                if(distance < closestDistance) {
+                    closestDistance = distance;
+                    closeStart = quadrantNodes[i];
+                }
             }
 
-            if(lonerChoice != null) {
-
-            }
-
-            if(closeEnd != null) {
-                
-            }
+            quadrantNodes.Remove(closeStart);
+            lonerChoice = quadrantNodes[0];
+            quadrantNodes.Clear();
+            quadrantNodes.Add(closeStart);
+            quadrantNodes.Add(lonerChoice);
+            Debug.Log($"Node 1: {closeStart.position}");
+            Debug.Log($"Node 2: {lonerChoice.position}");
         }
 
         return quadrantNodes;
     }
 
-    private void generatePath() 
-    {
-        int counter = 0;
-        currentTile = tileSet.startTile;
+    private void cullLoopPaths() {
+        List<((int x, int y) position, int count)> positionList = new List<((int x, int y) position, int count)>();
+        int loopCounter = 0;
 
-        Debug.Log("Generating Path");
+        for(int i = 0; i < tileSet.pathTiles.Count; i++) {
+            bool found = false;
+            for(int j = 0; j < positionList.Count; j++) {
+                if(positionList[j].position.x == tileSet.pathTiles[i].position.x && 
+                    positionList[j].position.y == tileSet.pathTiles[i].position.y) {
+                    found = true;
+                    positionList[j] = (positionList[j].position, positionList[j].count + 1);
+                    loopCounter++;
+                }
+            }
+
+            if(!found) {
+                positionList.Add((tileSet.pathTiles[i].position, 1));
+            }
+        }
+
+        for(int i = 0; i < positionList.Count && loopCounter > 0; i++) {
+            if(positionList[i].count > 1) {
+                (int x, int y) cullLoopStartPosition = positionList[i].position;
+                int index = tileSet.pathTiles.FindIndex(x => x.position.x == cullLoopStartPosition.x && x.position.y == cullLoopStartPosition.y);
+                // delete all tiles from the pathTiles list that are in the loop
+                // while preserving the start instance of the loop
+                if(index != -1) {
+                    int removedIndex = 0;
+                    Tile removedTile = null;
+                    for(int j = index+1; j < tileSet.pathTiles.Count; j++) {
+                        if(tileSet.pathTiles[j].position.x == cullLoopStartPosition.x && 
+                            tileSet.pathTiles[j].position.y == cullLoopStartPosition.y) { // should be second instance, don't change in tiles list
+                            tileSet.pathTiles.RemoveAt(j);
+                            positionList[i] = (positionList[i].position, positionList[i].count - 1);
+                            loopCounter--;
+                            Debug.Log($"Removed tile at {removedTile.position}");
+                            break;
+                        } else {
+                            removedTile = tileSet.pathTiles[j];
+                            removedIndex = positionList.FindIndex(x => x.position.x == removedTile.position.x && x.position.y == removedTile.position.y);
+                            if (removedIndex != -1) {
+                                positionList[removedIndex] = (positionList[removedIndex].position, positionList[removedIndex].count - 1);
+                                if (positionList[removedIndex].count == 0) {
+                                    positionList.RemoveAt(removedIndex);
+                                    tileSet.tiles[tileSet.tiles.IndexOf(removedTile)].type = 0;
+                                }
+                            }
+                            tileSet.pathTiles.RemoveAt(j);
+                            Debug.Log($"Removed tile at {removedTile.position}");
+                            j--;
+                        }
+                    }
+                    i = 0;
+                }
+            }
+        }
+    }
+
+    private void patchPath() {
+        // need to fix up any gaps in the path
+        Tile previousTile = tileSet.startTile;
+
+        for(int i = 1; i < tileSet.pathTiles.Count; i++) {
+            float distance = (float) Vector2.Distance(new Vector2(tileSet.pathTiles[i].position.x, tileSet.pathTiles[i].position.y), 
+                new Vector2(previousTile.position.x, previousTile.position.y));
+            Debug.Log($"Distance between {tileSet.pathTiles[i].position} and {previousTile.position} is {distance}");
+            if(distance > 1) { // this means we'll have to patch the path
+                List<Tile> segmentTiles = new List<Tile>();
+                Debug.Log("Need to patch path");
+                for(int j = i; j < tileSet.pathTiles.Count; j++) {
+                    Debug.Log($"Added tile to needed patching: {tileSet.pathTiles[j].position}");
+                    segmentTiles.Add(tileSet.pathTiles[j]);
+                    Debug.Log($"Attempting removal of index {j} of {tileSet.pathTiles.Count - 1}");
+                    tileSet.pathTiles.RemoveAt(j);
+                    j--;
+                }
+
+                // now we have a list of tiles that need to be patched to
+                currentTile = previousTile;
+                PathingLogic(segmentTiles);
+            }
+            previousTile = tileSet.pathTiles[i];
+        }
+    }
+
+    private void PathingLogic(List<Tile> pathingNodes, bool start = false) {
+        int counter = 0;
         reached = (false, false);
         bool moving = true;
+        int index = 0;
+
         while(moving) {
             counter++;
             Debug.Log($"CurrentTile: {currentTile.position}");
-            if(counter == 1)
+            if(counter == 1 && start) {
                 switch(tileSet.DirCardinals.start) {
                     // 0 for bottom, 1 for left, 2 for top, 3 for right
                     case 0:
@@ -420,6 +510,7 @@ public class TileSetGenerator
                         moveRight();
                         break;
                 }
+            }
             
             if (counter > 100)
             {
@@ -427,24 +518,24 @@ public class TileSetGenerator
                 break;
             }
             else if(!reached.y) {
-                if (currentTile.position.y > tileSet.endTile.position.y)
+                if (currentTile.position.y > pathingNodes[index].position.y)
                 {
                     moveDown();
                 }
-                else if (currentTile.position.y < tileSet.endTile.position.y)
+                else if (currentTile.position.y < pathingNodes[index].position.y)
                 {
-                    moveUp();    
+                    moveUp();
                 }
                 else
                 {
                     reached.y = true;
                 }
             } else if(!reached.x) {
-                if(currentTile.position.x > tileSet.endTile.position.x) 
+                if(currentTile.position.x > pathingNodes[index].position.x) 
                 {
                     moveLeft();
                 } 
-                else if (currentTile.position.x < tileSet.endTile.position.x) 
+                else if (currentTile.position.x < pathingNodes[index].position.x) 
                 {
                     moveRight();
                 }
@@ -453,9 +544,31 @@ public class TileSetGenerator
                     reached.x = true;
                 }
             } else if(reached.x && reached.y) {
-                moving = false;
+                reached = (false, false);
+                index++;
+                if(index >= pathingNodes.Count) {
+                    moving = false;
+                }
             }
         }
+
+        // always needed to be done at the end of the pathing logic
+        tileSet.pathTiles.Add(pathingNodes[pathingNodes.Count - 1]);
+    }
+
+    private void generatePath() 
+    {
+        List<Tile> pathingNodes = generateQuadrantNodes();
+        pathingNodes.Add(tileSet.endTile);
+        currentTile = tileSet.startTile;
+
+        Debug.Log("Generating Path");
+        PathingLogic(pathingNodes, true);
+        cullLoopPaths();
+        // a patch check is needed to see if the path is disconnected
+        // checks the pathTiles list for any gaps in the path
+        // tileSet.pathTiles.RemoveAt(tileSet.pathTiles.Count - 2);
+        patchPath();
     }
 
     private void generateTileset() {
@@ -473,9 +586,6 @@ public class TileSetGenerator
         else
             generateStart();
         generatePath();
-        Debug.Log($"Checking for end: {tileSet.pathTiles[tileSet.pathTiles.Count - 1].position}");
-        tileSet.pathTiles.Add(tileSet.endTile);
-        Debug.Log($"Checking for end: {tileSet.pathTiles[tileSet.pathTiles.Count - 1].position}");
     }
 
     public override string ToString() {
