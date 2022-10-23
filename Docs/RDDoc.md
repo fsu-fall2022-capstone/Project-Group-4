@@ -1,6 +1,6 @@
 <div align="center">
 
-# Software Requirements and Design Document <br> <br> For Group #4 <br> <br> Version 0.2
+## Software Requirements and Design Document <br> <br> For Group #4 <br> <br> Version 0.2
 
 <br>
 <br>
@@ -28,11 +28,11 @@
 <br>
 <br>
 
-## 1) Overview
+### 1) Overview
 
 In short, our *system* is a tower defense game. A tower defense game for the uninitiated is at its basics is a map with a path through it that enemies use to cross on, enemies that reach the end of the path take life from the player so the player has to spend their money to buy/build towers along the path to attempt to take out enemies before they reach the end, more enemies are generated each round. Our game though, unlike most, will allow the user to expand the map, lengthening the path enemies cross on.
 
-## 2) Functional Requirements
+### 2) Functional Requirements
 
 1) High - The system lets the user be able to click play and pick a game mode.
 2) High - The system lets the user be able to click quit and exit the game.
@@ -78,7 +78,7 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 42) Medium - The system has a set speed, health, kill reward, and damage for every enemy.
 43) Low - The system allows towers to switch the enemy they are currently targeting.
 
-## 3) Non-functional Requirements
+### 3) Non-functional Requirements
 
 1) All code should be well documented and easily readable to any developer.
 2) Keep the number of calculations to a minimum so placing multiple towers doesn’t slow down the game.
@@ -89,30 +89,30 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 7) The game should support massive map sizes as some expansion games might go on for a while.
 8) The game should have a simple to understand and clear UI that doesn’t distract as much from the main game.
 
-## 4) Use Case Diagram
+### 4) Use Case Diagram
 
 [![Use-Case-Diagram](/Docs/Diagrams/UseCaseDiagram.png)](/Docs/Diagrams/UseCaseDiagram.png)
 
-## 5) Class Diagram and/or Sequence Diagrams
+### 5) Class Diagram and/or Sequence Diagrams
 
 [![Class-Diagram](/Docs/Diagrams/ClassDiagram.png)](/Docs/Diagrams/ClassDiagram.png)
 
-### Map Generation Sequence Diagram
+#### Map Generation Sequence Diagram
 
 [![Sequence-Diagram_MapGen](/Docs/Diagrams/SequenceDiagram_MapGen.png)](/Docs/Diagrams/SequenceDiagram_MapGen.png)
 
-### Enemies Sequence Diagram
+#### Enemies Sequence Diagram
 
 [![Sequence-Diagram_Enemies](/Docs/Diagrams/SequenceDiagram_Enemies.png)](/Docs/Diagrams/SequenceDiagram_Enemies.png)
 
-### Placement Sequence Diagram
+#### Placement Sequence Diagram
 
 [![Sequence-Diagram_PlaceMan](/Docs/Diagrams/SequenceDiagram_PlaceMan.png)](/Docs/Diagrams/SequenceDiagram_PlaceMan.png)
 
-## 6) Operating Environment
+### 6) Operating Environment
 
 Our game could, at its finished state, theoretically operate on any of the main operating systems: Windows, Linux, MacOS. Most machines hardware-wise will be able to handle running our game, though for best operation it would be suggested that the machine have at least 8GB Ram, and a processor equivalent or better than an Intel i5 or extended buffering/glitches might occur.
 
-## 7) Assumptions and Dependencies
+### 7) Assumptions and Dependencies
   
 One of the dependencies for this project is the base code comes from a tutorial series off of YouTube to help ourselves start in learning Unity. Over the next two increments we should be able to move away from this code/change it almost completely.
