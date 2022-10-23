@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -256,6 +257,15 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    // uncomment if debugging in editor
+    //public void ClearLog()
+    //{
+    //    var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+    //    var type = assembly.GetType("UnityEditor.LogEntries");
+    //    var method = type.GetMethod("Clear");
+    //    method.Invoke(new object(), null);
+    //}
+
     public void expandMap()
     {   // expands the map
         if(!checkExpandability())
@@ -263,6 +273,8 @@ public class MapGenerator : MonoBehaviour
             Debug.Log("Map cannot be expanded.");
             return;
         }
+
+        //ClearLog();
 
         Debug.Log("Map expansion!");
 
