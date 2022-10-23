@@ -1,0 +1,43 @@
+@startuml SequenceDiagram_MapGen
+
+actor Player as user
+entity Game as game 
+participant MapGenerator as map_gen
+participant TileSetGenerator as tile_gen
+
+user -> game : start game
+activate game
+game -> map_gen : Start()
+deactivate game
+activate map_gen
+map_gen -> tile_gen : generateMap()
+activate tile_gen
+tile_gen -> tile_gen : generateTileSet()
+tile_gen -> tile_gen : generatePath()
+tile_gen -> tile_gen : PathingLogic(), cullLoopPaths(), patchPath()
+deactivate tile_gen
+tile_gen -> map_gen : getTileSet()
+map_gen -> map_gen : drawMap()
+deactivate map_gen
+map_gen -> game : map is drawn
+activate game
+game -> game : start game loop
+game -> map_gen : expandMap()
+activate map_gen
+map_gen -> map_gen : checkExpandability()
+map_gen -> tile_gen : if expandable, generateTileSet()
+activate tile_gen
+tile_gen -> tile_gen : generateTileSet()
+tile_gen -> tile_gen : generatePath()
+tile_gen -> tile_gen : PathingLogic(), cullLoopPaths(), patchPath()
+deactivate tile_gen
+tile_gen -> map_gen : getTileSet()
+map_gen -> map_gen : drawMap()
+deactivate map_gen
+map_gen -> game : map is drawn
+game -> game : process loops until game is over
+game -> game : end game loop
+deactivate game
+game -> user : game ended
+
+@enduml

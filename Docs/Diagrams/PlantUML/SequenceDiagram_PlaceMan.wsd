@@ -1,0 +1,136 @@
+@startuml SequenceDiagram_PlaceMan
+
+actor Player as user
+entity Game as game 
+
+participant PlacementManager as placementManager
+participant ShopManager as shopManager
+participant MoneyManager as moneyManager
+participant Towers as towers
+participant Enemies as enemies
+
+user -> game : Start Game
+activate game
+user -> game : Hover over Tile
+game -> placementManager : Calls PlacementManager
+activate placementManager
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> shopManager : Check if Tower is selected
+activate shopManager
+shopManager -> placementManager : No tower selected
+deactivate shopManager
+placementManager -> placementManager : Return
+deactivate placementManager
+
+user -> game : Select Tower from UI
+game -> shopManager : Calls ShopManager
+activate shopManager
+user -> game : Hover over Tile
+game -> placementManager : Calls PlacementManager
+activate placementManager
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> shopManager : Check if Tower is selected
+shopManager -> placementManager : Tower is selected
+placementManager -> placementManager : Show ghost image of Tower
+user -> game : Hover over different tile
+game -> placementManager : Notifies PlacementManager
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> placementManager : Show ghost image of Tower
+user -> game : Click on Tile
+game -> placementManager : Notifies PlacementManager of Placement attempt
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> placementManager : Check if Tower is selected
+placementManager -> shopManager : Check for Tower selected
+shopManager -> towers : Get price of Tower
+activate towers
+towers -> shopManager : Return price of Tower
+deactivate towers
+shopManager -> moneyManager : Check if enough money
+activate moneyManager
+moneyManager -> shopManager : Return if enough money
+deactivate moneyManager
+shopManager -> shopManager : Player has enough money
+shopManager -> moneyManager : Call to remove money
+activate moneyManager
+moneyManager -> moneyManager : Remove money
+moneyManager -> shopManager : Return
+deactivate moneyManager
+shopManager -> placementManager : Return
+deactivate shopManager
+placementManager -> towers : Create Tower
+activate towers
+placementManager -> placementManager : Destroy ghost
+deactivate placementManager
+
+user -> game : Select Tower from UI
+game -> shopManager : Calls ShopManager
+activate shopManager
+user -> game : Attempts to buy with no money
+game -> placementManager : Call PlacementManager
+activate placementManager
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> shopManager : Check if Tower is selected
+shopManager -> placementManager : Tower is selected
+placementManager -> placementManager : Show ghost image of Tower
+user -> game : Click on Tile
+game -> placementManager : Notifies PlacementManager of Placement attempt
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> placementManager : Check if Tower is selected
+placementManager -> shopManager : Check for Tower selected
+shopManager -> towers : Get price of Tower
+towers -> shopManager : Return price of Tower
+shopManager -> moneyManager : Check if enough money
+activate moneyManager
+moneyManager -> shopManager : Player doesn't have enough money
+deactivate moneyManager
+shopManager -> placementManager : Return
+deactivate shopManager
+placementManager -> placementManager : Destroy ghost
+placementManager -> game : Report to Game
+deactivate placementManager
+
+towers -> enemies : Check if enemy is in range
+activate enemies
+enemies -> towers : Return if enemy is in range
+deactivate enemies
+towers -> enemies : Attack enemy
+activate enemies
+enemies -> enemies : Take damage
+enemies -> moneyManager : Prompt for Kill Reward
+activate moneyManager
+deactivate enemies
+moneyManager -> moneyManager : Get Kill Reward
+moneyManager -> moneyManager : Add money
+deactivate moneyManager
+
+user -> game : Select Tower from UI
+game -> shopManager : Calls ShopManager
+activate shopManager
+user -> game : Another Tower buy attempt with money
+game -> placementManager : Call PlacementManager
+activate placementManager
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> shopManager : Check if Tower is selected
+shopManager -> placementManager : Tower is selected
+placementManager -> placementManager : Show ghost image of Tower
+user -> game : Click on Tile
+game -> placementManager : Notifies PlacementManager of Placement attempt
+placementManager -> placementManager : Check if Tile is empty
+placementManager -> placementManager : Check if Tower is selected
+placementManager -> shopManager : Check for Tower selected
+shopManager -> towers : Get price of Tower
+towers -> shopManager : Return price of Tower
+shopManager -> moneyManager : Check if enough money
+activate moneyManager
+moneyManager -> shopManager : Player has enough money
+shopManager -> moneyManager : Call to remove money
+moneyManager -> moneyManager : Remove money
+moneyManager -> shopManager : Return
+deactivate moneyManager
+shopManager -> placementManager : Return
+deactivate shopManager
+placementManager -> towers : Create Tower
+placementManager -> placementManager : Destroy ghost
+deactivate placementManager
+
+@enduml

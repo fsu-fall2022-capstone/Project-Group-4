@@ -1,0 +1,38 @@
+@startuml SequenceDiagram_Enemies
+
+actor Player as user
+entity Game as game 
+participant RoundController as roundController
+participant Towers as towers
+participant Enemies as enemies
+
+user -> game : start game
+activate game
+game -> roundController : start round
+activate roundController
+user -> game : place tower
+game -> towers : places tower
+activate towers
+roundController -> enemies : spawn enemy
+activate enemies
+enemies -> enemies : navigate path
+towers -> towers : check for enemies in range
+towers -> enemies : attack enemy
+enemies -> enemies : take damage
+enemies -> enemies : if health <= 0 then die
+enemies -> roundController : if reached end then lose life
+enemies -> roundController : if all dead then win round
+deactivate enemies
+roundController -> roundController : end round
+roundController -> roundController : prepare next round
+roundController -> game : loop until game over
+deactivate roundController
+roundController -> game : enough rounds or lives lost
+game -> game : end game
+deactivate game
+deactivate towers
+game -> user : show game over screen
+
+
+
+@enduml
