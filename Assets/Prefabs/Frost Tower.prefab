@@ -157,7 +157,7 @@ MonoBehaviour:
   barrel: {fileID: 1086172733646312286}
   projectile: {fileID: 6067875741507970028, guid: 8f7e84ece8402624d9871ee6000ade37,
     type: 3}
-  element: Ice
+  element: 1
   effectDuration: 0.75
 --- !u!1 &8646127252446177012
 GameObject:

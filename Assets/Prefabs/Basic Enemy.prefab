@@ -99,10 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86409bc267b024b409fc2f44fcf198b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 50
-  movementSpeed: 0.5
-  status: 
-  timeCheck: 0
+  maxEnemyHealth: 50
+  maxMovementSpeed: 0.5
   killReward: 100
 --- !u!61 &5255109614654396564
 BoxCollider2D:
