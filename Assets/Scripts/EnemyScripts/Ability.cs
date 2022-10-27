@@ -30,6 +30,10 @@ public class Ability : MonoBehaviour {
         }
     }
 
+    public bool isRunning() {
+        return duration > 0;
+    }
+
     public bool isReady() {
         return cooldown <= 0;
     }

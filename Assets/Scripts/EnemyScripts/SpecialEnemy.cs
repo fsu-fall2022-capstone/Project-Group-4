@@ -29,6 +29,7 @@ public class SpecialEnemy : Enemy {
                 Debug.Log($"Ability not implemented! {abilityType}");
                 break;
         }
+        specialAbility.startAbility(); // to prevent instant use of ability on spawn
     }
 
     private void checkSpecialAbility() {
