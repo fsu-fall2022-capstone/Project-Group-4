@@ -55,6 +55,7 @@ public class SpawnerAbility : Ability {
 
     public void spawnEnemies(Vector3 position, GameObject target) {
         if(isReady()) {
+            Debug.Log($"Spawning Enemies! {count} will spawn at {position} to target {target.transform.position}" );
             IEnumerator coroutine = IAbilitySpawnEnemies(position, target);
             StartCoroutine(coroutine);
         }
@@ -63,7 +64,7 @@ public class SpawnerAbility : Ability {
     private IEnumerator IAbilitySpawnEnemies(Vector3 position, GameObject target) {
         for (int i = 0; i < count; i++) {
             GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
-            newEnemy.GetComponent<Enemy>().setTarget(target);
+            newEnemy.GetComponent<Enemy>().initializeTarget(target);
             yield return new WaitForSeconds(0.1f);
         }
     }

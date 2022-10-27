@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     protected float timeCheck;
 
     protected GameObject targetTile;
+    [SerializeField] protected bool waitForTarget = false;
     protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
     private void Awake()
@@ -42,12 +43,13 @@ public class Enemy : MonoBehaviour
 
     private void initializeEnemy()
     {
-        targetTile = MapGenerator.startTile;
+        if(!waitForTarget)
+            targetTile = MapGenerator.startTile;
         enemyHealth = maxEnemyHealth;
         movementSpeed = maxMovementSpeed;
     }
 
-    public void setTarget (GameObject _targetTile)
+    public void initializeTarget(GameObject _targetTile)
     {
         targetTile = _targetTile;
     }
