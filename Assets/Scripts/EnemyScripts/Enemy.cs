@@ -148,7 +148,6 @@ public class Enemy : MonoBehaviour
 
     private void checkStatuses() {
         if (statuses.Count > 0) {
-            timeCheck = Time.time;
             applyStatus();
         }
     }
