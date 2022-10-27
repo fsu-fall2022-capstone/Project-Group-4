@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpecialEnemy : Enemy {
     public AbilityType abilityType;
     private Ability specialAbility;
+    [SerializeField] private GameObject abilityPrefab;
     [SerializeField] private float maxDuration;
     [SerializeField] private float maxCooldown;
 
@@ -22,7 +23,7 @@ public class SpecialEnemy : Enemy {
         switch (abilityType) {
             case AbilityType.Spawn:
                 specialAbility = gameObject.AddComponent(typeof(SpawnerAbility)) as SpawnerAbility;
-                (specialAbility as SpawnerAbility).ConstructAbility(gameObject, 3, maxDuration, maxCooldown);
+                (specialAbility as SpawnerAbility).ConstructAbility(abilityPrefab, 3, maxDuration, maxCooldown);
                 break;
             default:
                 Debug.Log($"Ability not implemented! {abilityType}");
@@ -32,9 +33,11 @@ public class SpecialEnemy : Enemy {
 
     private void checkSpecialAbility() {
         if (specialAbility.isReady()) {
-            specialAbility.startAbility();
             useSpecialAbility();
+            specialAbility.startAbility();
             Debug.Log("Special Ability Used!");
+        } else {
+            specialAbility.updateAbility(Time.deltaTime);
         }
     }
 

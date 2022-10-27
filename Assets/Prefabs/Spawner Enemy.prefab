@@ -150,5 +150,7 @@ MonoBehaviour:
   maxMovementSpeed: 0.5
   killReward: 0
   abilityType: 1
+  abilityPrefab: {fileID: 2082375029304972468, guid: 7ea307bae7fc3f74aa07def5fdd26d5a,
+    type: 3}
   maxDuration: 10
   maxCooldown: 20

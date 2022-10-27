@@ -54,8 +54,10 @@ public class SpawnerAbility : Ability {
     }
 
     public void spawnEnemies(Vector3 position, GameObject target) {
-        IEnumerator coroutine = IAbilitySpawnEnemies(position, target);
-        StartCoroutine(coroutine);
+        if(isReady()) {
+            IEnumerator coroutine = IAbilitySpawnEnemies(position, target);
+            StartCoroutine(coroutine);
+        }
     }
 
     private IEnumerator IAbilitySpawnEnemies(Vector3 position, GameObject target) {
