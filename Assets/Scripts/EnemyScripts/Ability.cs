@@ -1,11 +1,15 @@
-public class Ability {
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Ability : MonoBehaviour {
     public AbilityType abilityType { get; private set; }
     public float cooldown { get; private set; }
     public float duration { get; private set; }
-    private float maxDuration;
-    private float maxCooldown;
+    protected float maxDuration;
+    protected float maxCooldown;
 
-    public Ability(AbilityType abilityType, float duration, float cooldown) {
+    protected virtual void ConstructAbility(AbilityType abilityType, float duration, float cooldown) {
         this.abilityType = abilityType;
         this.maxDuration = duration;
         this.maxCooldown = cooldown;
@@ -37,5 +41,28 @@ public class Ability {
 
     public void updateDuration(float time) {
         duration -= time;
+    }
+}
+
+public class SpawnerAbility : Ability {
+    protected GameObject enemy;
+    public int count { get; private set; }
+    public void ConstructAbility(GameObject enemy, int count, float duration, float cooldown) {
+        base.ConstructAbility(AbilityType.Spawn, duration, cooldown);
+        this.enemy = enemy;
+        this.count = count;
+    }
+
+    public void spawnEnemies(Vector3 position, GameObject target) {
+        IEnumerator coroutine = IAbilitySpawnEnemies(position, target);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator IAbilitySpawnEnemies(Vector3 position, GameObject target) {
+        for (int i = 0; i < count; i++) {
+            GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
+            newEnemy.GetComponent<Enemy>().setTarget(target);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

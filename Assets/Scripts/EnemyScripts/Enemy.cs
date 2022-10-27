@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float maxEnemyHealth;
-    [SerializeField] private float maxMovementSpeed;
+    [SerializeField] protected float maxEnemyHealth;
+    [SerializeField] protected float maxMovementSpeed;
 
     public float enemyHealth { get; private set; }
     public float movementSpeed { get; private set; }
 
-    [SerializeField] private int killReward;     //Money for killing enemy
+    [SerializeField] protected int killReward;     //Money for killing enemy
     public static float damage = 1f;       //Damage enemy does when hitting the endTile
 
 
-    private List<Status> statuses = new List<Status>();
+    protected List<Status> statuses = new List<Status>();
     public List<Status> Statuses { get { return statuses; } }
 
-    private float timeCheck;
+    protected float timeCheck;
 
-    private GameObject targetTile;
-    private bool enemyFinished = false;  //Added to check if enemy has crossed the finish
+    protected GameObject targetTile;
+    protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
     private void Awake()
     {
@@ -45,6 +45,11 @@ public class Enemy : MonoBehaviour
         targetTile = MapGenerator.startTile;
         enemyHealth = maxEnemyHealth;
         movementSpeed = maxMovementSpeed;
+    }
+
+    public void setTarget (GameObject _targetTile)
+    {
+        targetTile = _targetTile;
     }
 
     public void takeDamage(float amount)
