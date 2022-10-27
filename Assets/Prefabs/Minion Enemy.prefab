@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5255109614654396564}
   - component: {fileID: 4005966978316539209}
   m_Layer: 0
-  m_Name: Basic Enemy
+  m_Name: Minion Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86409bc267b024b409fc2f44fcf198b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemyHealth: 50
-  maxMovementSpeed: 0.5
-  killReward: 100
+  maxEnemyHealth: 25
+  maxMovementSpeed: 1
+  killReward: 10
+  waitForTarget: 1
 --- !u!61 &5255109614654396564
 BoxCollider2D:
   m_ObjectHideFlags: 0

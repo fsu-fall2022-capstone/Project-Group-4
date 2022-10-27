@@ -2368,6 +2368,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoundController
       objectReference: {fileID: 0}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: basicEnemy
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: 7ea307bae7fc3f74aa07def5fdd26d5a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49269ad5d00ca85499efb394e0961593, type: 3}
 --- !u!1001 &2626144691352315732

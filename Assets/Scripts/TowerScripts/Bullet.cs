@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject == Target)
             {
                 Debug.Log("Target Hit!");
-                Target.GetComponent<Enemies>().takeDamage(Damage);
+                Target.GetComponent<Enemy>().takeDamage(Damage);
             }
         }
         Destroy(gameObject);

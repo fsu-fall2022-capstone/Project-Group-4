@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ElementalShot : Bullet
 {
-    public string Element;
+    public ElementType Element;
     public float EffectDuration;
 
     protected override void OnCollisionEnter2D(Collision2D collision)
@@ -15,11 +15,14 @@ public class ElementalShot : Bullet
             if (collision.gameObject == Target)
             {
                 Debug.Log("Target Hit!");
-                Enemies enemyScript = Target.GetComponent<Enemies>();
+                Enemy enemyScript = Target.GetComponent<Enemy>();
                 switch (Element)
                 {
-                    case "Ice":
-                        enemyScript.setStatus("Frozen", EffectDuration);
+                    case ElementType.Ice:
+                        enemyScript.addStatus(new Status(StatusType.Frozen, EffectDuration));
+                        break;
+                    default:
+                        Debug.Log($"Element not implemented! {Element}");
                         break;
                 }
                 enemyScript.takeDamage(Damage);

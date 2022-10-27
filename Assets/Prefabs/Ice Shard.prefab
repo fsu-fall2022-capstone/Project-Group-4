@@ -151,4 +151,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 0
   Target: {fileID: 0}
-  Element: Ice
+  Element: 1
+  EffectDuration: 2

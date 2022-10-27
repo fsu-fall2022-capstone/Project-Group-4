@@ -15,7 +15,7 @@ using UnityEngine;
 
 public class ElementalTowers : Towers
 {
-    public string element;
+    public ElementType element;
     public float effectDuration;
 
     protected override void shoot()
@@ -28,9 +28,4 @@ public class ElementalTowers : Towers
         currentProjectile.EffectDuration = effectDuration;
         //      base.shoot();
     }
-}
-
-public enum Elements
-{
-    Ice, Fire, Water, Lightning
 }
