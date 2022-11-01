@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
 
     protected List<Status> statuses = new List<Status>();
     public List<Status> Statuses { get { return statuses; } }
+    protected bool allowDamage = true;     //Added to check if enemy can take damage
+    protected bool overcharged = false;   //Added to check if enemy is overcharged
 
     protected float timeCheck;
 
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
 
     private void initializeEnemy()
     {
-        if(!waitForTarget)
+        if (!waitForTarget)
             targetTile = MapGenerator.startTile;
         enemyHealth = maxEnemyHealth;
         movementSpeed = maxMovementSpeed;
@@ -56,39 +58,43 @@ public class Enemy : MonoBehaviour
 
     public void takeDamage(float amount)
     {
-        enemyHealth = enemyHealth - amount;
+        if (allowDamage)
+            enemyHealth = enemyHealth - amount;
 
-        if (enemyHealth <= 0) {
+        if (enemyHealth <= 0)
             enemyDead();
-        }
     }
 
     public void healDamage(float amount)
     {
         enemyHealth = enemyHealth + amount;
 
-        if (enemyHealth > maxEnemyHealth) {
+        if (enemyHealth > maxEnemyHealth)
             enemyHealth = maxEnemyHealth;
-        }
     }
 
     public void overchargeHealth(float amount)
     {
-        enemyHealth = enemyHealth + amount;
+        if (!overcharged) {
+            enemyHealth = enemyHealth + amount;
+            overcharged = true;
+        }
     }
 
     public void changeMovementSpeed(float amount)
     {
         movementSpeed = amount;
 
-        if (movementSpeed > maxMovementSpeed) {
+        if (movementSpeed > maxMovementSpeed)
             movementSpeed = maxMovementSpeed;
-        }
     }
 
     public void overchargeSpeed(float amount)
     {
-        movementSpeed = movementSpeed + amount;
+        if (!overcharged) {
+            movementSpeed = movementSpeed + amount;
+            overcharged = true;
+        }
     }
 
     public void setToNormalSpeed()
@@ -103,9 +109,8 @@ public class Enemy : MonoBehaviour
             HealthBar.lives -= damage;
             enemyFinished = false;
         }
-        if (enemyHealth <= 0) {
+        if (enemyHealth <= 0)
             MoneyManager.main.addMoney(killReward);
-        }
 
         Counter.enemies.Remove(gameObject);
         Destroy(transform.gameObject);
@@ -120,9 +125,7 @@ public class Enemy : MonoBehaviour
     public void checkPosition()
     {
         if (targetTile != null && targetTile != MapGenerator.endTile) {
-            float distance = (transform.position - targetTile.transform.position).magnitude;
-
-            if (distance < 0.001f) {
+            if (Vector3.Distance(transform.position, targetTile.transform.position) < 0.001f) {
                 int currIndex = MapGenerator.pathTiles.IndexOf(targetTile);
 
                 targetTile = MapGenerator.pathTiles[currIndex - 1];
@@ -147,9 +150,8 @@ public class Enemy : MonoBehaviour
     }
 
     private void checkStatuses() {
-        if (statuses.Count > 0) {
+        if (statuses.Count > 0)
             applyStatus();
-        }
     }
 
     private void applyStatus() {
@@ -173,10 +175,37 @@ public class Enemy : MonoBehaviour
 
                     break;
                 case StatusType.Overcharged:
-
+                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
+                    status.updateDuration(Time.time - timeCheck);
+                    if (status.duration <= 0f) {
+                        overcharged = false;
+                        if(enemyHealth > maxEnemyHealth)
+                            enemyHealth = maxEnemyHealth;
+                        Debug.Log($"{name} is no longer {status.statusType}");
+                    }
+                    else
+                        overchargeHealth(maxEnemyHealth * 0.25f);
                     break;
                 case StatusType.Sprinting:
-
+                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
+                    status.updateDuration(Time.time - timeCheck);
+                    if (status.duration <= 0f) {
+                        setToNormalSpeed();
+                        overcharged = false;
+                        Debug.Log($"{name} is no longer {status.statusType}");
+                    }
+                    else
+                        overchargeSpeed(maxMovementSpeed * 0.25f);
+                    break;
+                case StatusType.Shielded:
+                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
+                    status.updateDuration(Time.time - timeCheck);
+                    if (status.duration <= 0f) {
+                        allowDamage = true;
+                        Debug.Log($"{name} is no longer {status.statusType}");
+                    }
+                    else
+                        allowDamage = false;
                     break;
             }
             timeCheck = Time.time;

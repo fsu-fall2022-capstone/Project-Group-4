@@ -28,11 +28,15 @@ public class Bullet : MonoBehaviour
         {
             if (collision.gameObject == Target)
             {
-                Debug.Log("Target Hit!");
-                Target.GetComponent<Enemy>().takeDamage(Damage);
+                OnBulletCollisionEffect();
             }
         }
         Destroy(gameObject);
+    }
+
+    protected virtual void OnBulletCollisionEffect() {
+        Debug.Log("Target Hit!");
+        Target.GetComponent<Enemy>().takeDamage(Damage);
     }
 
     protected void Update()

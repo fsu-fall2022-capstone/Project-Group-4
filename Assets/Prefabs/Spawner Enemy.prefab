@@ -155,3 +155,5 @@ MonoBehaviour:
     type: 3}
   maxDuration: 5
   maxCooldown: 10
+  abilityCount: 3
+  abilityRange: 0
