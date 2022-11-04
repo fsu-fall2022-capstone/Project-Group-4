@@ -26,5 +26,6 @@ public enum StatusType {
     Burning,
     Stunned,
     Overcharged,
-    Sprinting
+    Sprinting,
+    Shielded
 }

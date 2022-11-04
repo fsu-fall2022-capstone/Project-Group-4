@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SpecialEnemy : Enemy {
     public AbilityType abilityType;
-    private Ability specialAbility;
-    [SerializeField] private GameObject abilityPrefab;
-    [SerializeField] private float maxDuration;
-    [SerializeField] private float maxCooldown;
+    protected Ability specialAbility;
+    [SerializeField] protected GameObject abilityPrefab;
+    [SerializeField] protected float maxDuration;
+    [SerializeField] protected float maxCooldown;
+    [SerializeField] protected int abilityCount;
+    [SerializeField] protected float abilityRange;
 
     protected override void Start() {
         base.Start();
@@ -23,7 +25,13 @@ public class SpecialEnemy : Enemy {
         switch (abilityType) {
             case AbilityType.Spawn:
                 specialAbility = gameObject.AddComponent(typeof(SpawnerAbility)) as SpawnerAbility;
-                (specialAbility as SpawnerAbility).ConstructAbility(abilityPrefab, 3, maxDuration, maxCooldown);
+                (specialAbility as SpawnerAbility).ConstructAbility(abilityPrefab, abilityCount, maxDuration, maxCooldown);
+                break;
+            case AbilityType.Shield:
+            case AbilityType.Overcharge:
+            case AbilityType.Sprint:
+                specialAbility = gameObject.AddComponent(typeof(StatusCasterAbility)) as StatusCasterAbility;
+                (specialAbility as StatusCasterAbility).ConstructAbility(abilityType, abilityRange, maxDuration, maxCooldown);
                 break;
             default:
                 Debug.Log($"Ability not implemented! {abilityType}");
@@ -46,6 +54,11 @@ public class SpecialEnemy : Enemy {
         switch (abilityType) {
             case AbilityType.Spawn:
                 (specialAbility as SpawnerAbility).spawnEnemies(gameObject.transform.position, targetTile);
+                break;
+            case AbilityType.Shield:
+            case AbilityType.Overcharge:
+            case AbilityType.Sprint:
+                (specialAbility as StatusCasterAbility).castStatus(gameObject.transform.position);
                 break;
             default:
                 Debug.Log($"Ability not implemented! {abilityType}");
