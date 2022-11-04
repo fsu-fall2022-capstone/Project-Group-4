@@ -29,6 +29,8 @@ public class MapGenerator : MonoBehaviour
     public static List<TileSet> tileSets = new List<TileSet>();
     public static List<MapLayout> mapLayout = new List<MapLayout>();
     //public static List<GameObject> resourceTiles = new List<GameObject>();
+    public static List<MapLayout> expandableTiles = new List<MapLayout>();
+    public static List<GameObject> spawnTiles = new List<GameObject>();
 
     public static GameObject startTile { get; private set; } // starting position of enemy
     public static GameObject endTile { get; private set; } // home position of player
@@ -53,36 +55,11 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    public bool checkExpandability() 
+    public bool checkExpandability((int x, int y) tilePos) 
     {
-        // this'll be used to check if the map can be expanded based on the location
-        // data of the recent tileset stored in mapLayout and 
-        // the most recent direction data TileSet stored in tileSets.
-        // this'll be used for any UI buttons that expand the map before calling it
-        (int x, int y) lastTilePos = mapLayout[mapLayout.Count - 1].position;
-        (int start, int end) lastDir = tileSets[tileSets.Count - 1].DirCardinals;
-        // 0 for bottom, 1 for right, 2 for top, 3 for left
-
-        (int x, int y) checkPos = (0,0);
-        switch(lastDir.start)
-        {
-            case 0: // bottom
-                checkPos = (lastTilePos.x, lastTilePos.y - 1);
-                break;
-            case 1: // right
-                checkPos = (lastTilePos.x + 1, lastTilePos.y);
-                break;
-            case 2: // top
-                checkPos = (lastTilePos.x, lastTilePos.y + 1);
-                break;
-            case 3: // left
-                checkPos = (lastTilePos.x - 1, lastTilePos.y);
-                break;
-        }
-
         for(int i = 0; i < mapLayout.Count; i++)
         {
-            if(mapLayout[i].position == checkPos)
+            if(mapLayout[i].position == tilePos)
             {
                 return false;
             }
@@ -91,98 +68,104 @@ public class MapGenerator : MonoBehaviour
         return true;
     }
 
-    private List<int> checkAvailableExpansionDirections() {
+    private List<int> checkAvailableExpansionDirections((int x, int y) tilePos, int tileSetNum) {
         // now at the valid point of expansion, time to check which start directions are available
-        (int x, int y) lastTilePos = mapLayout[mapLayout.Count - 1].position;
-        (int start, int end) lastDir = tileSets[tileSets.Count - 1].DirCardinals;
-
-        List<(int x, int y)> availableVectors = new List<(int x, int y)>();
+        (int x, int y) lastTilePos = layoutInfo.position;
+        
         List<int> availableDirections = new List<int>();
-        List<(int x, int y)> checkVectors = new List<(int x, int y)>();
-        (int x, int y) validPos = (0,0);
-        (int x, int y) checkPos = (0,0);
-        (int x, int y) findPosDir = (0,0);
 
-        switch(lastDir.start)
-        {
-            case 0: // bottom
-                validPos = (lastTilePos.x, lastTilePos.y - 1);
-                if(straightLineCounter <= maxDirectionalStraightness)
-                {
-                    checkPos = (validPos.x, validPos.y - 1); // down
-                    checkVectors.Add(checkPos);
-                }
-                checkPos = (validPos.x + 1, validPos.y); // right
-                checkVectors.Add(checkPos);
-                checkPos = (validPos.x - 1, validPos.y); // left
-                checkVectors.Add(checkPos);
-                break;
-            case 1: // right
-                validPos = (lastTilePos.x + 1, lastTilePos.y);
-                if(straightLineCounter <= maxDirectionalStraightness)
-                {
+        // check for available directions
+        for(int m = 0; m < tileSets[tileSetNum].DirCardinals.Count; m++) {
+            (int start, int end) lastDir = tileSets[tileSetNum].DirCardinals[m];
+
+            (int x, int y) validPos = (0,0);
+            (int x, int y) checkPos = (0,0);
+            (int x, int y) findPosDir = (0,0);
+
+            List<(int x, int y)> checkVectors = new List<(int x, int y)>();
+            List<(int x, int y)> availableVectors = new List<(int x, int y)>();
+
+            switch(lastDir.start)
+            {
+                case 0: // bottom
+                    validPos = (lastTilePos.x, lastTilePos.y - 1);
+                    if(straightLineCounter <= maxDirectionalStraightness)
+                    {
+                        checkPos = (validPos.x, validPos.y - 1); // down
+                        checkVectors.Add(checkPos);
+                    }
                     checkPos = (validPos.x + 1, validPos.y); // right
                     checkVectors.Add(checkPos);
-                }
-                checkPos = (validPos.x, validPos.y - 1); // down
-                checkVectors.Add(checkPos);
-                checkPos = (validPos.x, validPos.y + 1); // up
-                break;
-            case 2: // top
-                validPos = (lastTilePos.x, lastTilePos.y + 1);
-                if(straightLineCounter <= maxDirectionalStraightness)
-                {
-                    checkPos = (validPos.x, validPos.y + 1); // up
-                    checkVectors.Add(checkPos);
-                }
-                checkPos = (validPos.x + 1, validPos.y); // right
-                checkVectors.Add(checkPos);
-                checkPos = (validPos.x - 1, validPos.y); // left
-                checkVectors.Add(checkPos);
-                break;
-            case 3: // left
-                validPos = (lastTilePos.x - 1, lastTilePos.y);
-                if(straightLineCounter <= maxDirectionalStraightness){
                     checkPos = (validPos.x - 1, validPos.y); // left
                     checkVectors.Add(checkPos);
-                }
-                checkPos = (validPos.x, validPos.y - 1); // down
-                checkVectors.Add(checkPos);
-                checkPos = (validPos.x, validPos.y + 1); // up
-                checkVectors.Add(checkPos);
-                break;
-        }
-
-        for(int i = 0; i < checkVectors.Count; i++) {
-            checkPos = checkVectors[i];
-            if(!mapLayout.Any(x => x.position == checkPos)) {
-                availableVectors.Add(checkPos);
-            }
-        }
-
-        if(availableVectors.Count != 0){
-            for(int i = 0; i < availableVectors.Count; i++) {
-                findPosDir = availableVectors[i];
-                if(findPosDir.x == validPos.x) {
-                    if(findPosDir.y > validPos.y) {
-                        availableDirections.Add(2);
-                    } else {
-                        availableDirections.Add(0);
+                    break;
+                case 1: // right
+                    validPos = (lastTilePos.x + 1, lastTilePos.y);
+                    if(straightLineCounter <= maxDirectionalStraightness)
+                    {
+                        checkPos = (validPos.x + 1, validPos.y); // right
+                        checkVectors.Add(checkPos);
                     }
-                } else if(findPosDir.y == validPos.y) {
-                    if(findPosDir.x > validPos.x) {
-                        availableDirections.Add(1);
-                    } else {
-                        availableDirections.Add(3);
+                    checkPos = (validPos.x, validPos.y - 1); // down
+                    checkVectors.Add(checkPos);
+                    checkPos = (validPos.x, validPos.y + 1); // up
+                    break;
+                case 2: // top
+                    validPos = (lastTilePos.x, lastTilePos.y + 1);
+                    if(straightLineCounter <= maxDirectionalStraightness)
+                    {
+                        checkPos = (validPos.x, validPos.y + 1); // up
+                        checkVectors.Add(checkPos);
                     }
+                    checkPos = (validPos.x + 1, validPos.y); // right
+                    checkVectors.Add(checkPos);
+                    checkPos = (validPos.x - 1, validPos.y); // left
+                    checkVectors.Add(checkPos);
+                    break;
+                case 3: // left
+                    validPos = (lastTilePos.x - 1, lastTilePos.y);
+                    if(straightLineCounter <= maxDirectionalStraightness){
+                        checkPos = (validPos.x - 1, validPos.y); // left
+                        checkVectors.Add(checkPos);
+                    }
+                    checkPos = (validPos.x, validPos.y - 1); // down
+                    checkVectors.Add(checkPos);
+                    checkPos = (validPos.x, validPos.y + 1); // up
+                    checkVectors.Add(checkPos);
+                    break;
+            }
+
+            for(int i = 0; i < checkVectors.Count; i++) {
+                checkPos = checkVectors[i];
+                if(!mapLayout.Any(x => x.position == checkPos)) {
+                    availableVectors.Add(checkPos);
                 }
             }
+
+            if(availableVectors.Count != 0){
+                for(int i = 0; i < availableVectors.Count; i++) {
+                    findPosDir = availableVectors[i];
+                    if(findPosDir.x == validPos.x) {
+                        if(findPosDir.y > validPos.y) {
+                            availableDirections.Add(2);
+                        } else {
+                            availableDirections.Add(0);
+                        }
+                    } else if(findPosDir.y == validPos.y) {
+                        if(findPosDir.x > validPos.x) {
+                            availableDirections.Add(1);
+                        } else {
+                            availableDirections.Add(3);
+                        }
+                    }
+                }
+            }    
         }
 
         return availableDirections;
     }
 
-    private void drawTileSet(TileSet newTileSet, (int x, int y) displacement, bool attachStitch = false) {
+    private void drawTileSet(TileSet newTileSet, (int x, int y) displacement, bool attachStitch = false, int pathID = 0) {
         (float x, float y) newPos;
         GameObject newPathTile, newStartTile, newEndTile, newTile;
 
@@ -266,7 +249,7 @@ public class MapGenerator : MonoBehaviour
     //    method.Invoke(new object(), null);
     //}
 
-    public void expandMap()
+    public void expandMap((int x, int y) setTilePos)
     {   // expands the map
         if(!checkExpandability())
         {
@@ -324,7 +307,7 @@ public class MapGenerator : MonoBehaviour
                 break;
         }
 
-        mapLayout.Add(locTileInfo);
+        mapLayout.Add(locTileInfo, tileSets.Count - 1);
 
         Debug.Log($"Location tile info: {locTileInfo.position}");
 
@@ -340,7 +323,7 @@ public class MapGenerator : MonoBehaviour
         tileSets.Add(tileSetGen.getTileSet());
         
         locTileInfo.position = (0, 0);
-        mapLayout.Add(locTileInfo);
+        mapLayout.Add(locTileInfo, 0);
 
         drawTileSet(tileSets[0], (0, 0));
     }

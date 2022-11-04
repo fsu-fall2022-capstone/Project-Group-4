@@ -8,6 +8,8 @@ public class TileSetGenerator
     private int tileSetHeight, tileSetWidth;
     private Tile currentTile;
     private (bool x, bool y) reached = (false, false);
+    private (int x, int y) DirCardinals = (-1,-1); // 0 for bottom, 1 for right, 2 for top, 3 for left
+    private int numStartPoints;
 
     private int currIndex, nextIndex;
 
@@ -19,22 +21,24 @@ public class TileSetGenerator
         generateTileset();
     }
 
-    public TileSetGenerator(int tilesHeight, int tilesWidth, Tile previousTileSetStart) {
+    public TileSetGenerator(int tilesHeight, int tilesWidth, Tile previousTileSetStart, int numStartPoints = 1) {
         tileSetHeight = tilesHeight;
         tileSetWidth = tilesWidth;
         tileSet.height = tileSetHeight;
         tileSet.width = tileSetWidth;
         tileSet.endTile = previousTileSetStart;
+        this.numStartPoints = numStartPoints;
         generateTileset();
     }
 
-    public TileSetGenerator(int tilesHeight, int tilesWidth, Tile previousTileSetStart, int givenStartCardinal) {
+    public TileSetGenerator(int tilesHeight, int tilesWidth, Tile previousTileSetStart, int givenStartCardinal, int numStartPoints = 1) {
         tileSetHeight = tilesHeight;
         tileSetWidth = tilesWidth;
         tileSet.height = tileSetHeight;
         tileSet.width = tileSetWidth;
         tileSet.endTile = previousTileSetStart;
-        tileSet.DirCardinals.start = givenStartCardinal;
+        DirCardinals.start = givenStartCardinal;
+        this.numStartPoints = numStartPoints;
         generateTileset();
     }
 
@@ -91,6 +95,48 @@ public class TileSetGenerator
         return edgeTiles;
     }
 
+    private void coreStartGen() {
+        List<Tile> startEdgeTiles = new List<Tile>();
+
+        switch (DirCardinals.start)
+        {
+            case 0:
+                startEdgeTiles = getBottomEdgeTiles();
+                break;
+            case 1:
+                startEdgeTiles = getRightEdgeTiles();
+                break;
+            case 2:
+                startEdgeTiles = getTopEdgeTiles();
+                break;
+            case 3:
+                startEdgeTiles = getLeftEdgeTiles();
+                break;                 
+        }
+
+        int rand, startTileIndex, endTileIndex, xDiff, yDiff;
+        endTileIndex = tileSet.tiles.IndexOf(tileSet.endTile);
+
+        do {
+            rand = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
+
+            startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand]);
+
+            xDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.x - tileSet.tiles[endTileIndex].position.x);
+            yDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.y - tileSet.tiles[endTileIndex].position.y);
+        } while ((xDiff + yDiff) < 7); //Make sure enemy path is at least 7 tiles long
+
+        tileSet.tiles[startTileIndex].type = 2;
+
+        tileSet.spawnTiles.Add(tileSet.tiles[startTileIndex]);
+
+        Debug.Log($"StartTile Pos: {tileSet.spawnTiles[0].position}");
+        Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
+
+        // add the cardinals to the list
+        tileSet.DirCardinals.Add(DirCardinals);
+    }
+
     private void adjustImportedEnd() 
     {
         // normal directions are this
@@ -98,37 +144,60 @@ public class TileSetGenerator
         // but since we're stitching from the end tile, we need to reverse the directions
         // and adjust the position of the end tile to match the new edge
         if(tileSet.endTile.position.y == 0) {
-            tileSet.DirCardinals.end = 2;
+            DirCardinals.end = 2;
             tileSet.endTile.position.y = tileSetHeight - 1;
         } else if(tileSet.endTile.position.y == (tileSetHeight-1)) {
-            tileSet.DirCardinals.end = 0;
+            DirCardinals.end = 0;
             tileSet.endTile.position.y = 0;
         } else if(tileSet.endTile.position.x == 0) {
-            tileSet.DirCardinals.end = 1;
+            DirCardinals.end = 1;
             tileSet.endTile.position.x = tileSetWidth - 1;
         } else if(tileSet.endTile.position.x == (tileSetWidth-1)) {
-            tileSet.DirCardinals.end = 3;
+            DirCardinals.end = 3;
             tileSet.endTile.position.x = 0;
         }
 
-        Debug.Log($"{tileSet.DirCardinals.end}");
+        Debug.Log($"{DirCardinals.end}");
         int index = tileSet.tiles.FindIndex(tile => tile.position == tileSet.endTile.position);
         tileSet.tiles[index].type = 3;
         tileSet.endTile = tileSet.tiles[index];
+
+        // add the cardinals to the list
+        tileSet.DirCardinals.Add(DirCardinals);
     }
 
-    private void generateStartEnd()
+    private void generateAdditionalStarts() {
+        // generate additional start points
+        for (int i = 1; i < numStartPoints; i++) {
+            int newStart = UnityEngine.Random.Range(0,4); // get the cardinals
+            // 0 for bottom, 1 for right, 2 for top, 3 for left
+
+            for(int i = 0; i < tileSet.DirCardinals.Count; i++) {
+                if (newStart == tileSet.DirCardinals[i].start || newStart == tileSet.DirCardinals[i].end) {
+                    newStart = UnityEngine.Random.Range(0,4);
+                    i = 0;
+                }
+            }
+
+            DirCardinals.start = newStart;
+
+            Debug.Log($"{DirCardinals.start}");
+
+            coreStartGen();
+        }
+    }
+    private void generateStartEnd() // usually for the initial start/end construction of the map
     {
         // edge tiles for tile selection randomness
         List<Tile> startEdgeTiles = new List<Tile>();
         List<Tile> endEdgeTiles = new List<Tile>();
 
-        tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
+        DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
         // 0 for bottom, 1 for right, 2 for top, 3 for left
 
-        Debug.Log($"{tileSet.DirCardinals.start}");
+        Debug.Log($"{DirCardinals.start}");
         
-        switch (tileSet.DirCardinals.start)
+        switch (DirCardinals.start)
         {
             case 0:
                 startEdgeTiles = getBottomEdgeTiles();
@@ -144,14 +213,14 @@ public class TileSetGenerator
                 break;                    
         }
 
-        tileSet.DirCardinals.end = UnityEngine.Random.Range(0,4);
-        while(tileSet.DirCardinals.end == tileSet.DirCardinals.start) {
-            tileSet.DirCardinals.end = UnityEngine.Random.Range(0,4);
+        DirCardinals.end = UnityEngine.Random.Range(0,4);
+        while(DirCardinals.end == DirCardinals.start) {
+            DirCardinals.end = UnityEngine.Random.Range(0,4);
         }
 
-        Debug.Log($"{tileSet.DirCardinals.end}");
+        Debug.Log($"{DirCardinals.end}");
 
-        switch (tileSet.DirCardinals.end) {
+        switch (DirCardinals.end) {
             case 0:
                 endEdgeTiles = getBottomEdgeTiles();
                 break;
@@ -183,66 +252,41 @@ public class TileSetGenerator
         tileSet.tiles[startTileIndex].type = 2;
         tileSet.tiles[endTileIndex].type = 3;
 
-        tileSet.startTile = tileSet.tiles[startTileIndex];
+        tileSet.spawnTiles.Add(tileSet.tiles[startTileIndex]); // start tile
         tileSet.endTile = tileSet.tiles[endTileIndex];
 
-        Debug.Log($"StartTile Pos: {tileSet.startTile.position}");
+        Debug.Log($"StartTile Pos: {tileSet.spawnTiles[0].position}");
         Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
+
+        // add the cardinals to the list
+        tileSet.DirCardinals.Add(DirCardinals);
+        if(numStartPoints > 1)
+            generateAdditionalStarts();
     }
 
-    private void generateStart() 
+    private void generateStart() // imported end tile, generate start
     {
-        adjustImportedEnd();
+        adjustImportedEnd(); // fix the end tile to match the new edge
 
         // edge tiles for tile selection randomness
         List<Tile> startEdgeTiles = new List<Tile>();
 
-        if(tileSet.DirCardinals.start == -1) { // start cardinal can be set by MapGenerator
+        if(DirCardinals.start == -1) { // start cardinal can be set by MapGenerator
                                         // if random start is not desired
                                         // this is to keep the same capability as before
-            tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
+            DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
 
-            while(tileSet.DirCardinals.start == tileSet.DirCardinals.end) {
-                tileSet.DirCardinals.start = UnityEngine.Random.Range(0,4);
+            while(DirCardinals.start == DirCardinals.end) {
+                DirCardinals.start = UnityEngine.Random.Range(0,4);
             }
         }
 
-        Debug.Log($"{tileSet.DirCardinals.start}");
+        Debug.Log($"{DirCardinals.start}");
         
-        switch (tileSet.DirCardinals.start)
-        {
-            case 0:
-                startEdgeTiles = getBottomEdgeTiles();
-                break;
-            case 1:
-                startEdgeTiles = getRightEdgeTiles();
-                break;
-            case 2:
-                startEdgeTiles = getTopEdgeTiles();
-                break;
-            case 3:
-                startEdgeTiles = getLeftEdgeTiles();
-                break;                 
-        }
+        coreStartGen();
 
-        int rand, startTileIndex, endTileIndex, xDiff, yDiff;
-        endTileIndex = tileSet.tiles.IndexOf(tileSet.endTile);
-
-        do {
-            rand = UnityEngine.Random.Range(1, startEdgeTiles.Count - 1);
-
-            startTileIndex = tileSet.tiles.IndexOf(startEdgeTiles[rand]);
-
-            xDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.x - tileSet.tiles[endTileIndex].position.x);
-            yDiff = Mathf.Abs(tileSet.tiles[startTileIndex].position.y - tileSet.tiles[endTileIndex].position.y);
-        } while ((xDiff + yDiff) < 7); //Make sure enemy path is at least 7 tiles long
-
-        tileSet.tiles[startTileIndex].type = 2;
-
-        tileSet.startTile = tileSet.tiles[startTileIndex];
-
-        Debug.Log($"StartTile Pos: {tileSet.startTile.position}");
-        Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
+        if(numStartPoints > 1)
+            generateAdditionalStarts();
     }
 
     private void moveDown()
@@ -381,7 +425,7 @@ public class TileSetGenerator
             
             for(int i = 0; i < quadrantNodes.Count; i++) {
                 float distance = (float) Vector2.Distance(new Vector2(quadrantNodes[i].position.x, quadrantNodes[i].position.y), 
-                    new Vector2(tileSet.startTile.position.x, tileSet.startTile.position.y));
+                    new Vector2(tileSet.spawnTiles[0].position.x, tileSet.spawnTiles[0].position.y));
                 if(distance < closestDistance) {
                     closestDistance = distance;
                     closeStart = quadrantNodes[i];
@@ -460,7 +504,7 @@ public class TileSetGenerator
 
     private void patchPath() {
         // need to fix up any gaps in the path
-        Tile previousTile = tileSet.startTile;
+        Tile previousTile = tileSet.spawnTiles[0];
 
         for(int i = 1; i < tileSet.pathTiles.Count; i++) {
             float distance = (float) Vector2.Distance(new Vector2(tileSet.pathTiles[i].position.x, tileSet.pathTiles[i].position.y), 
@@ -495,7 +539,7 @@ public class TileSetGenerator
             counter++;
             Debug.Log($"CurrentTile: {currentTile.position}");
             if(counter == 1 && start) {
-                switch(tileSet.DirCardinals.start) {
+                switch(DirCardinals.start) {
                     // 0 for bottom, 1 for left, 2 for top, 3 for right
                     case 0:
                         moveUp();
@@ -560,7 +604,7 @@ public class TileSetGenerator
     {
         List<Tile> pathingNodes = generateQuadrantNodes();
         pathingNodes.Add(tileSet.endTile);
-        currentTile = tileSet.startTile;
+        currentTile = tileSet.spawnTiles[0]; // start at the first spawn tile
 
         Debug.Log("Generating Path");
         PathingLogic(pathingNodes, true);

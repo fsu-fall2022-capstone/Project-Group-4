@@ -21,7 +21,7 @@ Each increment of the project requires a set of deliverables to be completed. On
 
 * [Software Implementation and Testing Document](/Docs/ITDoc.md)
 * [Software Requirements and Design Document](/Docs/RDDoc.md)
-* [Progress Report](/Docs/ProgressReport.md)
+* [Progress Report](/Docs/ProgReport.md)
 
 ### Group Members
 
