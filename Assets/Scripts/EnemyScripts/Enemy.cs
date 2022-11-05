@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     protected float timeCheck;
 
     protected GameObject targetTile;
+    protected int pathID = 0;
     [SerializeField] protected bool waitForTarget = false;
     protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
@@ -54,6 +55,11 @@ public class Enemy : MonoBehaviour
     public void initializeTarget(GameObject _targetTile)
     {
         targetTile = _targetTile;
+    }
+
+    public void setPathID(int _pathID)
+    {
+        pathID = _pathID;
     }
 
     public void takeDamage(float amount)
@@ -126,9 +132,9 @@ public class Enemy : MonoBehaviour
     {
         if (targetTile != null && targetTile != MapGenerator.endTile) {
             if (Vector3.Distance(transform.position, targetTile.transform.position) < 0.001f) {
-                int currIndex = MapGenerator.pathTiles.IndexOf(targetTile);
+                int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
 
-                targetTile = MapGenerator.pathTiles[currIndex - 1];
+                targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
             }
         }
         else if (targetTile == MapGenerator.endTile) {
