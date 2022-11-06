@@ -7,6 +7,7 @@ public class Scene2Handler : MonoBehaviour
 {
     public static void NewGame()
     {
+        clearListsFromGameScene();
     	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     	Debug.Log("Reset the Scene...");
         //SceneManager.LoadScene("Scene", LoadSceneMode.Single);
@@ -14,8 +15,15 @@ public class Scene2Handler : MonoBehaviour
 
     public static void mainMenu()
     {
+        clearListsFromGameScene();
     	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Debug.Log("Loading Menu...");
     	//SceneManager.LoadScene("StartScene", LoadSceneMode.Single);
+    }
+
+    public static void clearListsFromGameScene() {
+        MapGenerator.clearMapGenerator();
+        Counter.clearCounter();
     }
 
     public static void Quit()
