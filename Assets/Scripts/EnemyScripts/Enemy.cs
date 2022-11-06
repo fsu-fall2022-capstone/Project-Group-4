@@ -118,7 +118,16 @@ public class Enemy : MonoBehaviour
 
     private void moveEnemy()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * Time.deltaTime);
+        //Time.deltaTime is zero when new game is set so enemy speed is zero, need enemy speed to be positive
+        if (Time.deltaTime == 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * 1f);
+        }
+        else 
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * Time.deltaTime);
+        }
+        
     }
 
     //Modified to check if an enemy has hit the endTile, then update player health
