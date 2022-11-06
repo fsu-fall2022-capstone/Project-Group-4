@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
         if (HealthBar.lives == 0f)
         {
             GameOver.Show();
+            MapGenerator.clearMapGenerator();
         }
     }
 }

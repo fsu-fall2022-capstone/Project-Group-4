@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MapRenderer : MonoBehaviour {
     private int previousMapCount = 0;
+    public static bool activeRenderer = true;
 
     protected void Update() {
-        if (previousMapCount != MapGenerator.mapTiles.Count) {
+        if (previousMapCount != MapGenerator.mapTiles.Count && activeRenderer) {
             Debug.Log("MapRenderer: Map count changed from " + previousMapCount + " to " + MapGenerator.mapTiles.Count);
             previousMapCount = MapGenerator.mapTiles.Count;
             updateSortingLayerValue();

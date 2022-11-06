@@ -34,7 +34,7 @@ public class MapGenerator : MonoBehaviour
     public static GameObject endTile { get; private set; } // home position of player
 
     [SerializeField] private int maxDirectionalStraightness = 3;
-    private int straightLineCounter = 0; // counter for map path, to prevent too many straight lines
+    private static int straightLineCounter = 0; // counter for map path, to prevent too many straight lines
 
     // may be needed
     //private (bool x, bool y) reached = (false, false);
@@ -52,6 +52,22 @@ public class MapGenerator : MonoBehaviour
     private void Update()
     {
 
+    }
+
+    public static void clearMapGenerator() // this function is under the assumption
+    { // that it's only being called when leaving or reloading the scene
+        MapRenderer.activeRenderer = false;
+
+        startTile = null;
+        endTile = null;
+        straightLineCounter = 0;
+
+        mapTiles.Clear();
+        pathTiles.Clear();
+        tileSets.Clear();
+        mapLayout.Clear();
+
+        MapRenderer.activeRenderer = true;
     }
 
     public bool checkExpandability() 
