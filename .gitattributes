@@ -1,0 +1,2 @@
+* text=auto eol=lf linguist-vendored=true
+*.cs linguist-vendored=false
