@@ -45,6 +45,7 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         if (main == null) main = this;
+        gameObject.AddComponent<MapRenderer>();
         generateMap();
     }
 
@@ -209,6 +210,7 @@ public class MapGenerator : MonoBehaviour
         if(attachStitch) {
             // old end tile info
             Vector3 oldPos = startTile.transform.position;
+            mapTiles.Remove(startTile);
             pathTiles.Remove(startTile);
             Destroy(startTile);
 
@@ -235,26 +237,33 @@ public class MapGenerator : MonoBehaviour
                 case 1: 
                     newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                     pathTiles.Add(newPathTile);
+                    mapTiles.Add(newPathTile);
                     break;                
                 case 2:
                     // the sprite will be rotated to face the correct direction based on the cardinal direction
                     // though this is still a work in progress as we actually need an actual sprite to rotate
                     newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
                     pathTiles.Add(newStartTile);
+                    mapTiles.Add(newStartTile);
                     startTile = newStartTile;
                     break;
                 case 3:
                     if (!attachStitch) {
                         newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
                         pathTiles.Add(newEndTile);
+                        mapTiles.Add(newEndTile);
                         endTile = newEndTile;
                     } else {
                         newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                         pathTiles.Add(newPathTile);
+                        mapTiles.Add(newPathTile);
                     }
                     break;
             }
         }
+    
+        // reorder the mapTiles based on their position from bottom to top        
+        mapTiles.Sort((x, y) => x.transform.position.y.CompareTo(y.transform.position.y));
     }
 
     // uncomment if debugging in editor
