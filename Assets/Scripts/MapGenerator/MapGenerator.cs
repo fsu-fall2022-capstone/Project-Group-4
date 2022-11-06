@@ -25,11 +25,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private float spriteSize = 1f;
 
     public static List<GameObject> mapTiles = new List<GameObject>();
-    public static List<GameObject> pathTiles = new List<GameObject>();
+    public static List<List<GameObject>> pathTiles = new List<List<GameObject>>();
     public static List<TileSet> tileSets = new List<TileSet>();
     public static List<MapLayout> mapLayout = new List<MapLayout>();
-    //public static List<GameObject> resourceTiles = new List<GameObject>();
-    public static List<MapLayout> expandableTiles = new List<MapLayout>();
+    public static List<MapLayout> expandableTiles = new List<MapLayout>(); // keeps the data of where the map can expand to
     public static List<GameObject> spawnTiles = new List<GameObject>();
 
     public static GameObject startTile { get; private set; } // starting position of enemy
@@ -68,174 +67,109 @@ public class MapGenerator : MonoBehaviour
         return true;
     }
 
-    private List<int> checkAvailableExpansionDirections((int x, int y) tilePos, int tileSetNum) {
-        // now at the valid point of expansion, time to check which start directions are available
-        (int x, int y) lastTilePos = layoutInfo.position;
-        
-        List<int> availableDirections = new List<int>();
+    private void updateAvailableExpansionVectors() {
+        foreach(MapLayout layout in mapLayout)
+        {
 
-        // check for available directions
-        for(int m = 0; m < tileSets[tileSetNum].DirCardinals.Count; m++) {
-            (int start, int end) lastDir = tileSets[tileSetNum].DirCardinals[m];
-
-            (int x, int y) validPos = (0,0);
-            (int x, int y) checkPos = (0,0);
-            (int x, int y) findPosDir = (0,0);
-
-            List<(int x, int y)> checkVectors = new List<(int x, int y)>();
-            List<(int x, int y)> availableVectors = new List<(int x, int y)>();
-
-            switch(lastDir.start)
-            {
-                case 0: // bottom
-                    validPos = (lastTilePos.x, lastTilePos.y - 1);
-                    if(straightLineCounter <= maxDirectionalStraightness)
-                    {
-                        checkPos = (validPos.x, validPos.y - 1); // down
-                        checkVectors.Add(checkPos);
-                    }
-                    checkPos = (validPos.x + 1, validPos.y); // right
-                    checkVectors.Add(checkPos);
-                    checkPos = (validPos.x - 1, validPos.y); // left
-                    checkVectors.Add(checkPos);
-                    break;
-                case 1: // right
-                    validPos = (lastTilePos.x + 1, lastTilePos.y);
-                    if(straightLineCounter <= maxDirectionalStraightness)
-                    {
-                        checkPos = (validPos.x + 1, validPos.y); // right
-                        checkVectors.Add(checkPos);
-                    }
-                    checkPos = (validPos.x, validPos.y - 1); // down
-                    checkVectors.Add(checkPos);
-                    checkPos = (validPos.x, validPos.y + 1); // up
-                    break;
-                case 2: // top
-                    validPos = (lastTilePos.x, lastTilePos.y + 1);
-                    if(straightLineCounter <= maxDirectionalStraightness)
-                    {
-                        checkPos = (validPos.x, validPos.y + 1); // up
-                        checkVectors.Add(checkPos);
-                    }
-                    checkPos = (validPos.x + 1, validPos.y); // right
-                    checkVectors.Add(checkPos);
-                    checkPos = (validPos.x - 1, validPos.y); // left
-                    checkVectors.Add(checkPos);
-                    break;
-                case 3: // left
-                    validPos = (lastTilePos.x - 1, lastTilePos.y);
-                    if(straightLineCounter <= maxDirectionalStraightness){
-                        checkPos = (validPos.x - 1, validPos.y); // left
-                        checkVectors.Add(checkPos);
-                    }
-                    checkPos = (validPos.x, validPos.y - 1); // down
-                    checkVectors.Add(checkPos);
-                    checkPos = (validPos.x, validPos.y + 1); // up
-                    checkVectors.Add(checkPos);
-                    break;
-            }
-
-            for(int i = 0; i < checkVectors.Count; i++) {
-                checkPos = checkVectors[i];
-                if(!mapLayout.Any(x => x.position == checkPos)) {
-                    availableVectors.Add(checkPos);
-                }
-            }
-
-            if(availableVectors.Count != 0){
-                for(int i = 0; i < availableVectors.Count; i++) {
-                    findPosDir = availableVectors[i];
-                    if(findPosDir.x == validPos.x) {
-                        if(findPosDir.y > validPos.y) {
-                            availableDirections.Add(2);
-                        } else {
-                            availableDirections.Add(0);
-                        }
-                    } else if(findPosDir.y == validPos.y) {
-                        if(findPosDir.x > validPos.x) {
-                            availableDirections.Add(1);
-                        } else {
-                            availableDirections.Add(3);
-                        }
-                    }
-                }
-            }    
         }
-
-        return availableDirections;
     }
 
-    private void drawTileSet(TileSet newTileSet, (int x, int y) displacement, bool attachStitch = false, int pathID = 0) {
+    private void drawTileSet(TileSet newTileSet, (int x, int y) displacement, bool attachStitch = false, bool preRendered = false, int pathID = 0) {
         (float x, float y) newPos;
         GameObject newPathTile, newStartTile, newEndTile, newTile;
 
-        for(int i = 0; i < newTileSet.tiles.Count; i++) {
-            Tile currTile = newTileSet.tiles[i];
-            if(generateAsIsometric){
-                newPos.x = (((displacement.x) + currTile.position.x)
-                 * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
-                newPos.y = ((((displacement.x) + currTile.position.x)
-                 * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
-            } else {
-                newPos.x = (displacement.x) + currTile.position.x;
-                newPos.y = (displacement.y) + currTile.position.y;
-            }
-            //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
-            Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
-            if(currTile.type == 0) {
-                // can randomize between mapTile1, mapTile2, mapTile3 here if needed
-                newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
-                mapTiles.Add(newTile);
+        if(!preRendered) { // if not pre-rendered, then we need to generate the tiles
+            for(int i = 0; i < newTileSet.tiles.Count; i++) {
+                Tile currTile = newTileSet.tiles[i];
+                if(generateAsIsometric){
+                    newPos.x = (((displacement.x) + currTile.position.x)
+                     * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
+                    newPos.y = ((((displacement.x) + currTile.position.x)
+                     * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
+                } else {
+                    newPos.x = (displacement.x) + currTile.position.x;
+                    newPos.y = (displacement.y) + currTile.position.y;
+                }
+                //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
+                Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
+                if(currTile.type == 0) {
+                    // can randomize between mapTile1, mapTile2, mapTile3 here if needed
+                    newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
+                    mapTiles.Add(newTile);
+                }
             }
         }
 
         if(attachStitch) {
             // old end tile info
-            Vector3 oldPos = startTile.transform.position;
-            pathTiles.Remove(startTile);
-            Destroy(startTile);
+            Vector3 oldPos = spawnTiles[pathID].transform.position;
+            pathTiles[pathID].Remove(spawnTiles[pathID]);
+            Destroy(spawnTiles[pathID]);
 
             // converting the end tile sprite to a path tile sprite
             GameObject replacedTile = Instantiate(pathTile, oldPos, Quaternion.identity);
-            pathTiles.Add(replacedTile);
+            pathTiles[pathID].Add(replacedTile);
         }
 
-        for(int i = newTileSet.pathTiles.Count - 1; i >= 0; i--) {
-            Tile currTile = newTileSet.pathTiles[i];
-            if(generateAsIsometric) {
-                newPos.x = (((displacement.x) + currTile.position.x)
-                 * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
-                newPos.y = ((((displacement.x) + currTile.position.x)
-                 * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
-            } else {
-                newPos.x = (displacement.x) + currTile.position.x;
-                newPos.y = (displacement.y) + currTile.position.y;
+        int newPathID = -1;
+        for(int index = 0; index < newTileSet.pathTiles.Count; index++) {
+            if(newTileSet.pathTiles.Count > 1 && newPathID == -1) {
+                newPathID = pathTiles.Count;
+                for(int i = 1; i < newTileSet.pathTiles.Count; i++) { // need to ready the pathTiles list for the new path
+                    pathTiles.Add(new List<GameObject>());
+                }
             }
+            for(int i = newTileSet.pathTiles[index].Count - 1; i >= 0; i--) {
+                Tile currTile = newTileSet.pathTiles[index][i];
+                if(generateAsIsometric) {
+                    newPos.x = (((displacement.x) + currTile.position.x)
+                     * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
+                    newPos.y = ((((displacement.x) + currTile.position.x)
+                     * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
+                } else {
+                    newPos.x = (displacement.x) + currTile.position.x;
+                    newPos.y = (displacement.y) + currTile.position.y;
+                }
 
-            //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
-            Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
-            switch(currTile.type) {
-                case 1: 
-                    newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
-                    pathTiles.Add(newPathTile);
-                    break;                
-                case 2:
-                    // the sprite will be rotated to face the correct direction based on the cardinal direction
-                    // though this is still a work in progress as we actually need an actual sprite to rotate
-                    newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
-                    pathTiles.Add(newStartTile);
-                    startTile = newStartTile;
-                    break;
-                case 3:
-                    if (!attachStitch) {
-                        newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
-                        pathTiles.Add(newEndTile);
-                        endTile = newEndTile;
-                    } else {
-                        newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
-                        pathTiles.Add(newPathTile);
+                //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
+                Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
+
+                // check to see if it already exists in a different pathTiles list
+                bool alreadyExists = false;
+                if(mapTiles.Any(x => x.transform.position == tilePos)) {
+                    alreadyExists = true;
+                    pathTiles[pathID+index].Add(mapTiles.Find(x => x.transform.position == tilePos));
+                }
+
+                if(!alreadyExists) {
+                    switch(currTile.type) {
+                        case 1: 
+                            newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                            pathTiles[pathID].Add(newPathTile);
+                            break;                
+                        case 2:
+                            // the sprite will be rotated to face the correct direction based on the cardinal direction
+                            // though this is still a work in progress as we actually need an actual sprite to rotate
+                            newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
+                            pathTiles[pathID].Add(newStartTile);
+                            spawnTiles.Insert(pathID, newStartTile);
+                            break;
+                        case 3:
+                            if (!attachStitch) {
+                                newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
+                                pathTiles[pathID].Add(newEndTile);
+                                endTile = newEndTile;
+                            } else {
+                                newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                                pathTiles[pathID].Add(newPathTile);
+                            }
+                            break;
                     }
-                    break;
+                }
+            }
+            if(!newPathID != -1) {
+                pathID = newPathID;
+                newPathID++;
             }
         }
     }
@@ -249,81 +183,49 @@ public class MapGenerator : MonoBehaviour
     //    method.Invoke(new object(), null);
     //}
 
-    public void expandMap((int x, int y) setTilePos)
+    public void expandMap(MapLayout locTileInfo)
     {   // expands the map
-        if(!checkExpandability())
-        {
-            Debug.Log("Map cannot be expanded.");
+        if(expandableTiles.Count == 0) {
+            Debug.Log("No expandable tilesets");
+            return;
+        } else if(!expandableTiles.Any(x => x.position == locTileInfo.position)) {
+            Debug.Log("MapLayout isn't expandable");
             return;
         }
 
-        //ClearLog();
+        int randomNum = Random.Range(0, 100);
+        int randomPathCount;
+        if (randomNum >= 0 && randomNum < 30) {
+            randomPathCount = 2;
+        } else if(randomNum >= 30 && randomNum < 40) {
+            randomPathCount = 3;
+        } else
+            randomPathCount = 1;
 
-        Debug.Log("Map expansion!");
-
-        List<int> availableDirections = checkAvailableExpansionDirections();
-        (int start, int end) lastDir = tileSets[tileSets.Count - 1].DirCardinals;
-
-        MapLayout locTileInfo = new MapLayout();
-        Tile genStitchTile = new Tile(tileSets[tileSets.Count-1].startTile.position, 3);
-        TileSetGenerator tileSetGen;
-        if(availableDirections.Count == 0 || availableDirections.Count == 3) { 
-            // direction won't matter, just pick a random one
-            Debug.Log("Any direction is available.");
-            tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile);
-        } else {
-            int rand = UnityEngine.Random.Range(0, availableDirections.Count);
-            Debug.Log($"Random number: {rand}");
-            int randDir = availableDirections[rand];
-            Debug.Log($"Random direction: {randDir}");
-            tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile, randDir);
-        }
-
-        Debug.Log($"{tileSetGen.ToString()}");
-        TileSet newTileSet = tileSetGen.getTileSet();
-        tileSets.Add(newTileSet);
+        int tileSetNum = locTileInfo.tileSetNum;
+        int pathID = locTileInfo.pathID;
         
-        if(newTileSet.DirCardinals.start == lastDir.start) {
-            straightLineCounter++;
-        } else {
-            straightLineCounter = 0;
+
+        bool preRendered = false;
+        for(int i = 0; i < randomPathCount; i++, preRendered = true) {
+            drawTileSet(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true, preRendered, i);
         }
-        
-        (int x, int y) lastPos = mapLayout[mapLayout.Count - 1].position;
-
-        switch(lastDir.start)
-        {
-            case 0: // bottom
-                locTileInfo.position = (lastPos.x, lastPos.y - 1);
-                break;
-            case 1: // right
-                locTileInfo.position = (lastPos.x + 1, lastPos.y);
-                break;
-            case 2: // top
-                locTileInfo.position = (lastPos.x, lastPos.y + 1);
-                break;
-            case 3: // left
-                locTileInfo.position = (lastPos.x - 1, lastPos.y);
-                break;
-        }
-
-        mapLayout.Add(locTileInfo, tileSets.Count - 1);
-
-        Debug.Log($"Location tile info: {locTileInfo.position}");
-
-        drawTileSet(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true);
+        updateAvailableExpansionVectors(); // updates the list for what's available to expand
     }
 
     private void generateMap()
     {   // generates the initial map
         MapLayout locTileInfo = new MapLayout();
-        TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight);
+        TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, numStartPoints: 1);
 
         Debug.Log($"{tileSetGen.ToString()}");
         tileSets.Add(tileSetGen.getTileSet());
         
         locTileInfo.position = (0, 0);
-        mapLayout.Add(locTileInfo, 0);
+        locTileInfo.tileSetNum = 0;
+        locTileInfo.pathID = 0;
+        mapLayout.Add(locTileInfo);
+        pathTiles.Add(new List<GameObject>());
 
         drawTileSet(tileSets[0], (0, 0));
     }
