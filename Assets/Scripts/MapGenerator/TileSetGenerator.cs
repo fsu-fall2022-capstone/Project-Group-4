@@ -46,10 +46,7 @@ public class TileSetGenerator
     }
 
     private void initializeFromNumStartPoints(int numStartPoints) {
-        if (numStartPoints > 3)
-            this.numStartPoints = 3;
-        else
-            this.numStartPoints = numStartPoints;
+        this.numStartPoints = (numStartPoints > 3) ? 3 : numStartPoints;
         for (int i = 0; i < numStartPoints; i++) {
             tileSet.pathTiles.Add(new List<Tile>());
         }

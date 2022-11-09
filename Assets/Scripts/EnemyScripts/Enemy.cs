@@ -206,12 +206,7 @@ public class Enemy : MonoBehaviour
                 case StatusType.Shielded:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
-                    if (status.duration <= 0f) {
-                        allowDamage = true;
-                        Debug.Log($"{name} is no longer {status.statusType}");
-                    }
-                    else
-                        allowDamage = false;
+                    allowDamage = (status.duration <= 0f) ? true : false;
                     break;
             }
             timeCheck = Time.time;
