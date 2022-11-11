@@ -25,4 +25,8 @@ public class MapLayout
         tileSetNum = newTileSetNum;
         initPathID = newPathID;
     }
+
+    public override string ToString() {
+        return "position: " + position + " tileSetNum: " + tileSetNum + " initPathID: " + initPathID;
+    }
 }

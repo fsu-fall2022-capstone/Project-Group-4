@@ -96,7 +96,7 @@ public class MapGenerator : MonoBehaviour
         (int x, int y) checkPos = (0,0);
         (int x, int y) findPosDir = (0,0);
 
-        switch(lastDir.start)
+        switch(start)
         {
             case 0: // bottom
                 validPos = (lastTilePos.x, lastTilePos.y - 1);
@@ -180,11 +180,15 @@ public class MapGenerator : MonoBehaviour
         
         for(int id = 0; id < spawnTiles.Count; id++) {
             var lastPath = mapLayout.LastOrDefault(x => x.relevantPaths.Any(y => y.id == id));
+            Debug.Log("lastPath: " + lastPath);
             if(lastPath != null) {
                 int index = lastPath.relevantPaths.FindIndex(x => x.id == id);
+                Debug.Log("index: " + index);
                 if(checkExpandability(lastPath.position, lastPath.relevantPaths[index].start)) {
                     (int x, int y) lastTilePos = lastPath.position;
                     (int x, int y) newPos = (0,0);
+
+                    Debug.Log("lastTilePos: " + lastTilePos);
                     
                     switch(lastPath.relevantPaths[index].start)
                     {
@@ -202,7 +206,15 @@ public class MapGenerator : MonoBehaviour
                             break;
                     }
 
-                    expandableTiles.Add(new MapLayout(newPos, -1, id));
+                    Debug.Log("newPos: " + newPos);
+
+                    MapLayout newLayout = new MapLayout(newPos, -1, id);
+                    newLayout.relevantPaths.Add((id, lastPath.relevantPaths[index].start));
+
+                    expandableTiles.Add(newLayout);
+
+                    Debug.Log("expandableTiles: " + expandableTiles);
+                    Debug.Log("expandableTiles.Count: " + expandableTiles.Count);
                 }
             }
         }
@@ -308,6 +320,12 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    public void randomExpand() {
+        int randomIndex = Random.Range(0, expandableTiles.Count);
+        MapLayout randomTile = expandableTiles[randomIndex];
+        expandMap(randomTile);
+    }
+
     public bool expandMap(MapLayout locTileInfo)
     {   // expands the map
         if(expandableTiles.Count == 0) {
@@ -329,7 +347,7 @@ public class MapGenerator : MonoBehaviour
 
         int initPathID = locTileInfo.initPathID;
 
-        List<int> availableDirections = checkAvailableExpansionDirections();
+        List<int> availableDirections = checkAvailableExpansionDirections(locTileInfo);
 
         TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, numStartPoints: randomPathCount);
         TileSet newTileSet = tileSetGen.getTileSet();
@@ -341,8 +359,6 @@ public class MapGenerator : MonoBehaviour
                 pathTiles.Add(new List<GameObject>());
             }
         }
-        
-
 
         //bool preRendered = false; // prevents tiles from being generated if the map is pre-rendered
         //for(int i = 0; i < randomPathCount; i++, preRendered = true) {
@@ -366,5 +382,6 @@ public class MapGenerator : MonoBehaviour
         pathTiles.Add(new List<GameObject>());
 
         drawTileSet(tileSets[0], (0, 0));
+        updateAvailableExpansionVectors();
     }
 }
