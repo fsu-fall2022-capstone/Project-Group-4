@@ -208,7 +208,7 @@ public class MapGenerator : MonoBehaviour
 
                     Debug.Log("newPos: " + newPos);
 
-                    MapLayout newLayout = new MapLayout(newPos, -1, id);
+                    MapLayout newLayout = new MapLayout(newPos, lastPath.tileSetNum, id);
                     newLayout.relevantPaths.Add((id, lastPath.relevantPaths[index].start));
 
                     expandableTiles.Add(newLayout);
@@ -349,21 +349,27 @@ public class MapGenerator : MonoBehaviour
 
         List<int> availableDirections = checkAvailableExpansionDirections(locTileInfo);
 
-        TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, numStartPoints: randomPathCount);
+        Tile stitch = tileSets[locTileInfo.tileSetNum].spawnTiles[0];
+        Debug.Log($"Stitch: {stitch.position.x}, {stitch.position.y}");
+        TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, stitch, numStartPoints: randomPathCount);
         TileSet newTileSet = tileSetGen.getTileSet();
+        Debug.Log($"{tileSetGen.ToString()}");
+        tileSets.Add(newTileSet);
 
         for(int i = 0; i < randomPathCount; i++) {
             int count = (i == 0) ? initPathID : pathTiles.Count; 
             locTileInfo.relevantPaths.Add((count,newTileSet.DirCardinals[i].start));
-            if(i != 0) {
-                pathTiles.Add(new List<GameObject>());
-            }
         }
+
+
+        drawTileSet(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true, false, initPathID);
 
         //bool preRendered = false; // prevents tiles from being generated if the map is pre-rendered
         //for(int i = 0; i < randomPathCount; i++, preRendered = true) {
         //    drawTileSet(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true, preRendered, i);
         //}
+        mapLayout.Add(locTileInfo);
+        Debug.Log($"MapLayout: {locTileInfo.position}");
         updateAvailableExpansionVectors(); // updates the list for what's available to expand
         return true;
     }
