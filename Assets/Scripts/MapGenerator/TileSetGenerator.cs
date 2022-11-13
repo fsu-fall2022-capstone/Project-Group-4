@@ -140,8 +140,8 @@ public class TileSetGenerator
 
         tileSet.spawnTiles.Add(tileSet.tiles[startTileIndex]);
 
-        Debug.Log($"StartTile Pos: {tileSet.spawnTiles[tileSet.spawnTiles.Count - 1].position}");
-        Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
+        //Debug.Log($"StartTile Pos: {tileSet.spawnTiles[tileSet.spawnTiles.Count - 1].position}");
+        //Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
 
         // add the cardinals to the list
         tileSet.DirCardinals.Add(DirCardinals);
@@ -167,13 +167,10 @@ public class TileSetGenerator
             tileSet.endTile.position.x = 0;
         }
 
-        Debug.Log($"{DirCardinals.end}");
+        //Debug.Log($"{DirCardinals.end}");
         int index = tileSet.tiles.FindIndex(tile => tile.position == tileSet.endTile.position);
         tileSet.tiles[index].type = 3;
         tileSet.endTile = tileSet.tiles[index];
-
-        // add the cardinals to the list
-        tileSet.DirCardinals.Add(DirCardinals);
     }
 
     private void generateAdditionalStarts() {
@@ -199,7 +196,7 @@ public class TileSetGenerator
 
             DirCardinals.start = newStart;
 
-            Debug.Log($"{DirCardinals.start}");
+            //Debug.Log($"{DirCardinals.start}");
 
             coreStartGen();
         }
@@ -213,7 +210,7 @@ public class TileSetGenerator
         DirCardinals.start = UnityEngine.Random.Range(0,4); // get the cardinals
         // 0 for bottom, 1 for right, 2 for top, 3 for left
 
-        Debug.Log($"{DirCardinals.start}");
+        //Debug.Log($"{DirCardinals.start}");
         
         switch (DirCardinals.start)
         {
@@ -236,7 +233,7 @@ public class TileSetGenerator
             DirCardinals.end = UnityEngine.Random.Range(0,4);
         }
 
-        Debug.Log($"{DirCardinals.end}");
+        //Debug.Log($"{DirCardinals.end}");
 
         switch (DirCardinals.end) {
             case 0:
@@ -273,8 +270,8 @@ public class TileSetGenerator
         tileSet.spawnTiles.Add(tileSet.tiles[startTileIndex]); // start tile
         tileSet.endTile = tileSet.tiles[endTileIndex];
 
-        Debug.Log($"StartTile Pos: {tileSet.spawnTiles[0].position}");
-        Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
+        //Debug.Log($"StartTile Pos: {tileSet.spawnTiles[0].position}");
+        //Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
 
         // add the cardinals to the list
         tileSet.DirCardinals.Add(DirCardinals);
@@ -299,7 +296,7 @@ public class TileSetGenerator
             }
         }
 
-        Debug.Log($"{DirCardinals.start}");
+        //Debug.Log($"{DirCardinals.start}");
         
         coreStartGen();
 
@@ -309,50 +306,50 @@ public class TileSetGenerator
 
     private void moveDown(int pathID = 0)
     {
-        Debug.Log($"Added {currentTile.position} as path.");
+        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = currIndex - tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
-        Debug.Log("Moved Down.");
+        //Debug.Log("Moved Down.");
     }
 
     private void moveUp(int pathID = 0)
     {
-        Debug.Log($"Added {currentTile.position} as path.");
+        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = currIndex + tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
-        Debug.Log("Moved Up.");
+        //Debug.Log("Moved Up.");
     }
 
     private void moveRight(int pathID = 0)
     {
-        Debug.Log($"Added {currentTile.position} as path.");
+        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = ++currIndex;
         currentTile = tileSet.tiles[nextIndex];
-        Debug.Log("Moved Right.");
+        //Debug.Log("Moved Right.");
     }
 
     private void moveLeft(int pathID = 0) 
     {
-        Debug.Log($"Added {currentTile.position} as path.");
+        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if(tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = --currIndex;
         currentTile = tileSet.tiles[nextIndex];
-        Debug.Log("Moved Left.");
+        //Debug.Log("Moved Left.");
     }
 
     // Getting the different quadrants will require
@@ -455,8 +452,8 @@ public class TileSetGenerator
             quadrantNodes.Clear();
             quadrantNodes.Add(closeStart);
             quadrantNodes.Add(lonerChoice);
-            Debug.Log($"Node 1: {closeStart.position}");
-            Debug.Log($"Node 2: {lonerChoice.position}");
+            //Debug.Log($"Node 1: {closeStart.position}");
+            //Debug.Log($"Node 2: {lonerChoice.position}");
         }
 
         return quadrantNodes;
@@ -497,7 +494,7 @@ public class TileSetGenerator
                             tileSet.pathTiles[pathID].RemoveAt(j);
                             positionList[i] = (positionList[i].position, positionList[i].count - 1);
                             loopCounter--;
-                            Debug.Log($"Removed tile at {removedTile.position}");
+                            //Debug.Log($"Removed tile at {removedTile.position}");
                             break;
                         } else {
                             removedTile = tileSet.pathTiles[pathID][j];
@@ -510,7 +507,7 @@ public class TileSetGenerator
                                 }
                             }
                             tileSet.pathTiles[pathID].RemoveAt(j);
-                            Debug.Log($"Removed tile at {removedTile.position}");
+                            //Debug.Log($"Removed tile at {removedTile.position}");
                             j--;
                         }
                     }
@@ -528,14 +525,14 @@ public class TileSetGenerator
         for(int i = 1; i < tileSet.pathTiles[pathID].Count && errorCounter < 100; i++, errorCounter++) {
             float distance = (float) Vector2.Distance(new Vector2(tileSet.pathTiles[pathID][i].position.x, tileSet.pathTiles[pathID][i].position.y), 
                 new Vector2(previousTile.position.x, previousTile.position.y));
-            Debug.Log($"Distance between {tileSet.pathTiles[pathID][i].position} and {previousTile.position} is {distance}");
+            //Debug.Log($"Distance between {tileSet.pathTiles[pathID][i].position} and {previousTile.position} is {distance}");
             if(distance > 1) { // this means we'll have to patch the path
                 List<Tile> segmentTiles = new List<Tile>();
-                Debug.Log("Need to patch path");
+                //Debug.Log("Need to patch path");
                 for(int j = i; j < tileSet.pathTiles[pathID].Count; j++) {
-                    Debug.Log($"Added tile to needed patching: {tileSet.pathTiles[pathID][j].position}");
+                    //Debug.Log($"Added tile to needed patching: {tileSet.pathTiles[pathID][j].position}");
                     segmentTiles.Add(tileSet.pathTiles[pathID][j]);
-                    Debug.Log($"Attempting removal of index {j} of {tileSet.pathTiles[pathID].Count - 1}");
+                    //Debug.Log($"Attempting removal of index {j} of {tileSet.pathTiles[pathID].Count - 1}");
                     tileSet.pathTiles[pathID].RemoveAt(j);
                     j--;
                 }
@@ -556,7 +553,7 @@ public class TileSetGenerator
 
         while(moving) {
             counter++;
-            Debug.Log($"CurrentTile: {currentTile.position}");
+            //Debug.Log($"CurrentTile: {currentTile.position}");
             if(counter == 1 && start) {
                 switch(tileSet.DirCardinals[pathID].start) {
                     // 0 for bottom, 1 for left, 2 for top, 3 for right
@@ -577,7 +574,7 @@ public class TileSetGenerator
             
             if (counter > 100)
             {
-                Debug.Log("Loop ran too long, broke out of it.");
+                //Debug.Log("Loop ran too long, broke out of it.");
                 break;
             }
             else if(!reached.y) {
@@ -640,14 +637,14 @@ public class TileSetGenerator
                 }
             }
 
-            Debug.Log($"{tileSet.spawnTiles[i].position}");
+            //Debug.Log($"{tileSet.spawnTiles[i].position}");
 
             for(int j = closestTileIndex; j < tileSet.pathTiles[0].Count; j++) {
-                Debug.Log($"{tileSet.pathTiles[0][j].position}");
+                //Debug.Log($"{tileSet.pathTiles[0][j].position}");
                 tileSet.pathTiles[i].Add(tileSet.pathTiles[0][j]);
             }
 
-            Debug.Log($"{tileSet.endTile.position} - {tileSet.pathTiles[i][tileSet.pathTiles[i].Count - 1].position}");
+            //Debug.Log($"{tileSet.endTile.position} - {tileSet.pathTiles[i][tileSet.pathTiles[i].Count - 1].position}");
 
             // the path will be generated from the pathPatch function
             patchPath(i);
@@ -660,7 +657,7 @@ public class TileSetGenerator
         pathingNodes.Add(tileSet.endTile);
         currentTile = tileSet.spawnTiles[0]; // start at the first spawn tile
 
-        Debug.Log("Generating Path");
+        //Debug.Log("Generating Path");
         PathingLogic(pathingNodes, true);
         cullLoopPaths(0);
         // a patch check is needed to see if the path is disconnected
@@ -722,6 +719,16 @@ public class TileSetGenerator
             {
                 output += $"{tile.position}\n";
             }
+        }
+
+        output+="\n\nCardinals Driections\n";
+        foreach((int start, int end) cardinal in tileSet.DirCardinals) {
+            output += $"{cardinal}\n";
+        }
+
+        output+="\n\nSpawn Tiles\n";
+        foreach(Tile tile in tileSet.spawnTiles) {
+            output += $"{tile.position}\n";
         }
         return output;
     }

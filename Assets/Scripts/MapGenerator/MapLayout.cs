@@ -27,6 +27,6 @@ public class MapLayout
     }
 
     public override string ToString() {
-        return "position: " + position + " tileSetNum: " + tileSetNum + " initPathID: " + initPathID;
+        return "position: " + position + " tileSetNum: " + tileSetNum + " initPathID: " + initPathID + $" relevantPaths: {relevantPaths[0].id} {relevantPaths[0].start}";
     }
 }

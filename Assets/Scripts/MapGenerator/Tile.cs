@@ -12,4 +12,8 @@ public class Tile
         position = newPosition;
         type = newType;
     } 
+
+    public override string ToString() {
+        return "position: " + position + " type: " + type;
+    }
 }
