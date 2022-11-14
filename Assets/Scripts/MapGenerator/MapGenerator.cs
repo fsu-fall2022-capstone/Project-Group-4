@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +35,7 @@ public class MapGenerator : MonoBehaviour
     public static GameObject endTile { get; private set; } // home position of player
 
     [SerializeField] private int maxDirectionalStraightness = 3;
+
     private int straightLineCounter = 0; // counter for map path, to prevent too many straight lines
     private int prevcount = 0;
 
@@ -47,6 +48,7 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         if (main == null) main = this;
+        gameObject.AddComponent<MapRenderer>();
         generateMap();
     }
 
@@ -62,6 +64,22 @@ public class MapGenerator : MonoBehaviour
                 Debug.Log(print);
             }
         }
+    }
+
+    public static void clearMapGenerator() // this function is under the assumption
+    { // that it's only being called when leaving or reloading the scene
+        MapRenderer.activeRenderer = false;
+
+        startTile = null;
+        endTile = null;
+        straightLineCounter = 0;
+
+        mapTiles.Clear();
+        pathTiles.Clear();
+        tileSets.Clear();
+        mapLayout.Clear();
+
+        MapRenderer.activeRenderer = true;
     }
 
     public bool checkExpandability((int x, int y) lastTilePos, int start) 
@@ -329,6 +347,9 @@ public class MapGenerator : MonoBehaviour
                 }
             //}
         }
+    
+        // reorder the mapTiles based on their position from bottom to top        
+        mapTiles.Sort((x, y) => x.transform.position.y.CompareTo(y.transform.position.y));
     }
 
     public void randomExpand() {

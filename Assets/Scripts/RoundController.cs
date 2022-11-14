@@ -34,7 +34,7 @@ public class RoundController : MonoBehaviour
         isIntermission = false;
         isStartOfRound = true;
 
-        timeVar = Time.time + timeBeforeRoundStarts;
+        timeVar = 0f + timeBeforeRoundStarts;
 
         round = 1;
     }
