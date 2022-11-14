@@ -232,6 +232,7 @@ public class MapGenerator : MonoBehaviour
 
         foreach(var tile in expandableTiles) {
             Debug.Log($"tile: {tile.ToString()}");
+            Debug.Log($"spawnTile location: {spawnTiles[tile.relevantPaths[0].id].transform.position}");
         }
     }
 
@@ -346,7 +347,9 @@ public class MapGenerator : MonoBehaviour
 
         List<int> availableDirections = checkAvailableExpansionDirections(locTileInfo);
 
-        Tile stitch = tileSets[locTileInfo.tileSetNum].spawnTiles[0];
+        int l_index = locTileInfo.relevantPaths[0].start;
+        int index = tileSets[locTileInfo.tileSetNum].DirCardinals.FindIndex(x => x.start == l_index);
+        Tile stitch = tileSets[locTileInfo.tileSetNum].spawnTiles[index];
         Debug.Log($"Stitch: {stitch.position.x}, {stitch.position.y}");
         foreach(var tile in tileSets[locTileInfo.tileSetNum].spawnTiles) {
             Debug.Log($"Tile: {tile.ToString()}");
