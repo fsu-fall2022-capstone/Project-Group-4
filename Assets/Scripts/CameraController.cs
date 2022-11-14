@@ -22,11 +22,15 @@ public class CameraController : MonoBehaviour
     //[SerializeField] private float EdgeScrollSpeed = 1f;
     [SerializeField] private float ZoomSpeed = 80f;
 
+    private float spriteSize = 1f;
+
     // Start is called before the first frame update
     private void Start()
     {
         if (main == null) main = this;
         mainCamera = GetComponent<Camera>();   
+        spriteSize = MapGenerator.main.getSpriteSize();
+        mainCamera.orthographicSize = spriteSize * 5;
         //gen = GetComponent<MapGenerator>();
     }
 
@@ -118,7 +122,7 @@ public class CameraController : MonoBehaviour
     {
         if(Input.mouseScrollDelta.y != 0) {
             mainCamera.orthographicSize += Input.mouseScrollDelta.y * Time.deltaTime * ZoomSpeed;
-            mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, 2, 8);
+            mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, spriteSize * 2, spriteSize * 8);
             return true;
         } 
         return false;

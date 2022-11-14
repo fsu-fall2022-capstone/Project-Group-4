@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MapRenderer : MonoBehaviour {
+    public static MapRenderer main;
     private int previousMapCount = 0;
     public static bool activeRenderer = true;
+
+    protected void Start() {
+        if (main == null) main = this;
+    }
 
     protected void Update() {
         if (previousMapCount != MapGenerator.mapTiles.Count && activeRenderer) {
@@ -14,6 +19,10 @@ public class MapRenderer : MonoBehaviour {
         }
     }
     
+    public static void triggerRenderer() {
+        activeRenderer = !activeRenderer;
+    }
+
     private void updateSortingLayerValue() {
         int layerCount = 32767;
         for(int i = 0; i < previousMapCount && layerCount > -32767; i++) {

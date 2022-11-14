@@ -66,6 +66,14 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    public (int, int) getTilesetDimensions() {
+        return (tilesetWidth, tilesetHeight);
+    }
+
+    public float getSpriteSize() {
+        return spriteSize;
+    }
+
     public static void clearMapGenerator() // this function is under the assumption
     { // that it's only being called when leaving or reloading the scene
         MapRenderer.activeRenderer = false;
@@ -257,7 +265,9 @@ public class MapGenerator : MonoBehaviour
     private void cleanExcessSpawns() {
         if(spawnTiles.Count > pathTiles.Count) {
             for(int i = spawnTiles.Count - 1; i >= pathTiles.Count; i--) {
+                //GameObject spawn = spawnTiles[i];
                 spawnTiles.RemoveAt(i);
+                //Destroy(spawn);
             }
         }
     }
@@ -369,6 +379,8 @@ public class MapGenerator : MonoBehaviour
             return false;
         }
 
+        MapRenderer.triggerRenderer();
+
         int randomNum = UnityEngine.Random.Range(0, 100);
         int randomPathCount;
         if (randomNum >= 0 && randomNum < 30) {
@@ -455,12 +467,13 @@ public class MapGenerator : MonoBehaviour
         Debug.Log($"MapLayout: {locTileInfo.position}");
         updateAvailableExpansionVectors(); // updates the list for what's available to expand
         cleanExcessSpawns();
+        MapRenderer.triggerRenderer();
         return true;
     }
 
     private void generateMap()
     {   // generates the initial map
-        
+        MapRenderer.triggerRenderer();
         TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, numStartPoints: 1);
 
         Debug.Log($"{tileSetGen.ToString()}");
@@ -474,5 +487,6 @@ public class MapGenerator : MonoBehaviour
         drawMapTiles(tileSets[0], (0, 0));
         drawPathTiles(tileSets[0], (0, 0));
         updateAvailableExpansionVectors();
+        MapRenderer.triggerRenderer();
     }
 }
