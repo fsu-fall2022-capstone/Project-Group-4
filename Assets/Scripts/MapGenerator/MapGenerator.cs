@@ -288,7 +288,7 @@ public class MapGenerator : MonoBehaviour
 
     private void drawPathTiles(TileSet newTileSet, (int x, int y) displacement, bool attachStitch = false, int pathID = 0, int localID = 0) {
         (float x, float y) newPos;
-        GameObject newPathTile, newStartTile, newEndTile, newTile;
+        GameObject newPathTile, newStartTile, newEndTile;
 
         for(int i = newTileSet.pathTiles[localID].Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[localID][i];
