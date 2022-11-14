@@ -52,10 +52,17 @@ public class PlacementManager : MonoBehaviour
         {
             if (MapGenerator.mapTiles.Contains(hit.collider.gameObject))        //Check if obj is mapTile
             {
-                if (!MapGenerator.pathTiles.Contains(hit.collider.gameObject))  //Check that mapTile is not pathTile
+                bool isPathTile = false;
+                foreach (List<GameObject> path in MapGenerator.pathTiles)       //Check if obj is pathTile
                 {
-                    hoverTile = hit.collider.gameObject;
+                    if (path.Contains(hit.collider.gameObject))  //Check that mapTile is not pathTile
+                    {
+                        isPathTile = true;
+                        break;
+                    }
                 }
+
+                if(!isPathTile) hoverTile = hit.collider.gameObject;
             }
         }
     }

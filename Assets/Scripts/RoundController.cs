@@ -48,7 +48,13 @@ public class RoundController : MonoBehaviour
     {
         for (int i = 0; i < round; i++)
         {
-            GameObject newEnemy = Instantiate(basicEnemy, MapGenerator.startTile.transform.position, Quaternion.identity);
+            for(int j = 0; j < MapGenerator.spawnTiles.Count; j++)
+            {
+                GameObject newEnemy = Instantiate(basicEnemy, MapGenerator.spawnTiles[j].transform.position, Quaternion.identity);
+                Enemy enemyScript = newEnemy.GetComponent<Enemy>();
+                enemyScript.setPathID(j);
+                enemyScript.initializeTarget(MapGenerator.spawnTiles[j]);
+            }
             yield return new WaitForSeconds(1f);
         }
     }

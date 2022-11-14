@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour
     protected float timeCheck;
 
     protected GameObject targetTile;
-    [SerializeField] protected bool waitForTarget = false;
+    protected int pathID = 0;
+    [SerializeField] protected bool waitForTarget = true;
     protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
     private void Awake()
@@ -38,15 +39,17 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        checkPosition();
-        checkStatuses();
-        moveEnemy();
+        if(!waitForTarget) {
+            checkPosition();
+            checkStatuses();
+            moveEnemy();
+        }
     }
 
     private void initializeEnemy()
     {
         if (!waitForTarget)
-            targetTile = MapGenerator.startTile;
+            targetTile = MapGenerator.spawnTiles[pathID];
         enemyHealth = maxEnemyHealth;
         movementSpeed = maxMovementSpeed;
     }
@@ -54,6 +57,13 @@ public class Enemy : MonoBehaviour
     public void initializeTarget(GameObject _targetTile)
     {
         targetTile = _targetTile;
+        waitForTarget = false;
+    }
+
+    public void setPathID(int _pathID)
+    {
+        pathID = _pathID;
+        Debug.Log("PathID: " + pathID);
     }
 
     public void takeDamage(float amount)
@@ -135,9 +145,15 @@ public class Enemy : MonoBehaviour
     {
         if (targetTile != null && targetTile != MapGenerator.endTile) {
             if (Vector3.Distance(transform.position, targetTile.transform.position) < 0.001f) {
-                int currIndex = MapGenerator.pathTiles.IndexOf(targetTile);
+                try {
+                    int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
 
-                targetTile = MapGenerator.pathTiles[currIndex - 1];
+                    targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
+                } catch {
+                    Debug.Log($"Error: Enemy has no path {pathID} for spawnTile {MapGenerator.spawnTiles[pathID].transform.position}");
+                    enemyDead();
+                }
+
             }
         }
         else if (targetTile == MapGenerator.endTile) {
@@ -209,12 +225,7 @@ public class Enemy : MonoBehaviour
                 case StatusType.Shielded:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
-                    if (status.duration <= 0f) {
-                        allowDamage = true;
-                        Debug.Log($"{name} is no longer {status.statusType}");
-                    }
-                    else
-                        allowDamage = false;
+                    allowDamage = (status.duration <= 0f) ? true : false;
                     break;
             }
             timeCheck = Time.time;

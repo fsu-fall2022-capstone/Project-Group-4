@@ -9,7 +9,7 @@ public class MapGeneratorInspector : Editor
 
         MapGenerator gen = (MapGenerator)target;
         if(GUILayout.Button("Expand Map")) {
-            gen.expandMap();
+            gen.randomExpand();
         }
     }
 }
