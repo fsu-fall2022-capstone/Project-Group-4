@@ -236,6 +236,14 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    private void cleanExcessSpawns() {
+        if(spawnTiles.Count > pathTiles.Count) {
+            for(int i = spawnTiles.Count - 1; i >= pathTiles.Count; i--) {
+                spawnTiles.RemoveAt(i);
+            }
+        }
+    }
+
     private void drawMapTiles(TileSet newTileSet, (int x, int y) displacement) {
         GameObject newTile;
         (float x, float y) newPos;
@@ -280,23 +288,27 @@ public class MapGenerator : MonoBehaviour
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
 
             // check to see if it already exists in a different pathTiles list
-            bool alreadyExists = false;
-            if(mapTiles.Any(x => x.transform.position == tilePos)) {
-                alreadyExists = true;
-                pathTiles[pathID].Add(mapTiles.Find(x => x.transform.position == tilePos));
-            }
+            //bool alreadyExists = false;
+            //if(mapTiles.Any(x => x.transform.position == tilePos)) {
+            //    alreadyExists = true;
+            //    pathTiles[pathID].Add(mapTiles.Find(x => x.transform.position == tilePos));
+            //}
 
-            if(!alreadyExists) {
+            //Debug.Log($"alreadyExists: {alreadyExists}");
+
+            //if(!alreadyExists) {
                 switch(currTile.type) {
                     case 1: 
                         newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                         pathTiles[pathID].Add(newPathTile);
+                        mapTiles.Add(newPathTile);
                         break;                
                     case 2:
                         // the sprite will be rotated to face the correct direction based on the cardinal direction
                         // though this is still a work in progress as we actually need an actual sprite to rotate
                         newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
                         pathTiles[pathID].Add(newStartTile);
+                        mapTiles.Add(newStartTile);
                         Debug.Log($"newStartTile: {newStartTile}");
                         Debug.Log($"newStartTile.transform.position: {newStartTile.transform.position}");
                         spawnTiles.Insert(pathID, newStartTile);
@@ -306,14 +318,16 @@ public class MapGenerator : MonoBehaviour
                         if (!attachStitch) {
                             newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
                             pathTiles[pathID].Add(newEndTile);
+                            mapTiles.Add(newEndTile);
                             endTile = newEndTile;
                         } else {
                             newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                             pathTiles[pathID].Add(newPathTile);
+                            mapTiles.Add(newPathTile);
                         }
                         break;
                 }
-            }
+            //}
         }
     }
 
@@ -349,30 +363,49 @@ public class MapGenerator : MonoBehaviour
 
         int l_index = locTileInfo.relevantPaths[0].start;
         int index = tileSets[locTileInfo.tileSetNum].DirCardinals.FindIndex(x => x.start == l_index);
-        Tile stitch = tileSets[locTileInfo.tileSetNum].spawnTiles[index];
-        Debug.Log($"Stitch: {stitch.position.x}, {stitch.position.y}");
+        Tile genStitchTile = tileSets[locTileInfo.tileSetNum].spawnTiles[index];
+        Debug.Log($"Stitch: {genStitchTile.position.x}, {genStitchTile.position.y}");
         foreach(var tile in tileSets[locTileInfo.tileSetNum].spawnTiles) {
             Debug.Log($"Tile: {tile.ToString()}");
         }
         Debug.Log($"End Tile: {tileSets[locTileInfo.tileSetNum].endTile.ToString()}");
-        TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, stitch, numStartPoints: randomPathCount);
+
+        TileSetGenerator tileSetGen;
+        if(availableDirections.Count == 0 || availableDirections.Count == 3) { 
+            // direction won't matter, just pick a random one
+            Debug.Log("Any direction is available.");
+            tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile, numStartPoints: randomPathCount);
+        } else {
+            int rand = UnityEngine.Random.Range(0, availableDirections.Count);
+            Debug.Log($"Random number: {rand}");
+            int randDir = availableDirections[rand];
+            Debug.Log($"Random direction: {randDir}");
+            tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile, randDir, randomPathCount);
+        }
+
         TileSet newTileSet = tileSetGen.getTileSet();
         Debug.Log($"{tileSetGen.ToString()}");
         tileSets.Add(newTileSet);
         locTileInfo.tileSetNum = tileSets.Count - 1;
 
+        Debug.Log($"Spawn Tiles Count @1 {spawnTiles.Count}");
+
         // old end tile info
         Debug.Log($"Removing index: {locTileInfo.initPathID}");
         Vector3 oldPos = spawnTiles[initPathID].transform.position;
-        pathTiles[initPathID].Remove(spawnTiles[initPathID]);
         GameObject oldTile = spawnTiles[initPathID];
-        spawnTiles.RemoveAt(initPathID);
+        spawnTiles.Remove(oldTile);
+        pathTiles[initPathID].Remove(oldTile);
+        mapTiles.Remove(oldTile);
         Destroy(oldTile);
 
         // converting the end tile sprite to a path tile sprite
         GameObject replacedTile = Instantiate(pathTile, oldPos, Quaternion.identity);
         pathTiles[initPathID].Add(replacedTile);
+        mapTiles.Add(replacedTile);
         locTileInfo.relevantPaths.Clear();
+
+        Debug.Log($"Spawn Tiles Count @2 {spawnTiles.Count}");
 
         drawMapTiles(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight));
 
@@ -385,21 +418,22 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
+        Debug.Log($"Spawn Tiles Count @3 {spawnTiles.Count}");
+
         for(int i = 0; i < randomPathCount; i++) {
             int pathID = locTileInfo.relevantPaths[i].id;
             drawPathTiles(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true, pathID, i);
         }
 
-        
-        //drawTileSet(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true, false, initPathID);
+        Debug.Log($"Spawn Tiles Count @4 {spawnTiles.Count}");
 
-        //bool preRendered = false; // prevents tiles from being generated if the map is pre-rendered
-        //for(int i = 0; i < randomPathCount; i++, preRendered = true) {
-        //    drawTileSet(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true, preRendered, i);
-        //}
+        mapTiles.Sort((x, y) => x.transform.position.y.CompareTo(y.transform.position.y));
+
+        // updates overall map layout info
         mapLayout.Add(locTileInfo);
         Debug.Log($"MapLayout: {locTileInfo.position}");
         updateAvailableExpansionVectors(); // updates the list for what's available to expand
+        cleanExcessSpawns();
         return true;
     }
 

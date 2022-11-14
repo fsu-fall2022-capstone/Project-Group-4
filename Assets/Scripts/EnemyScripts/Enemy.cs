@@ -141,7 +141,7 @@ public class Enemy : MonoBehaviour
 
                     targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
                 } catch {
-                    Debug.Log($"Error: Enemy has no path {pathID}");
+                    Debug.Log($"Error: Enemy has no path {pathID} for spawnTile {MapGenerator.spawnTiles[pathID].transform.position}");
                     enemyDead();
                 }
 
