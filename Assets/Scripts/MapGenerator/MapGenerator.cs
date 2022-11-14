@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +36,7 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] private int maxDirectionalStraightness = 3;
 
-    private int straightLineCounter = 0; // counter for map path, to prevent too many straight lines
+    private static int straightLineCounter = 0; // counter for map path, to prevent too many straight lines
     private int prevcount = 0;
 
     // may be needed
