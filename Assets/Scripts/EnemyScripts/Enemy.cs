@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     protected GameObject targetTile;
     protected int pathID = 0;
-    [SerializeField] protected bool waitForTarget = false;
+    [SerializeField] protected bool waitForTarget = true;
     protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
     private void Awake()
@@ -39,15 +39,17 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        checkPosition();
-        checkStatuses();
-        moveEnemy();
+        if(!waitForTarget) {
+            checkPosition();
+            checkStatuses();
+            moveEnemy();
+        }
     }
 
     private void initializeEnemy()
     {
         if (!waitForTarget)
-            targetTile = MapGenerator.startTile;
+            targetTile = MapGenerator.spawnTiles[pathID];
         enemyHealth = maxEnemyHealth;
         movementSpeed = maxMovementSpeed;
     }
@@ -55,11 +57,13 @@ public class Enemy : MonoBehaviour
     public void initializeTarget(GameObject _targetTile)
     {
         targetTile = _targetTile;
+        waitForTarget = false;
     }
 
     public void setPathID(int _pathID)
     {
         pathID = _pathID;
+        Debug.Log("PathID: " + pathID);
     }
 
     public void takeDamage(float amount)
@@ -132,9 +136,15 @@ public class Enemy : MonoBehaviour
     {
         if (targetTile != null && targetTile != MapGenerator.endTile) {
             if (Vector3.Distance(transform.position, targetTile.transform.position) < 0.001f) {
-                int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
+                try {
+                    int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
 
-                targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
+                    targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
+                } catch {
+                    Debug.Log($"Error: Enemy has no path {pathID}");
+                    enemyDead();
+                }
+
             }
         }
         else if (targetTile == MapGenerator.endTile) {
