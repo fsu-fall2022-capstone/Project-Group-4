@@ -76,9 +76,7 @@ public class PlacementManager : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector2(0,0), 0.1f, towerMask, -100, 100);
     
         if (hit.collider != null)
-        {
             towerOnSlot = true;
-        }
 
         return towerOnSlot;
     }
@@ -93,6 +91,7 @@ public class PlacementManager : MonoBehaviour
                 {
                     GameObject newTowerObj = Instantiate(currTowerPlacing);
                     newTowerObj.layer = LayerMask.NameToLayer("Tower");
+                    newTowerObj.GetComponent<SpriteRenderer>().sortingOrder = hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
                     newTowerObj.transform.position= hoverTile.transform.position;
 
                     EndBuilding();
@@ -116,14 +115,10 @@ public class PlacementManager : MonoBehaviour
         dummyPlacement = Instantiate(currTowerPlacing);
 
         if (dummyPlacement.GetComponent<Towers>() != null)
-        {
             Destroy(dummyPlacement.GetComponent<Towers>());
-        }
 
         if (dummyPlacement.GetComponent<BarrelRotation>() != null)
-        {
             Destroy(dummyPlacement.GetComponent<BarrelRotation>());
-        }
     }
 
     public void EndBuilding()
@@ -146,15 +141,11 @@ public class PlacementManager : MonoBehaviour
                 GetCurrentHoverTile();
 
                 if (hoverTile != null)
-                {
                     dummyPlacement.transform.position = hoverTile.transform.position;
-                }
             }
 
             if (Input.GetButtonDown("Fire1"))
-            {
                 PlaceBuilding();
-            }
         }
     }
 

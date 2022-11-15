@@ -46,9 +46,7 @@ public class ShopManager : MonoBehaviour
         bool canBuy = false;
 
         if (moneyManager.GetCurrMoney() >= cost)
-        {
             canBuy = true;
-        }
 
         return canBuy;
     }

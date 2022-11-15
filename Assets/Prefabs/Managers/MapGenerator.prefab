@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4165870802493753033
+--- !u!1 &8275656165137410114
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4165870802493753039}
-  - component: {fileID: 4165870802493753038}
+  - component: {fileID: 8275656165137410172}
+  - component: {fileID: 8275656165137410173}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4165870802493753039
+--- !u!4 &8275656165137410172
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4165870802493753033}
+  m_GameObject: {fileID: 8275656165137410114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,21 +32,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4165870802493753038
+--- !u!114 &8275656165137410173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4165870802493753033}
+  m_GameObject: {fileID: 8275656165137410114}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 784950fcf90df9e449e443005ef05795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapTile: {fileID: 414176619123021391, guid: 16fc06ab0f3abd043953404cefba765c, type: 3}
+  mapTile1: {fileID: 414176619123021391, guid: 16fc06ab0f3abd043953404cefba765c, type: 3}
+  mapTile2: {fileID: 0}
+  mapTile3: {fileID: 0}
+  pathTile: {fileID: 414176619123021391, guid: 72beddd9f38a5894ebaf526c763ab437, type: 3}
+  portalTile: {fileID: 414176619123021391, guid: 02b068fe83e0f554c999e788d1ca8aba,
+    type: 3}
+  homeTile: {fileID: 414176619123021391, guid: db35cdf6eb9a53f408f902cd7ca73ed5, type: 3}
   tilesetWidth: 8
   tilesetHeight: 8
-  pathColor: {r: 0.5471698, g: 0.35852, b: 0.06452473, a: 0}
-  startColor: {r: 0.83602184, g: 0.8584906, b: 0.23891956, a: 0}
-  endColor: {r: 0.25044498, g: 0.3135506, b: 0.7924528, a: 0}
+  generateAsIsometric: 1
+  spriteSize: 1
+  maxDirectionalStraightness: 3

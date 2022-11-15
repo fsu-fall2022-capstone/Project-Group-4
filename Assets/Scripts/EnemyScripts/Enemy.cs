@@ -149,6 +149,8 @@ public class Enemy : MonoBehaviour
                     int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
 
                     targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
+
+                    gameObject.GetComponent<SpriteRenderer>().sortingOrder = targetTile.GetComponent<SpriteRenderer>().sortingOrder;
                 } catch {
                     Debug.Log($"Error: Enemy has no path {pathID} for spawnTile {MapGenerator.spawnTiles[pathID].transform.position}");
                     enemyDead();

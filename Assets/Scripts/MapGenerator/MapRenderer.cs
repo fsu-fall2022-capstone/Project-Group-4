@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// this function is more like a sorting order renderer
+// most layers are dependent on the tile location
+
 public class MapRenderer : MonoBehaviour {
     public static MapRenderer main;
     private int previousMapCount = 0;

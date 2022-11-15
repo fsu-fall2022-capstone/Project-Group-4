@@ -122,20 +122,19 @@ public class MapGenerator : MonoBehaviour
 
     private List<int> checkAvailableExpansionDirections(MapLayout layoutInfo) {
         // now at the valid point of expansion, time to check which start directions are available
-        (int x, int y) lastTilePos = layoutInfo.position;
+        // 0 for bottom, 1 for right, 2 for top, 3 for left
+        (int x, int y) validPos = layoutInfo.position;
         int start = layoutInfo.relevantPaths[0].start;
 
         List<(int x, int y)> availableVectors = new List<(int x, int y)>();
         List<int> availableDirections = new List<int>();
         List<(int x, int y)> checkVectors = new List<(int x, int y)>();
-        (int x, int y) validPos = (0,0);
         (int x, int y) checkPos = (0,0);
         (int x, int y) findPosDir = (0,0);
 
         switch(start)
         {
             case 0: // bottom
-                validPos = (lastTilePos.x, lastTilePos.y - 1);
                 if(straightLineCounter <= maxDirectionalStraightness)
                 {
                     checkPos = (validPos.x, validPos.y - 1); // down
@@ -147,7 +146,6 @@ public class MapGenerator : MonoBehaviour
                 checkVectors.Add(checkPos);
                 break;
             case 1: // right
-                validPos = (lastTilePos.x + 1, lastTilePos.y);
                 if(straightLineCounter <= maxDirectionalStraightness)
                 {
                     checkPos = (validPos.x + 1, validPos.y); // right
@@ -158,7 +156,6 @@ public class MapGenerator : MonoBehaviour
                 checkPos = (validPos.x, validPos.y + 1); // up
                 break;
             case 2: // top
-                validPos = (lastTilePos.x, lastTilePos.y + 1);
                 if(straightLineCounter <= maxDirectionalStraightness)
                 {
                     checkPos = (validPos.x, validPos.y + 1); // up
@@ -170,7 +167,6 @@ public class MapGenerator : MonoBehaviour
                 checkVectors.Add(checkPos);
                 break;
             case 3: // left
-                validPos = (lastTilePos.x - 1, lastTilePos.y);
                 if(straightLineCounter <= maxDirectionalStraightness){
                     checkPos = (validPos.x - 1, validPos.y); // left
                     checkVectors.Add(checkPos);
@@ -282,6 +278,9 @@ public class MapGenerator : MonoBehaviour
                  * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
                 newPos.y = ((((displacement.x) + currTile.position.x)
                  * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
+
+                 //what would the value of currTile.position be at the center of the tileSet of 64?
+                 // 32x32
             } else {
                 newPos.x = (displacement.x) + currTile.position.x;
                 newPos.y = (displacement.y) + currTile.position.y;
@@ -413,7 +412,7 @@ public class MapGenerator : MonoBehaviour
             Debug.Log($"Random number: {rand}");
             int randDir = availableDirections[rand];
             Debug.Log($"Random direction: {randDir}");
-            tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile, randDir, randomPathCount);
+            tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile, givenStartCardinal: randDir, numStartPoints: randomPathCount);
         }
 
         TileSet newTileSet = tileSetGen.getTileSet();

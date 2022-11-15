@@ -79,16 +79,13 @@ public class RoundController : MonoBehaviour
                 isIntermission = false;
                 isRoundGoing = true;
 
+                MapGenerator.main.randomExpand(); // this needs to be replaced by buttons
                 spawnEnemies();
             }
         }
         else if (isRoundGoing)
         {
-            if (Counter.enemies.Count > 0)
-            {
-
-            }
-            else
+            if (!(Counter.enemies.Count > 0))
             {
                 isIntermission = true;
                 isRoundGoing = false;
