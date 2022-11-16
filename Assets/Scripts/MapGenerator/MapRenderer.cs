@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 // this function is more like a sorting order renderer
 // most layers are dependent on the tile location
@@ -10,8 +11,12 @@ public class MapRenderer : MonoBehaviour {
     private int previousMapCount = 0;
     public static bool activeRenderer = true;
 
+    [SerializeField] Sprite[] tileSprites;
+    Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
+
     protected void Start() {
         if (main == null) main = this;
+        LoadDictionary();
     }
 
     protected void Update() {
@@ -24,6 +29,35 @@ public class MapRenderer : MonoBehaviour {
     
     public static void triggerRenderer() {
         activeRenderer = !activeRenderer;
+    }
+
+    private void LoadDictionary() {
+        Sprite[] SpritesData = tileSprites;
+        Sprites = new Dictionary<string, Sprite>();
+
+        for (int i = 0; i < SpritesData.Length; i++)
+        {
+            Debug.Log("MapRenderer: Loaded sprite " + SpritesData[i].name);
+            Sprites.Add(SpritesData[i].name, SpritesData[i]);
+        }
+    }
+
+    public int GetSpriteCount(string name_pattern) {
+        // count the number of sprites that match the name pattern
+        int count = 0;
+        foreach (KeyValuePair<string, Sprite> sprite in Sprites) {
+            if (sprite.Key.Contains(name_pattern)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public Sprite GetSpriteByName(string name) {
+        if (Sprites.ContainsKey(name))
+            return Sprites[name];
+        else 
+            return null;
     }
 
     public void UpdateSortingOrder() { // should only be utilized by the inspector

@@ -51,7 +51,6 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         if (main == null) main = this;
-        gameObject.AddComponent<MapRenderer>();
         if(!disableGen) generateMap();
     }
 
@@ -283,6 +282,23 @@ public class MapGenerator : MonoBehaviour
             if(currTile.type == 0) {
                 // can randomize between mapTile1, mapTile2, mapTile3 here if needed
                 newTile = Instantiate(mapTile1, tilePos, Quaternion.identity);
+                int random = UnityEngine.Random.Range(0, 100);
+                
+                if(random >= 80 && random < 95) { // tree
+                    random = UnityEngine.Random.Range(1, MapRenderer.main.GetSpriteCount("tree_cluster"));
+                    Sprite newSprite = MapRenderer.main.GetSpriteByName($"tree_cluster_{random}");
+                    newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
+                } else if(random >= 95 && random < 98) { // rock
+                    random = UnityEngine.Random.Range(1, MapRenderer.main.GetSpriteCount("rock_cluster"));
+                    Sprite newSprite = MapRenderer.main.GetSpriteByName($"rock_cluster_{random}");
+                    newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
+                } else if(random >= 98 && random < 100) {
+                    random = UnityEngine.Random.Range(1, MapRenderer.main.GetSpriteCount("gem_cluster"));
+                    Sprite newSprite = MapRenderer.main.GetSpriteByName($"gem_cluster_{random}");
+                    newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
+                }
+                
+                // otherwise it's just a grass tile and do nothing
                 mapTiles.Add(newTile);
             }
         }
@@ -290,7 +306,7 @@ public class MapGenerator : MonoBehaviour
 
     private void drawPathTiles(TileSet newTileSet, (int x, int y) displacement, bool attachStitch = false, int pathID = 0, int localID = 0) {
         (float x, float y) newPos;
-        GameObject newPathTile, newStartTile, newEndTile;
+        GameObject newPathTile, newStartTile, newEndTile, foundPrevious = null;
 
         for(int i = newTileSet.pathTiles[localID].Count - 1; i >= 0; i--) {
             Tile currTile = newTileSet.pathTiles[localID][i];
@@ -311,7 +327,8 @@ public class MapGenerator : MonoBehaviour
             bool alreadyExists = false;
             if(mapTiles.Any(x => x.transform.position == tilePos)) {
                 alreadyExists = true;
-                pathTiles[pathID].Add(mapTiles.Find(x => x.transform.position == tilePos));
+                foundPrevious = mapTiles.Find(x => x.transform.position == tilePos);
+                pathTiles[pathID].Add(foundPrevious);
             }
 
             //Debug.Log($"alreadyExists: {alreadyExists}");
@@ -321,6 +338,10 @@ public class MapGenerator : MonoBehaviour
                     case 1: 
                         newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                         newPathTile.name = $"Path {pathID} - {pathTiles[pathID].Count}";
+
+                        Tile previousTile = newTileSet.pathTiles[localID][i + 1];
+                        Tile nextTile = newTileSet.pathTiles[localID][i - 1];
+                        
                         pathTiles[pathID].Add(newPathTile);
                         mapTiles.Add(newPathTile);
                         break;                
