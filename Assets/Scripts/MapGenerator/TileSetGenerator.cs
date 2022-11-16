@@ -626,8 +626,6 @@ public class TileSetGenerator
             float shortestDistance = 1000;
             int closestTileIndex = 0;
 
-            tileSet.pathTiles[i].Add(tileSet.spawnTiles[i]);
-
             for(int j = 0; j < tileSet.pathTiles[0].Count; j++) {
                 float distance = (float) Vector2.Distance(new Vector2(tileSet.pathTiles[0][j].position.x, tileSet.pathTiles[0][j].position.y), 
                     new Vector2(tileSet.spawnTiles[i].position.x, tileSet.spawnTiles[i].position.y));
@@ -648,6 +646,9 @@ public class TileSetGenerator
 
             // the path will be generated from the pathPatch function
             patchPath(i);
+
+            if(tileSet.pathTiles[i][0].type != 2) // not sure where exactly a tile is being added in front of start (it's always been only one tile)  
+                tileSet.pathTiles[i].RemoveAt(0);
         }
     }
 
@@ -715,9 +716,8 @@ public class TileSetGenerator
                 output+="\n";
             }
 
-            foreach (Tile tile in tileSet.pathTiles[i])
-            {
-                output += $"{tile.position}\n";
+            for(int j = 0; j < tileSet.pathTiles[i].Count; j++) {
+                output+=$"{j}: {tileSet.pathTiles[i][j].position}\n";
             }
         }
 

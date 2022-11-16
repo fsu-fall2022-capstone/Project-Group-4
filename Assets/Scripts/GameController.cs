@@ -9,8 +9,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
         if (HealthBar.lives == 0f)
-        {
             GameOver.Show();
-        }
     }
 }

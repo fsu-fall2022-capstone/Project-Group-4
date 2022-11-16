@@ -258,16 +258,6 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    private void cleanExcessSpawns() {
-        if(spawnTiles.Count > pathTiles.Count) {
-            for(int i = spawnTiles.Count - 1; i >= pathTiles.Count; i--) {
-                //GameObject spawn = spawnTiles[i];
-                spawnTiles.RemoveAt(i);
-                //Destroy(spawn);
-            }
-        }
-    }
-
     private void drawMapTiles(TileSet newTileSet, (int x, int y) displacement) {
         GameObject newTile;
         (float x, float y) newPos;
@@ -315,18 +305,19 @@ public class MapGenerator : MonoBehaviour
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
 
             // check to see if it already exists in a different pathTiles list
-            //bool alreadyExists = false;
-            //if(mapTiles.Any(x => x.transform.position == tilePos)) {
-            //    alreadyExists = true;
-            //    pathTiles[pathID].Add(mapTiles.Find(x => x.transform.position == tilePos));
-            //}
+            bool alreadyExists = false;
+            if(mapTiles.Any(x => x.transform.position == tilePos)) {
+                alreadyExists = true;
+                pathTiles[pathID].Add(mapTiles.Find(x => x.transform.position == tilePos));
+            }
 
             //Debug.Log($"alreadyExists: {alreadyExists}");
 
-            //if(!alreadyExists) {
+            if(!alreadyExists) {
                 switch(currTile.type) {
                     case 1: 
                         newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                        newPathTile.name = $"Path {pathID} - {pathTiles[pathID].Count}";
                         pathTiles[pathID].Add(newPathTile);
                         mapTiles.Add(newPathTile);
                         break;                
@@ -334,6 +325,7 @@ public class MapGenerator : MonoBehaviour
                         // the sprite will be rotated to face the correct direction based on the cardinal direction
                         // though this is still a work in progress as we actually need an actual sprite to rotate
                         newStartTile = Instantiate(portalTile, tilePos, Quaternion.identity);
+                        newStartTile.name = $"Spawn {pathID} - {pathTiles[pathID].Count}";
                         pathTiles[pathID].Add(newStartTile);
                         mapTiles.Add(newStartTile);
                         Debug.Log($"newStartTile: {newStartTile}");
@@ -344,17 +336,19 @@ public class MapGenerator : MonoBehaviour
                     case 3:
                         if (!attachStitch) {
                             newEndTile = Instantiate(homeTile, tilePos, Quaternion.identity);
+                            newEndTile.name = $"Home {pathID} - {pathTiles[pathID].Count}";
                             pathTiles[pathID].Add(newEndTile);
                             mapTiles.Add(newEndTile);
                             endTile = newEndTile;
                         } else {
                             newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
+                            newPathTile.name = $"Path {pathID} - {pathTiles[pathID].Count}";
                             pathTiles[pathID].Add(newPathTile);
                             mapTiles.Add(newPathTile);
                         }
                         break;
                 }
-            //}
+            }
         }
     
         // reorder the mapTiles based on their position from bottom to top        
@@ -465,7 +459,6 @@ public class MapGenerator : MonoBehaviour
         mapLayout.Add(locTileInfo);
         Debug.Log($"MapLayout: {locTileInfo.position}");
         updateAvailableExpansionVectors(); // updates the list for what's available to expand
-        cleanExcessSpawns();
         MapRenderer.triggerRenderer();
         return true;
     }

@@ -96,9 +96,8 @@ public class CameraController : MonoBehaviour
             mainCamera.transform.position += movement;
         }
 
-        if(movement != Vector3.zero) {
+        if(movement != Vector3.zero)
             return true;
-        }
 
         return false;
     }
