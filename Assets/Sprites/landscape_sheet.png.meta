@@ -1,0 +1,1553 @@
+fileFormatVersion: 2
+guid: 3cb53427b54b8174cb5e8bd664c2c10e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: rock_cluster_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 412
+        width: 131
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b704b9fbcbde1c48b14c02c924c28e2
+      internalID: -1717186329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rock_cluster_2
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 411
+        width: 131
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b53913be81eedf146b32c929adfd0f17
+      internalID: -999820333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_1
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 394
+        width: 131
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e51952c4020b90b4595c8e19da316003
+      internalID: 652897746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 385
+        width: 131
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55fde708021ab64488079229e3aef418
+      internalID: 135096335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_3
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 394
+        width: 131
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc979363fe4f39940b61252883ac3475
+      internalID: -12559128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_slope_SW_NE
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 397
+        width: 131
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1ab5258cf9d8c545926cfdea6c9cfda
+      internalID: 2127500224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_SE_NW
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 397
+        width: 131
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 248976287d06ed44bb80f364be9d6e33
+      internalID: -1440015871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_tri_SW_NE_SE
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 413
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5aabda63a3b3da479900f535e5a3b54
+      internalID: 1506145310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: river_bend_SW_NW
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 413
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4237a50ab59b14f439f9b36a0d68dc2c
+      internalID: -1735016000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 413
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3746d1683277d47924cb44df0e8d21
+      internalID: 1554007087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_SW_NE
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 413
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be0fd0c7df30211479f6af6aeb962619
+      internalID: 68989927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_corner_NW_NE
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 413
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b838b5863cf9ade4e826c55b31daede9
+      internalID: 25580089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: river_bend_SW_SE
+      rect:
+        serializedVersion: 2
+        x: 1590
+        y: 413
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a954725dcb912e549bdfcb425300f18f
+      internalID: -568354346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_cluster_2
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 399
+        width: 131
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86c2502bfe35c374ab351f8e6a48efa8
+      internalID: 2059655019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rock_cluster_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 314
+        width: 131
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e99337023c8218f4887c01445ff16a28
+      internalID: 916784640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rock_cluster_4
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 308
+        width: 131
+        height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bdf74853af3e2b409d47835ad1e795a
+      internalID: 1909229800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_4
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 271
+        width: 131
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee776fca2aaec0e4896003f644035e48
+      internalID: 1985940168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_6
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 278
+        width: 131
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c8f324c739cb8e47bc4faa68ff84c0a
+      internalID: -19536905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_tri_NE_NW_SW
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 299
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da4ac590c3ad8ab4dba396fd52dbbef3
+      internalID: 1529907321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_tall
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 282
+        width: 131
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 338b480a382b4bb4298988571cd01d56
+      internalID: 48379359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: river_bend_NW_NE
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 314
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fc51d49e9d0a9a4a9c963772de7cac7
+      internalID: -1527049621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: river_bend_NE_SE
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 314
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf744391894ab0b4d89918ce6d3ab77f
+      internalID: -959595992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_fourway
+      rect:
+        serializedVersion: 2
+        x: 1457
+        y: 314
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40e91f56c9865144a9832efdf86443bf
+      internalID: -1382613659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: river_SW_NE
+      rect:
+        serializedVersion: 2
+        x: 1589
+        y: 314
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3fdbb02e4e263443848f171b18f6dcc
+      internalID: -493142403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_bend_SW_SE
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 314
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f838a46086616b489e0622655919afb
+      internalID: 163450036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_cluster_3
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 277
+        width: 131
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 011a9e61d897e5a4298578d6cdacec0a
+      internalID: 403683315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: river_NW_SE
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 214
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 517ccc52f5afed644bb596dea380fcab
+      internalID: -2072633376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rock_cluster_5
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 209
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6846c1e7f36e8b644bd82b9e32ca237b
+      internalID: 694853846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_5
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 264
+        width: 131
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540c26597701b0f4ba87f2b10da59823
+      internalID: 1691268609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_NW_SE
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 179
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63b373943e709643811d5102ed386ca
+      internalID: 863753549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_simple
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 195
+        width: 131
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88feec860121e8b4f91d3fc8f2afe81d
+      internalID: 1313019636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_tall_simple
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 199
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1afc5fbc19b7adb498baa63fc1ce594a
+      internalID: -866080419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_NW_SE
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 183
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d80a65a403cfe5043a4f89c3faea5d78
+      internalID: -1812870911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_hump_NW_SE
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 215
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3b6fb53ab4e5a458dce846c26d7a56
+      internalID: -795834063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_corner_N_S
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 215
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 946456004fb487d4690fe9a1c7195353
+      internalID: -438233117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_tri_SE_NE_NW
+      rect:
+        serializedVersion: 2
+        x: 1457
+        y: 215
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3268bd14a374d44184148eb4fc2a600
+      internalID: -175277529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rock_cluster_8
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 215
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3529dc35156369488a38419382267a6
+      internalID: -393623318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_cluster_4
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 202
+        width: 131
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71bfce777c7843140a825cc061760b6d
+      internalID: 13226554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_slope_SE_NW
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 162
+        width: 131
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 526e90f2f449f5e4daf4cc2a06770199
+      internalID: 2024920415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_cluster_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 88
+        width: 131
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b28ec322155fa34f8c377ce19712e35
+      internalID: 1735951405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rock_cluster_6
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 110
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 967cc92d2966dda42b425cbb7bf88e7f
+      internalID: -803498846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_7
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 160
+        width: 131
+        height: 111
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f36f274c81df30b4685b1b8fe7aaabcc
+      internalID: 1800056427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_8
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 140
+        width: 131
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91fb6c2e057082a44bd01a1d02d4438a
+      internalID: -1578478911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_SW_NE
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 64
+        width: 131
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07d78031d6ff82c4892df0d860730307
+      internalID: -822804693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_NE_SW
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 96
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37cd3ac5a0154ec4db9e89e8c1eef043
+      internalID: 725143720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_slope_NE_SW
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 100
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d2f23d5858a8d14c9c8b89da091280e
+      internalID: 1224321759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_bend_NW_NE
+      rect:
+        serializedVersion: 2
+        x: 929
+        y: 84
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ad5a3bee7a2e0d489653b9ee9fcfadf
+      internalID: -1432642206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_bend_NW_SW
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 116
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0283eec0e8885f04ab354bda84289e63
+      internalID: -564540748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_corner_W_E
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 116
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c1296e6a8a1e764e91dab17c2119768
+      internalID: -1241550107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_corner_S_N
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 172
+        width: 131
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f65a81093f9e72a4cb953da4c42f198f
+      internalID: 1190294896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_12
+      rect:
+        serializedVersion: 2
+        x: 1457
+        y: 85
+        width: 131
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 871b846025898b0478c5101ff2d41050
+      internalID: 1805561134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_corner_NE_SE
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 116
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e69bcb67e204fcf4fbf82e27a9380224
+      internalID: -1055634783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_tri_NW_SW_SE
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 103
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0748c1273c84a1940aaa1564421bb282
+      internalID: 409254191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_simple
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 5
+        width: 131
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81aa00ae3d89cc04e8995add6c77547d
+      internalID: -787530453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rock_cluster_7
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 11
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23e0234386e09b543b2785d973266b90
+      internalID: 1067534978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_9
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 47
+        width: 131
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a97f6371d92a2d46b255ce86ac96774
+      internalID: -1513718616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_10
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 19
+        width: 131
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 469debab19c0a2c4e8d527456eebbe26
+      internalID: -766536987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_slope_NW_SE
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 1
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb56bd57aea6a9b40894d78673000b92
+      internalID: 17827690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slope_corner_E_W
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 17
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 464dba72ac4cac6479d4985c8f569b32
+      internalID: 2079822821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_bend_NE_SE
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 17
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 624833ce5f4f54f4cade033d554b03ea
+      internalID: 510125058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_corner_SW_SE
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 73
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e99865f7629a2d428e7e0f7e9eecb21
+      internalID: -1032239327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_corner_NW_SW
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 17
+        width: 132
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a227ebef50113974995d6ec7af0a32e4
+      internalID: -194781824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: path_hump_SW_NE
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 4
+        width: 131
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 092f0cf26b12f48418790b96560b6f45
+      internalID: 1969477510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_cluster_11
+      rect:
+        serializedVersion: 2
+        x: 1325
+        y: 287
+        width: 131
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bece2a210f8663c40a09f10521a47d38
+      internalID: -2106771707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      path_slope_NE_SW: 1224321759
+      path_corner_NW_NE: -1032239327
+      tree_cluster_6: 652897746
+      path_hump_SW_NE: 1969477510
+      path_tri_NW_SW_SE: -175277529
+      landscape_sheet_71: 17827690
+      path_tri_NE_NW_SW: -175277529
+      river_bend_NE_SE: 1190294896
+      ground_simple: -787530453
+      tree_cluster_9: 1985940168
+      river_SW_NE: -493142403
+      landscape_sheet_22: 1985940168
+      slope_SW_NE: -822804693
+      slope_corner_S_N: 1190294896
+      tree_cluster_8: -12559128
+      landscape_sheet_21: 1909229800
+      rock_cluster_6: 1909229800
+      river_bend_SW_NW: -1735016000
+      tree_cluster_12: 1800056427
+      landscape_sheet_32: -493142403
+      tree_cluster_5: 652897746
+      path_simple: 1313019636
+      landscape_sheet_13: -1735016000
+      landscape_sheet_64: -749662553
+      ground: 1554007087
+      gem_cluster_2: 1735951405
+      gem_cluster_3: 1735951405
+      slope_NW_SE: 863753549
+      slope_NE_SW: 725143720
+      rock_cluster_5: 916784640
+      tree_cluster_4: 652897746
+      path_fourway: -1382613659
+      rock_cluster_3: -1717186329
+      tree_cluster_3: 652897746
+      path_bend_NE_SE: 510125058
+      path_corner_NW_SW: -194781824
+      landscape_sheet_40: 1313019636
+      landscape_sheet_67: -1513718616
+      rock_cluster_4: -999820333
+      gem_cluster_1: 1735951405
+      rock_cluster_7: 694853846
+      tree_cluster_2: 652897746
+      ground_tall_simple: -866080419
+      tree_cluster_11: -19536905
+      landscape_sheet_65: -787530453
+      rock_cluster_8: -1513718616
+      path_tri_SE_NE_NW: 1969477510
+      tree_cluster_7: 135096335
+      path_slope_SW_NE: 2127500224
+      river_bend_SW_SE: -493142403
+      path_hump_NW_SE: -795834063
+      path_NW_SE: -1812870911
+      river_bend_NW_NE: -1527049621
+      path_bend_SW_SE: -568354346
+      gem_cluster_4: 1735951405
+      slope_SE_NW: -1440015871
+      path_bend_NW_SW: -795834063
+      rock_cluster_1: -1717186329
+      slope_corner_N_S: -438233117
+      slope_corner_W_E: -1241550107
+      path_corner_SW_SE: -1032239327
+      tree_cluster_1: 652897746
+      tree_cluster_10: 1691268609
+      rock_cluster_2: -1717186329
+      river_NW_SE: -2072633376
+      ground_tall: 48379359
+      slope_corner_E_W: 2079822821
+      path_bend_NW_NE: -1432642206
+      landscape_sheet_74: 510125058
+      landscape_sheet_59: -1241550107
+      path_tri_SW_NE_SE: 1554007087
+      path_SW_NE: 68989927
+      path_corner_NE_SE: -1055634783
+      path_slope_NW_SE: 17827690
+      path_slope_SE_NW: 163450036
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

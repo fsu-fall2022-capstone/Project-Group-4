@@ -22,7 +22,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int tilesetHeight;
 
     [SerializeField] private bool generateAsIsometric = true;
-    [SerializeField] private float spriteSize = 1f;
+    [SerializeField] private float spriteWidth = 1f;
+    [SerializeField] private float spriteHeight = 1f;
+
+    [SerializeField] private bool disableGen = false;
 
     public static List<GameObject> mapTiles = new List<GameObject>();
     public static List<List<GameObject>> pathTiles = new List<List<GameObject>>();
@@ -49,7 +52,7 @@ public class MapGenerator : MonoBehaviour
     {
         if (main == null) main = this;
         gameObject.AddComponent<MapRenderer>();
-        generateMap();
+        if(!disableGen) generateMap();
     }
 
     private void Update()
@@ -71,7 +74,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     public float getSpriteSize() {
-        return spriteSize;
+        return spriteWidth*spriteHeight;
     }
 
     public static void clearMapGenerator() // this function is under the assumption
@@ -265,9 +268,9 @@ public class MapGenerator : MonoBehaviour
             Tile currTile = newTileSet.tiles[i];
             if(generateAsIsometric){
                 newPos.x = (((displacement.x) + currTile.position.x)
-                 * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
+                 * spriteWidth + ((displacement.y) + currTile.position.y) * spriteHeight) / 2f;
                 newPos.y = ((((displacement.x) + currTile.position.x)
-                 * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
+                 * spriteWidth - ((displacement.y) + currTile.position.y) * spriteHeight) / 4f) * -1;
 
                  //what would the value of currTile.position be at the center of the tileSet of 64?
                  // 32x32
@@ -293,9 +296,9 @@ public class MapGenerator : MonoBehaviour
             Tile currTile = newTileSet.pathTiles[localID][i];
             if(generateAsIsometric) {
                 newPos.x = (((displacement.x) + currTile.position.x)
-                 * spriteSize + ((displacement.y) + currTile.position.y) * spriteSize) / 2f;
+                 * spriteWidth + ((displacement.y) + currTile.position.y) * spriteHeight) / 2f;
                 newPos.y = ((((displacement.x) + currTile.position.x)
-                 * spriteSize - ((displacement.y) + currTile.position.y) * spriteSize) / 4f) * -1;
+                 * spriteWidth - ((displacement.y) + currTile.position.y) * spriteHeight) / 4f) * -1;
             } else {
                 newPos.x = (displacement.x) + currTile.position.x;
                 newPos.y = (displacement.y) + currTile.position.y;
@@ -461,6 +464,10 @@ public class MapGenerator : MonoBehaviour
         updateAvailableExpansionVectors(); // updates the list for what's available to expand
         MapRenderer.triggerRenderer();
         return true;
+    }
+
+    public void GenerateMap() { // should only be utilized by the inspector
+        generateMap();
     }
 
     private void generateMap()

@@ -26,6 +26,10 @@ public class MapRenderer : MonoBehaviour {
         activeRenderer = !activeRenderer;
     }
 
+    public void UpdateSortingOrder() { // should only be utilized by the inspector
+        updateSortingLayerValue();
+    }
+
     private void updateSortingLayerValue() {
         int layerCount = 32767;
         for(int i = 0; i < previousMapCount && layerCount > -32767; i++) {
