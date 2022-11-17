@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] protected int killReward;     //Money for killing enemy
     public static float damage = 1f;       //Damage enemy does when hitting the endTile
-
+    public static int toMainMenu;
 
     protected List<Status> statuses = new List<Status>();
     public List<Status> Statuses { get { return statuses; } }
@@ -34,7 +34,9 @@ public class Enemy : MonoBehaviour
     protected virtual void Start()
     {
         initializeEnemy();
+        killReward = (int)maxEnemyHealth;
         timeCheck = Time.time;
+        toMainMenu = 0;
     }
 
     protected virtual void Update()
@@ -129,9 +131,10 @@ public class Enemy : MonoBehaviour
     private void moveEnemy()
     {
         //Time.deltaTime is zero when new game is set so enemy speed is zero, need enemy speed to be positive
-        if (Time.deltaTime == 0)
+        if (Time.deltaTime == 0 || toMainMenu == 1)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * 1f);
+            toMainMenu = 0;
         }
         else 
         {
@@ -162,6 +165,11 @@ public class Enemy : MonoBehaviour
             enemyFinished = true;
             enemyDead();
         }
+    }
+
+    public static void resetForMainMenu()
+    {
+        toMainMenu = 1;
     }
 
     // ***** STATUS FUNCTIONS *********************************************************************************************** 
