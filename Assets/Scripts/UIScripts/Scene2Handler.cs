@@ -17,6 +17,7 @@ public class Scene2Handler : MonoBehaviour
     {
         clearListsFromGameScene();
     	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Enemy.resetForMainMenu();
         Debug.Log("Loading Menu...");
     	//SceneManager.LoadScene("StartScene", LoadSceneMode.Single);
     }
