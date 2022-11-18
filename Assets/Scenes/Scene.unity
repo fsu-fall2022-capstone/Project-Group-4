@@ -260,6 +260,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8275656165359091805}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1204682236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2181401130390104476, guid: bea2ec32c55519942b83d3cc713bfc83,
+    type: 3}
+  m_PrefabInstance: {fileID: 5495955892525275028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1269779882
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +598,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4318382961170160379, guid: d09cb2aa991737044a5d3595d5ff54f9,
+        type: 3}
+      propertyPath: playerMoneyTxt
+      value: 
+      objectReference: {fileID: 1204682236}
     - target: {fileID: 4318382961170160380, guid: d09cb2aa991737044a5d3595d5ff54f9,
         type: 3}
       propertyPath: m_Name
@@ -1196,7 +1213,7 @@ PrefabInstance:
     - target: {fileID: 8275656165137410173, guid: 937ba5973c850e64f9dd064573a0535b,
         type: 3}
       propertyPath: spriteSize
-      value: 3.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8275656165137410173, guid: 937ba5973c850e64f9dd064573a0535b,
         type: 3}
