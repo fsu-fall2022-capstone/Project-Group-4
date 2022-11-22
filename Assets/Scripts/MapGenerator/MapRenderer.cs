@@ -11,7 +11,7 @@ public class MapRenderer : MonoBehaviour {
     private int previousMapCount = 0;
     public static bool activeRenderer = true;
 
-    [SerializeField] Sprite[] tileSprites;
+    [SerializeField] private Sprite[] tileSprites;
     Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
 
     protected void Start() {
@@ -32,13 +32,12 @@ public class MapRenderer : MonoBehaviour {
     }
 
     private void LoadDictionary() {
-        Sprite[] SpritesData = tileSprites;
         Sprites = new Dictionary<string, Sprite>();
 
-        for (int i = 0; i < SpritesData.Length; i++)
+        for (int i = 0; i < tileSprites.Length; i++)
         {
-            Debug.Log("MapRenderer: Loaded sprite " + SpritesData[i].name);
-            Sprites.Add(SpritesData[i].name, SpritesData[i]);
+            Debug.Log("MapRenderer: Loaded sprite " + tileSprites[i].name);
+            Sprites.Add(tileSprites[i].name, tileSprites[i]);
         }
     }
 
@@ -72,7 +71,7 @@ public class MapRenderer : MonoBehaviour {
             // if there was a previous tile, give it the same layer
             if (i > 0) {
                 GameObject previousMapTile = MapGenerator.mapTiles[i - 1];
-                Debug.Log("MapRenderer: Comparing " + mapTile.transform.position + " to " + previousMapTile.transform.position);
+                //Debug.Log("MapRenderer: Comparing " + mapTile.transform.position + " to " + previousMapTile.transform.position);
                 if (mapTile.transform.position.y == previousMapTile.transform.position.y) {
                     mapTile.GetComponent<SpriteRenderer>().sortingOrder = previousMapTile.GetComponent<SpriteRenderer>().sortingOrder;
                 } else

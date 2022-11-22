@@ -45,9 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784950fcf90df9e449e443005ef05795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapTile1: {fileID: 414176619123021391, guid: 16fc06ab0f3abd043953404cefba765c, type: 3}
-  mapTile2: {fileID: 0}
-  mapTile3: {fileID: 0}
+  mapTile: {fileID: 414176619123021391, guid: 16fc06ab0f3abd043953404cefba765c, type: 3}
   pathTile: {fileID: 414176619123021391, guid: 72beddd9f38a5894ebaf526c763ab437, type: 3}
   portalTile: {fileID: 414176619123021391, guid: 02b068fe83e0f554c999e788d1ca8aba,
     type: 3}
