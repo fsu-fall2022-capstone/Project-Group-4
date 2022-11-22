@@ -7,6 +7,7 @@ public class GameOverBG : MonoBehaviour
 {
     public void Show()
     {
+        MoneyManager.main.Hide();
         gameObject.SetActive(true);
         Time.timeScale = 0.0f;
     }

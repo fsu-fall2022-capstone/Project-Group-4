@@ -8,6 +8,7 @@ public class MapGeneratorInspector : Editor
         DrawDefaultInspector();
 
         MapGenerator gen = (MapGenerator)target;
+
         if(GUILayout.Button("Generate Map")) {
             gen.GenerateMap();
         }

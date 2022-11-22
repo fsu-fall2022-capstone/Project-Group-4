@@ -146,6 +146,9 @@ public class PlacementManager : MonoBehaviour
 
             if (Input.GetButtonDown("Fire1"))
                 PlaceBuilding();
+
+            if (Input.GetButtonDown("Fire2"))
+                EndBuilding();
         }
     }
 
