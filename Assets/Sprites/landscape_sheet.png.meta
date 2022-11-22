@@ -3,7 +3,7 @@ guid: 3cb53427b54b8174cb5e8bd664c2c10e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -33,12 +33,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -63,7 +63,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -264,7 +263,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: path_tri_SW_NE_SE
+      name: path_tri_NE_SW_SE
       rect:
         serializedVersion: 2
         x: 929
@@ -495,10 +494,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: path_tri_NE_NW_SW
+      name: path_tri_NW_NE_SW
       rect:
         serializedVersion: 2
-        x: 666
+        x: 665
         y: 299
         width: 131
         height: 99
@@ -688,11 +687,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 134
-        y: 210
+        y: 209
         width: 131
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 100
+      alignment: 9
+      pivot: {x: 0.5, y: 0.495}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -852,7 +851,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: path_tri_SE_NE_NW
+      name: path_tri_NW_NE_SE
       rect:
         serializedVersion: 2
         x: 1457
@@ -961,11 +960,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 134
-        y: 109
+        y: 110
         width: 131
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 98
+      alignment: 9
+      pivot: {x: 0.5, y: 0.50510204}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1258,9 +1257,9 @@ TextureImporter:
         y: 11
         width: 131
         height: 99
-      alignment: 0
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1474,6 +1473,7 @@ TextureImporter:
       path_slope_NE_SW: 1224321759
       path_hump_SW_NE: 1969477510
       tree_cluster_6: 652897746
+      path_tri_NW_NE_SW: 1529907321
       path_tri_NW_SW_SE: -175277529
       landscape_sheet_71: 17827690
       river_bend_NE_SE: 1190294896
@@ -1499,6 +1499,7 @@ TextureImporter:
       slope_NE_SW: 725143720
       rock_cluster_5: 916784640
       tree_cluster_4: 652897746
+      path_tri_NE_SW_SE: 1506145310
       path_fourway: -1382613659
       rock_cluster_3: -1717186329
       tree_cluster_3: 652897746
@@ -1517,13 +1518,12 @@ TextureImporter:
       tree_cluster_11: -19536905
       rock_cluster_8: -1513718616
       path_slope_SW_NE: 2127500224
-      path_tri_SE_NE_NW: 1969477510
       river_bend_SW_SE: -493142403
       path_hump_NW_SE: -795834063
+      path_NW_SE: -1812870911
       tree_cluster_7: 135096335
       river_bend_NW_NE: -1527049621
       path_bend_SW_SE: -568354346
-      path_NW_SE: -1812870911
       gem_cluster_4: 1735951405
       slope_SE_NW: -1440015871
       path_bend_NW_SW: -795834063
@@ -1537,13 +1537,12 @@ TextureImporter:
       river_NW_SE: -2072633376
       ground_tall: 48379359
       slope_corner_E_W: 2079822821
-      path_tri_NE_NW_SW: -175277529
+      path_tri_NW_NE_SE: -175277529
       path_bend_NW_NE: -1432642206
       landscape_sheet_74: 510125058
       landscape_sheet_59: -1241550107
-      path_SW_NE: 68989927
-      path_tri_SW_NE_SE: 1554007087
       path_corner_NE_SE: -1055634783
+      path_SW_NE: 68989927
       path_slope_NW_SE: 17827690
       path_slope_SE_NW: 163450036
   spritePackingTag: 
