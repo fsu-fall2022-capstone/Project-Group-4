@@ -12,7 +12,7 @@ public class MapRenderer : MonoBehaviour {
     public static bool activeRenderer = true;
 
     [SerializeField] private Sprite[] tileSprites;
-    Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
+    private Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
 
     protected void Start() {
         if (main == null) main = this;
