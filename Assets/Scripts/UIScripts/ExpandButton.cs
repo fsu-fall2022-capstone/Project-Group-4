@@ -8,7 +8,7 @@ public class ExpandButton : MonoBehaviour{
     public MapLayout data { get; private set; }
 
     // Update is called once per frame
-    private void Update () {
+    private void Update() {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit Hit;
         

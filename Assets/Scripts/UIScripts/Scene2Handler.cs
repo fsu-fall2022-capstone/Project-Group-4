@@ -8,17 +8,21 @@ public class Scene2Handler : MonoBehaviour
     public static void NewGame()
     {
         clearListsFromGameScene();
+        TimeHandler.PauseGameTime();
     	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     	Debug.Log("Reset the Scene...");
+        TimeHandler.StartGameTime();
         //SceneManager.LoadScene("Scene", LoadSceneMode.Single);
     }
 
     public static void mainMenu()
     {
         clearListsFromGameScene();
+        TimeHandler.PauseGameTime();
     	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         Enemy.resetForMainMenu();
         Debug.Log("Loading Menu...");
+        TimeHandler.StartGameTime();
     	//SceneManager.LoadScene("StartScene", LoadSceneMode.Single);
     }
 
