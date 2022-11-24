@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         toMainMenu = 0;
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         if(!waitForTarget) {
             checkPosition();

@@ -21,6 +21,11 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, 10f);
     }
 
+    protected void FixedUpdate()
+    {
+        transform.position += transform.right * 0.25f;
+    }
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision Detected!");
@@ -37,10 +42,5 @@ public class Bullet : MonoBehaviour
     protected virtual void OnBulletCollisionEffect() {
         Debug.Log("Target Hit!");
         Target.GetComponent<Enemy>().takeDamage(Damage);
-    }
-
-    protected void Update()
-    {
-        transform.position += transform.right * 0.25f;
     }
 }

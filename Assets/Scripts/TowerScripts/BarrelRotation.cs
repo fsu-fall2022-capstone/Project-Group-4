@@ -18,7 +18,7 @@ public class BarrelRotation : MonoBehaviour
 
     public Towers tower;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (tower != null)
         {

@@ -37,6 +37,26 @@ public class PlacementManager : MonoBehaviour
         if (main == null) main = this;
     }
 
+    private void Update()
+    {
+        if (isBuilding == true)
+        {
+            if (dummyPlacement != null)
+            {
+                GetCurrentHoverTile();
+
+                if (hoverTile != null)
+                    dummyPlacement.transform.position = hoverTile.transform.position;
+            }
+
+            if (Input.GetButtonDown("Fire1"))
+                PlaceBuilding();
+
+            if (Input.GetButtonDown("Fire2"))
+                EndBuilding();
+        }
+    }
+
     public Vector2 GetMousePosition()
     {
         return cam.ScreenToWorldPoint(Input.mousePosition);
@@ -131,26 +151,4 @@ public class PlacementManager : MonoBehaviour
             Destroy(dummyPlacement);
         }
     }
-
-    private void Update()
-    {
-        if (isBuilding == true)
-        {
-            if (dummyPlacement != null)
-            {
-                GetCurrentHoverTile();
-
-                if (hoverTile != null)
-                    dummyPlacement.transform.position = hoverTile.transform.position;
-            }
-
-            if (Input.GetButtonDown("Fire1"))
-                PlaceBuilding();
-
-            if (Input.GetButtonDown("Fire2"))
-                EndBuilding();
-        }
-    }
-
-
 }

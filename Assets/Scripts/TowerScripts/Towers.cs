@@ -33,6 +33,20 @@ public class Towers : MonoBehaviour
         nextTimeToShoot = Time.time;
     }
 
+    private void FixedUpdate()
+    {
+        updateClosestEnemy();
+        
+        if (Time.time >= nextTimeToShoot)
+        {
+            if (currentTarget != null)
+            {
+                shoot();
+                nextTimeToShoot = Time.time + timeBtwShots;
+            }
+        }
+    }
+
     private void updateClosestEnemy()
     {
         GameObject currClosestEnemy = null;
@@ -72,18 +86,4 @@ public class Towers : MonoBehaviour
     public int getCost() { return towerCost; }
 
     public string getName() { return towerName; }
-
-    private void Update()
-    {
-        updateClosestEnemy();
-        
-        if (Time.time >= nextTimeToShoot)
-        {
-            if (currentTarget != null)
-            {
-                shoot();
-                nextTimeToShoot = Time.time + timeBtwShots;
-            }
-        }
-    }
 }
