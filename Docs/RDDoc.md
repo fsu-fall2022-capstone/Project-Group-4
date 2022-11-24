@@ -1,6 +1,6 @@
 <div align="center">
 
-## Software Requirements and Design Document <br> <br> For Group #4 <br> <br> Version 0.2
+## Software Requirements and Design Document <br> <br> For Group #4 <br> <br> Version 0.4
 
 <br>
 <br>
@@ -77,6 +77,20 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 41) Medium - The system has a set range, cost, name, and damage for every tower.
 42) Medium - The system has a set speed, health, kill reward, and damage for every enemy.
 43) Low - The system allows towers to switch the enemy they are currently targeting.
+44) Medium - The system lets elemental towers apply status effects to enemies.
+45) Medium - The system allows enemies to use abilities for a specified duration.
+46) Medium - The system allows enemies to use abilities after a specified duration.
+47) High - The system should display to the user the current amount of money.
+48) High - The system should display to the user the current amount of health.
+49) Low - The system should display kill rewards after enemies die.
+50) Medium - The system should allow boons to be purchased from the shop.
+51) Medium - Boons should last for the specified duration and be destroyed after.
+52) Medium - Boons should remove all the effects and return the state of play to normal when destroyed.
+53) Medium - Boons should remove effects when targets are out of range or add them when they are in range.
+54) Medium - Towers should be able to support multiple boon effects at the same time.
+55) Low - The system should let the user change difficulty.
+56) Medium - The system should allow the user to speed up game time.
+57) Medium - The system should contain various enemy types with different abilities and niches that make them unique.
 
 ### 3) Non-functional Requirements
 
@@ -88,31 +102,150 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 6) The game should not crash when too many enemies/towers are on the map at the same time.
 7) The game should support massive map sizes as some expansion games might go on for a while.
 8) The game should have a simple to understand and clear UI that doesn’t distract as much from the main game.
+9) The game should be difficult enough to not allow the player to live forever.
 
 ### 4) Use Case Diagram
 
+<details name="Use-Case Diagram">
+<summary>Use-Case Diagram</summary>
+
 [![Use-Case-Diagram](/Docs/Diagrams/UseCaseDiagram.png)](/Docs/Diagrams/UseCaseDiagram.png)
+
+</details>
+
+Use Case: Playing an expansion game  
+Actors: Player, System  
+Pre condition: Launch the game  
+Normal Flow: The player clicks start new expansion game  
+Post condition: A new round is started along with a generating a map  
+Alternative Flows: When a game ends the player can choose to start again  
+Nonfunctional Requirements: The system is reliable and light on resources to quickly start a game
+
+
+Use Case: Place a tower  
+Actors: Player, System, Shop manager, Money manager  
+Pre condition: The player has enough money to buy a tower  
+Normal Flow: The player uses the system UI to select a tower and place it on a tile on the map. The system then takes away money from the user after the tower is placed  
+Post condition: A new object for a tower is created on the selected tile and begins to track and attack enemies.  
+Alternative Flows: The player doesn’t have enough money to place a tower and the system informs them of lack of money. Another case is the player doesn’t want to place a tower.  
+Nonfunctional Requirements: The system is reliable and light on resources
+
+Use Case: Spawn enemies  
+Actors: System, Round controller, Enemy system  
+Pre condition: The system has started a new round  
+Normal Flow: After a round starts the round controller spawns enemies at a spawn portal.  
+Post condition: Enemies move along a path to attack player home  
+Alternative Flows: An enemy has a special ability to spawn new enemies and creates at their current tile location. They then follow along the path as regular enemies.  
+Nonfunctional Requirements: The system is reliable and light on resources 
+
+Use Case: Attack enemies  
+Actors: System, Tower System  
+Pre condition: A tower is currently placed on a valid tile in a round  
+Normal Flow: A tower detects enemies and begins to use BarrelRotation to turn towards an enemy and checks to make sure that enemy is in range. Then when it’s in range it attacks the enemy spawning in a bullet object.  
+Post condition: A bullet is spawned  
+Alternative Flows: The enemy isn’t in range so the tower doesn’t spawn a bullet object to attack the enemy with.  
+Nonfunctional Requirements: The system is reliable and light on resources 
+
+Use Case: Bullet collision  
+Actors: System, Tower System, Enemy System  
+Pre condition: A bullet object was created by a tower that was attacking an enemy in range  
+Normal Flow: A bullet object goes towards an enemy and upon detect collision it damages the enemy.  
+Post condition: The enemy takes damage and checks if it got killed or not.  
+Alternative Flows: A bullet misses and doesn’t damage an enemy in the process.  
+Nonfunctional Requirements: The system is reliable and light on resources 
+
+Use Case: Give Money  
+Actors: Player, System, Money Manager, Shop manager, Round controller  
+Pre condition: The player sells a tower  
+Normal Flow: Once a player chooses to sell a tower they then activate Money manager to add money to the player pool through giving player money in Round controller.  
+Post condition: The total money the player has increases.  
+Alternative Flows: N/A  
+Nonfunctional Requirements: The system is reliable and light on resources 
+
+Use Case: Upgrade Tower  
+Actors: Player, System, Money manager, Shop manager, Round controller  
+Pre condition: There exists a tower that can be upgraded on a valid tile.  
+Normal Flow: A player clicks a tower and upgrades the tower. Shop manager then upgrades the tower and removes money through the money manager.  
+Post condition: The players total money increases.  
+Alternative Flows: The playe doesn't have enough money to upgrade and the system informs them they need more money and the tower doesn't get upgraded.  
+Nonfunctional Requirements: The system is reliable and light on resources 
+
+Use Case: Generate Map  
+Actors: System, Map System  
+Pre condition: A new round and game has been started by the player  
+Normal Flow: Map generator generates a new map through a draw map function. Then the tileset generator creates all the tiles for enemies to follow on the map.  
+Post condition: The game has a new randomly generated map  
+Alternative Flows: N/A  
+Nonfunctional Requirements: The system is reliable and light on resources 
+
+Use Case: Expand map  
+Actors: System, Map System 
+Pre condition: A new round has started  
+Normal Flow:Map generator uses expand Map to check if it is valid to expand and then creates a new tileset for enemies to follow and calls draw map again to recreate the map.  
+Alternative Flows: N/A  
+Nonfunctional Requirements: The system is reliable and light on resources 
 
 ### 5) Class Diagram and/or Sequence Diagrams
 
+#### Class Diagram
+
+<details name="Class Diagram">
+<summary>Diagram</summary>
+
 [![Class-Diagram](/Docs/Diagrams/ClassDiagram.png)](/Docs/Diagrams/ClassDiagram.png)
+
+</details>
 
 #### Map Generation Sequence Diagram
 
+<details name="Map Gen Sequence Diagram">
+<summary>Diagram</summary>
+
 [![Sequence-Diagram_MapGen](/Docs/Diagrams/SequenceDiagram_MapGen.png)](/Docs/Diagrams/SequenceDiagram_MapGen.png)
+
+</details>
 
 #### Enemies Sequence Diagram
 
+<details name="Enemies Sequence Diagram">
+<summary>Diagram</summary>
+
 [![Sequence-Diagram_Enemies](/Docs/Diagrams/SequenceDiagram_Enemies.png)](/Docs/Diagrams/SequenceDiagram_Enemies.png)
+
+</details>
 
 #### Placement Sequence Diagram
 
+<details name="Place Man Sequence Diagram">
+<summary>Diagram</summary>
+
 [![Sequence-Diagram_PlaceMan](/Docs/Diagrams/SequenceDiagram_PlaceMan.png)](/Docs/Diagrams/SequenceDiagram_PlaceMan.png)
+
+</details>
 
 ### 6) Operating Environment
 
-Our game could, at its finished state, theoretically operate on any of the main operating systems: Windows, Linux, MacOS. Most machines hardware-wise will be able to handle running our game, though for best operation it would be suggested that the machine have at least 8GB Ram, and a processor equivalent or better than an Intel i5 or extended buffering/glitches might occur.
+Our game could at its finish theoretically operate on any of the main operating systems; Windows, Linux, macOS. Most machines hardware wise will be able to handle running our game, though for best operation it would be suggested that the machine have at least 8GB Ram, and a processor equivalent or better than an intel i5 or extended buffering/glitches might occur. It may be worth mentioning that as our game grows in size through the increments that these operating environment specs will most likely still hold the ability to run our game, but machines with better processors, more RAM, and possible additional GPU’s will be able to run our game much more smoothly.
 
 ### 7) Assumptions and Dependencies
   
-One of the dependencies for this project is the base code comes from a tutorial series off of YouTube to help ourselves start in learning Unity. Over the next two increments we should be able to move away from this code/change it almost completely.
+Dependenices for this project are based on the following assumptions:
+
+#### a) Unity Tutorials
+
+One of the dependencies for this project is that much of the original base code comes from a tutorial series off of youtube. Most of that original base code has been changed completely at this point, but some is still being used for functions that we have not yet been able to modify to fit our game scheme. Over the next increment we will further move away from what little of this code is left/change it almost completely. 
+
+#### b) Unity Editor Package Manager
+
+All, non-Editor related packages are assumed to be dependencies for the project. These packages are as follows:
+
+* 2D Sprite
+* 2D Tilemap Editor
+* TextMeshPro
+
+#### c) C-Sharp Libraries
+
+Some libraries are assumed to be dependencies for the project. These libraries are as follows:
+
+* System.Collections
+* LINQ

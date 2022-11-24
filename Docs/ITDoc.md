@@ -1,6 +1,6 @@
 <div align="center">
 
-## Software Implementation and Testing Document <br> <br> For Group #4 <br> <br> Version 0.2
+## Software Implementation and Testing Document <br> <br> For Group #4 <br> <br> Version 0.4
 
 <br>
 <br>
@@ -41,6 +41,8 @@ C# is the main programming language of the project. The main reasoning behind th
 We performed functional testing on our project through sanity and integration tests using Github. For sanity testing, we determined proper functionality using the Unity Editor game simulation feature to ensure scripts functioned as intended before committing them to Github. For example, one of our functional requirements in the RD document states that bullets from towers in our game must apply a set damage value to an enemy. We applied sanity tests after the initial commit to ensure there were no bugs in collision and damage registration on an enemy. Once sanity tests were complete we used git merge for integration testing to ensure there were no conflicts among new assets commited to the system. For both of these tests we used a black box testing method, focusing solely on functionality.
 
 ### 4) Execution-based Non-Functional Testing
+
+We performed similar testing as we did for functional testing where we went through sanity tests. We would run longer tests to make sure things like having X amount of towers with Y amount of enemies on the screen didn't hurt performance. Due to the nature of sanity checking, we constantly have to use the UI making sure that it's very usable and doesn't take too many clicks to get things done.
 
 ### 5) Non-Execution-based Testings
 
