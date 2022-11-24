@@ -84,6 +84,8 @@ public class MapGenerator : MonoBehaviour
         pathTiles.Clear();
         tileSets.Clear();
         mapLayout.Clear();
+        expandableTiles.Clear();
+        spawnTiles.Clear();
 
         MapRenderer.activeRenderer = true;
     }
