@@ -7,12 +7,13 @@ public class SceneHandler : MonoBehaviour
 {
     public static void loadNewGame()
     {
+        Scene2Handler.clearListsFromGameScene();
         SceneManager.LoadScene("Scene", LoadSceneMode.Single);
     }
 
     public static void Quit()
     {
-        Application.Quit();
         Debug.Log("Quit!");
+        Application.Quit();
     }
 }

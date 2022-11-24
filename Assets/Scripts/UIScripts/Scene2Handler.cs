@@ -29,7 +29,7 @@ public class Scene2Handler : MonoBehaviour
 
     public static void Quit()
     {
-        Application.Quit();
         Debug.Log("Quit!");
+        Application.Quit();
     }
 }
