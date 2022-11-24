@@ -9,13 +9,13 @@ public class GameOverBG : MonoBehaviour
     {
         MoneyManager.main.Hide();
         gameObject.SetActive(true);
-        Time.timeScale = 0.0f;
+        TimeHandler.PauseGameTime();
     }
 
-    public void gameTime()
+    public void Hide()
     {
-        Time.timeScale = 1.0f;
-        Debug.Log("Reset the Game Time...");
+        TimeHandler.StartGameTime();
+        MoneyManager.main.Show();
         gameObject.SetActive(false);
     }
 }

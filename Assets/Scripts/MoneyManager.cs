@@ -40,7 +40,7 @@ public class MoneyManager : MonoBehaviour
         if (counter == 0)
             currPlayerMoney = 1000;        //If startMoney changes, change this to match
         currPlayerMoney = GetCurrMoney() + amount;
-        playerMoneyTxt.text = "Money: $" + currPlayerMoney;
+        playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
         counter++;
     }
 
@@ -48,12 +48,17 @@ public class MoneyManager : MonoBehaviour
     public void removeMoney(int amount)
     {
         currPlayerMoney -= amount;
-        playerMoneyTxt.text = "Money: $" + currPlayerMoney;
+        playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
         Debug.Log($"Removed {amount} from {currPlayerMoney+amount} to {currPlayerMoney}");
     }
 
     public void Hide()
     {
         playerMoneyTxt.text = "";
+    }
+
+    public void Show()
+    {
+        playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
     }
 }

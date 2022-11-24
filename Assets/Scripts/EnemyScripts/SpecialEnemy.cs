@@ -16,8 +16,8 @@ public class SpecialEnemy : Enemy {
         initializeAbility();
     }
 
-    protected override void Update() {
-        base.Update();
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
         checkSpecialAbility();
     }
 

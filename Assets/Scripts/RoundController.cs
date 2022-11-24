@@ -36,30 +36,13 @@ public class RoundController : MonoBehaviour
 
         timeVar = 0f + timeBeforeRoundStarts;
 
+        Debug.Log($"RoundController reports timescale as: {Time.timeScale}");
+        if(Time.timeScale == 0) TimeHandler.StartGameTime();
+
         round = 1;
     }
 
-    private void spawnEnemies()
-    {
-        StartCoroutine("ISpawnEnemies");
-    }
-
-    IEnumerator ISpawnEnemies()
-    {
-        for (int i = 0; i < round; i++)
-        {
-            for(int j = 0; j < MapGenerator.spawnTiles.Count; j++)
-            {
-                GameObject newEnemy = Instantiate(basicEnemy, MapGenerator.spawnTiles[j].transform.position, Quaternion.identity);
-                Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-                enemyScript.setPathID(j);
-                enemyScript.initializeTarget(MapGenerator.spawnTiles[j]);
-            }
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
-    private void Update()
+    private void FixedUpdate()
     {
         if (isStartOfRound)
         {
@@ -93,6 +76,26 @@ public class RoundController : MonoBehaviour
                 timeVar = Time.time + timeBtwWaves;
                 round += 1;
             }
+        }
+    }
+
+    private void spawnEnemies()
+    {
+        StartCoroutine("ISpawnEnemies");
+    }
+
+    IEnumerator ISpawnEnemies()
+    {
+        for (int i = 0; i < round; i++)
+        {
+            for(int j = 0; j < MapGenerator.spawnTiles.Count; j++)
+            {
+                GameObject newEnemy = Instantiate(basicEnemy, MapGenerator.spawnTiles[j].transform.position, Quaternion.identity);
+                Enemy enemyScript = newEnemy.GetComponent<Enemy>();
+                enemyScript.setPathID(j);
+                enemyScript.initializeTarget(MapGenerator.spawnTiles[j]);
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 }
