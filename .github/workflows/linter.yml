@@ -1,0 +1,37 @@
+name: Linter
+
+on:
+  # Schedule weekly updates on Mondays
+  schedule: [{cron: "0 0 * * 1"}]
+
+  # Manual trigger
+  workflow_dispatch:
+
+jobs:
+  super-lint:
+    name: Lint code base
+
+    runs-on: ubuntu-latest
+    env:
+      working-directory : ./
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Pull
+        run: git pull
+
+      - name: Install dotnet-format tool
+        run: dotnet tool install -g dotnet-format
+
+      - name: Format
+        run: dotnet-format -f Assets/Scripts -v d
+        working-directory: ${{env.working-directory}}
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "Automated dotnet-format update"
+          add: "*.cs"
