@@ -274,25 +274,12 @@ public class MapGenerator : MonoBehaviour
             }
             //Debug.Log($"New pos: {newPos.x}, {newPos.y}");
             Vector3 tilePos = new Vector3(newPos.x, newPos.y, 0);
-            if(currTile.type == 0) {
+            if(currTile.type == 0)
+            {
                 // can randomize between sprites here
                 newTile = Instantiate(mapTile, tilePos, Quaternion.identity);
-                int random = UnityEngine.Random.Range(0, 100);
-                
-                if(random >= 80 && random < 95) { // tree
-                    random = UnityEngine.Random.Range(1, MapRenderer.main.GetSpriteCount("tree_cluster"));
-                    Sprite newSprite = MapRenderer.main.GetSpriteByName($"tree_cluster_{random}");
-                    newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
-                } else if(random >= 95 && random < 98) { // rock
-                    random = UnityEngine.Random.Range(1, MapRenderer.main.GetSpriteCount("rock_cluster"));
-                    Sprite newSprite = MapRenderer.main.GetSpriteByName($"rock_cluster_{random}");
-                    newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
-                } else if(random >= 98 && random < 100) {
-                    random = UnityEngine.Random.Range(1, MapRenderer.main.GetSpriteCount("gem_cluster"));
-                    Sprite newSprite = MapRenderer.main.GetSpriteByName($"gem_cluster_{random}");
-                    newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
-                }
-                
+                MapRenderer.main.GenerateRandomMapSprite(newTile);
+
                 // otherwise it's just a grass tile and do nothing
                 mapTiles.Add(newTile);
             }
@@ -330,7 +317,9 @@ public class MapGenerator : MonoBehaviour
 
             if(!alreadyExists) {
                 if(foundPrevious && (i+1) < newTileSet.pathTiles[localID].Count) {
-                    updateSplitPathSprite(foundPrevious, newTileSet.pathTiles[localID][i+1], currTile);
+                    MapRenderer.main.UpdateSplitPathSprite(foundPrevious, 
+                        newTileSet.pathTiles[localID][i+1], 
+                        currTile);
                     foundPrevious = null;
                 }
 
@@ -339,7 +328,10 @@ public class MapGenerator : MonoBehaviour
                         newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                         newPathTile.name = $"Path {pathID} - {pathTiles[pathID].Count}";
 
-                        selectPathSprite(newPathTile, newTileSet.pathTiles[localID][i + 1], currTile, newTileSet.pathTiles[localID][i - 1]);
+                        MapRenderer.main.SelectPathSprite(newPathTile, 
+                            newTileSet.pathTiles[localID][i + 1], 
+                            currTile, 
+                            newTileSet.pathTiles[localID][i - 1]);
                         
                         pathTiles[pathID].Add(newPathTile);
                         mapTiles.Add(newPathTile);
@@ -367,11 +359,21 @@ public class MapGenerator : MonoBehaviour
                             newPathTile = Instantiate(pathTile, tilePos, Quaternion.identity);
                             newPathTile.name = $"Path {pathID} - {pathTiles[pathID].Count}";
                             Tile nextTile = newTileSet.pathTiles[localID][i - 1];
-                            Vector3 nextTilePos = (generateAsIsometric) ? new Vector3((((displacement.x) + nextTile.position.x)
-                            * spriteWidth + ((displacement.y) + nextTile.position.y) * spriteHeight) / 2f, ((((displacement.x) + nextTile.position.x)
-                            * spriteWidth - ((displacement.y) + nextTile.position.y) * spriteHeight) / 4f) * -1, 0) : 
-                                new Vector3((displacement.x) + nextTile.position.x,(displacement.y) + nextTile.position.y, 0);
-                            stitchPathSprite(newPathTile, pathTiles[pathID][pathTiles[pathID].Count-1], nextTilePos);
+
+                            (float x, float y) nextTilePosForTest;
+                            nextTilePosForTest.x = (generateAsIsometric) ?
+                                (((displacement.x) + nextTile.position.x) * spriteWidth + ((displacement.y) + nextTile.position.y) * spriteHeight) / 2f :
+                                (displacement.x) + nextTile.position.x;
+                            nextTilePosForTest.y = (generateAsIsometric) ?
+                                ((((displacement.x) + nextTile.position.x) * spriteWidth - ((displacement.y) + nextTile.position.y) * spriteHeight) / 4f) * -1 :
+                                (displacement.y) + nextTile.position.y;
+
+                            Vector3 nextTilePos = new Vector3(nextTilePosForTest.x, nextTilePosForTest.y, 0);
+
+                            MapRenderer.main.StitchPathSprite(newPathTile, 
+                                pathTiles[pathID][pathTiles[pathID].Count-1], 
+                                nextTilePos);
+
                             pathTiles[pathID].Add(newPathTile);
                             mapTiles.Add(newPathTile);
                         }
@@ -382,125 +384,6 @@ public class MapGenerator : MonoBehaviour
     
         // reorder the mapTiles based on their position from bottom to top        
         mapTiles.Sort((x, y) => x.transform.position.y.CompareTo(y.transform.position.y));
-    }
-
-    private int updateSplitPathSprite(GameObject pathTile, Tile previous, Tile current) {
-        string spriteName = pathTile.GetComponent<SpriteRenderer>().sprite.name;
-        Debug.Log($"spriteName: {spriteName} previous pos: {previous.position} current pos: {current.position}");
-        if(spriteName.Contains("fourway")) return 1;
-
-        int dir_count = 0;
-        bool NW = false, NE = false, SE = false, SW = false;
-
-        if(spriteName.Contains("NE")) { NE = true; dir_count++; }
-        if(spriteName.Contains("NW")) { NW = true; dir_count++; }
-        if(spriteName.Contains("SE")) { SE = true; dir_count++; }
-        if(spriteName.Contains("SW")) { SW = true; dir_count++; }
-
-        if(dir_count == 3) {
-            pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_fourway");
-            return 1;
-        }
-
-        spriteName = "path_tri";
-
-        if(current.position.x > previous.position.x && current.position.y == previous.position.y)
-            SE = true;
-        else if(current.position.x < previous.position.x && current.position.y == previous.position.y)
-            NW = true;
-        else if(current.position.y > previous.position.y && current.position.x == previous.position.x)
-            NE = true;
-        else if(current.position.y < previous.position.y && current.position.x == previous.position.x)
-            SW = true;
-
-
-        if(NW) spriteName += "_NW";
-        if(NE) spriteName += "_NE";
-        if(SW) spriteName += "_SW";
-        if(SE) spriteName += "_SE";
-
-        Debug.Log($"new spriteName: {spriteName} pathTile Name: {pathTile.name}");
-
-        pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName(spriteName);
-        return 1;
-    }
-
-    // this shit is pure disgusting and probably the definition of visual spaghetti code
-    // but it works and i won't be touching it as often 
-    
-    // this function is for selecting the correct sprite for the path tile
-    private void selectPathSprite(GameObject pathTile, Tile previous, Tile current, Tile next) {
-        if((previous.position.y > current.position.y && current.position.y == next.position.y && current.position.x > next.position.x) || 
-        (previous.position.x < current.position.x && current.position.x == next.position.x && current.position.y < next.position.y)) {
-            pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_NW_NE");
-            //Debug.Log($"NW_NE {pathTile.name}");
-        }
-        else if((previous.position.y > current.position.y && current.position.y == next.position.y && current.position.x < next.position.x) || 
-        (previous.position.x > current.position.x && current.position.x == next.position.x && current.position.y < next.position.y)) {
-            pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_NE_SE");
-            //Debug.Log($"NE_SE {pathTile.name}");
-        }
-        else if((previous.position.y < current.position.y && current.position.y == next.position.y && current.position.x < next.position.x) ||
-        (previous.position.x > current.position.x && current.position.x == next.position.x && current.position.y > next.position.y)) {
-            pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_SW_SE");
-            //Debug.Log($"SW_SE {pathTile.name}");
-        }
-        else if((previous.position.y < current.position.y && current.position.y == next.position.y && current.position.x > next.position.x) ||
-        (previous.position.x < current.position.x && current.position.x == next.position.x && current.position.y > next.position.y)) {
-            pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_NW_SW");
-            //Debug.Log($"NW_SW {pathTile.name}");
-        }
-        else if((next.position.x > current.position.x || next.position.x < current.position.x) && next.position.y == current.position.y) {
-            Sprite newSprite = MapRenderer.main.GetSpriteByName($"path_NW_SE");
-            pathTile.GetComponent<SpriteRenderer>().sprite = newSprite;
-        } 
-        else if ((next.position.y > current.position.y || next.position.y < current.position.y) && next.position.x == current.position.x) {
-            Sprite newSprite = MapRenderer.main.GetSpriteByName($"path_SW_NE");
-            pathTile.GetComponent<SpriteRenderer>().sprite = newSprite;
-        }
-    }
-
-    // this is when we stitch paths and aren't sure about the lists, but have the actual GameObjects
-    private void stitchPathSprite(GameObject newPath, GameObject stitch, Vector3 next){
-        //Debug.Log($"newPath pos: {newPath.transform.position} stitch pos: {stitch.transform.position} next pos: {next}");
-        if((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y &&
-        newPath.transform.position.x < next.x && newPath.transform.position.y > next.y) ||
-        (stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
-        next.x < newPath.transform.position.x && next.y < newPath.transform.position.y)) {
-            newPath.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_SW_SE");
-            //Debug.Log($"Stitch SW_SE {newPath.name}");
-        }
-        else if((stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
-        newPath.transform.position.x < next.x && newPath.transform.position.y > next.y) ||
-        (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y &&
-        newPath.transform.position.x < next.x && newPath.transform.position.y < next.y)) {
-            newPath.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_NE_SE");
-            //Debug.Log($"Stitch NE_SE {newPath.name}");
-        }
-        else if((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
-        newPath.transform.position.x < next.x && newPath.transform.position.y < next.y) ||
-        (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
-        newPath.transform.position.x > next.x && newPath.transform.position.y < next.y)) {
-            newPath.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_NW_NE");
-            //Debug.Log($"Stitch NW_NE {newPath.name}");
-        }
-        else if((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y &&
-        newPath.transform.position.x > next.x && newPath.transform.position.y < next.y) ||
-        (stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
-        newPath.transform.position.x > next.x && newPath.transform.position.y > next.y)) {
-            newPath.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_corner_NW_SW");
-            //Debug.Log($"Stitch NW_SW {newPath.name}");
-        }
-        else if((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y) ||
-        (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y)) {
-            newPath.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_NW_SE");
-            //Debug.Log($"Stitch NW_SE {newPath.name}");
-        }
-        else if((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y) ||
-        (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y)) {
-            newPath.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_SW_NE");
-            //Debug.Log($"Stitch SW_NE {newPath.name}");
-        }
     }
 
     public void randomExpand() {
@@ -601,7 +484,9 @@ public class MapGenerator : MonoBehaviour
             drawPathTiles(newTileSet, (locTileInfo.position.x * tilesetWidth, locTileInfo.position.y * tilesetHeight), true, pathID, i);
         }
 
-        stitchPathSprite(replacedTile, pathTiles[initPathID][replacedTileIndex-1], pathTiles[initPathID][replacedTileIndex+1].transform.position);
+        MapRenderer.main.StitchPathSprite(replacedTile, 
+            pathTiles[initPathID][replacedTileIndex-1], 
+            pathTiles[initPathID][replacedTileIndex+1].transform.position);
 
         //Debug.Log($"Spawn Tiles Count @4 {spawnTiles.Count}");
 
