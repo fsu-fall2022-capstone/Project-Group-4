@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour
     }
 
     //Modified to allow the updating of the health/lives bar 
-    private void enemyDead()
+    protected virtual void enemyDead()
     {
         if (enemyFinished) {
             HealthBar.lives -= damage;

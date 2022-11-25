@@ -12,6 +12,7 @@ public enum ElementType
 public enum AbilityType {
     None,
     Spawn, 
+    DeadSpawn,
     Shield, 
     Heal, 
     Sprint, 

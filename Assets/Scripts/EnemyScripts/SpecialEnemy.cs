@@ -27,8 +27,14 @@ public class SpecialEnemy : Enemy {
                 specialAbility = gameObject.AddComponent(typeof(SpawnerAbility)) as SpawnerAbility;
                 (specialAbility as SpawnerAbility).ConstructAbility(abilityPrefab, abilityCount, maxDuration, maxCooldown);
                 break;
+            case AbilityType.DeadSpawn:
+                specialAbility = gameObject.AddComponent(typeof(DeadSpawnerAbility)) as DeadSpawnerAbility;
+                (specialAbility as DeadSpawnerAbility).ConstructAbility(abilityPrefab, abilityCount, maxDuration, maxCooldown);
+                break;
             case AbilityType.Shield:
+                break;
             case AbilityType.Overcharge:
+                break;
             case AbilityType.Sprint:
                 specialAbility = gameObject.AddComponent(typeof(StatusCasterAbility)) as StatusCasterAbility;
                 (specialAbility as StatusCasterAbility).ConstructAbility(abilityType, abilityRange, maxDuration, maxCooldown);
@@ -38,6 +44,26 @@ public class SpecialEnemy : Enemy {
                 break;
         }
         specialAbility.startAbility(); // to prevent instant use of ability on spawn
+    }
+
+    protected override void enemyDead()
+    {
+        if (enemyFinished) {
+            HealthBar.lives -= damage;
+            enemyFinished = false;
+        }
+        if (enemyHealth <= 0 && abilityType == AbilityType.DeadSpawn){
+            MoneyManager.main.addMoney(killReward);
+            (specialAbility as DeadSpawnerAbility).spawnEnemies(gameObject.transform.position, targetTile);
+            specialAbility.startAbility();
+            Debug.Log("SPAWNING ENEMIES ON DEATH");
+            MoneyManager.main.addMoney(killReward);
+        }
+        else
+            MoneyManager.main.addMoney(killReward);
+
+        Counter.enemies.Remove(gameObject);
+        Destroy(transform.gameObject);
     }
 
     private void checkSpecialAbility() {
@@ -61,7 +87,7 @@ public class SpecialEnemy : Enemy {
                 (specialAbility as StatusCasterAbility).castStatus(gameObject.transform.position);
                 break;
             default:
-                Debug.Log($"Ability not implemented! {abilityType}");
+                Debug.Log($"Ability Can't be used/not implemented! {abilityType}");
                 break;
         }
     }
