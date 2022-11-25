@@ -207,7 +207,14 @@ public class Enemy : MonoBehaviour
                     break;
                 case StatusType.Electrocuted:
                 case StatusType.Burning:
-
+                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
+                    status.updateDuration(Time.time - timeCheck);
+                    if (status.duration <= 0f) {
+                        statusesToRemove.Add(status);
+                        Debug.Log($"{name} is no longer {status.statusType}");
+                    }
+                    else
+                        takeDamage(2);
                     break;
                 case StatusType.Overcharged:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
