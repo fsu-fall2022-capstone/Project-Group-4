@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     protected GameObject targetTile;
     protected int pathID = 0;
-    [SerializeField] protected bool waitForTarget = true;
+    protected bool waitForTarget = true;
     protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
     private void Awake()
@@ -33,8 +33,8 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        initializeEnemy();
-        killReward = (int)maxEnemyHealth;
+        enemyHealth = maxEnemyHealth;
+        movementSpeed = maxMovementSpeed;
         timeCheck = Time.time;
         toMainMenu = 0;
     }
@@ -48,24 +48,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void initializeEnemy()
-    {
-        if (!waitForTarget)
-            targetTile = MapGenerator.spawnTiles[pathID];
-        enemyHealth = maxEnemyHealth;
-        movementSpeed = maxMovementSpeed;
-    }
-
-    public void initializeTarget(GameObject _targetTile)
+    public void initializeEnemy(GameObject _targetTile, int _pathID)
     {
         targetTile = _targetTile;
-        waitForTarget = false;
-    }
-
-    public void setPathID(int _pathID)
-    {
         pathID = _pathID;
-        Debug.Log("PathID: " + pathID);
+        waitForTarget = false;
     }
 
     public void takeDamage(float amount)
@@ -128,7 +115,7 @@ public class Enemy : MonoBehaviour
         Destroy(transform.gameObject);
     }
 
-    private void moveEnemy()
+    protected void moveEnemy()
     {
         //Time.deltaTime is zero when new game is set so enemy speed is zero, need enemy speed to be positive
         if (Time.deltaTime == 0 || toMainMenu == 1)
@@ -149,9 +136,12 @@ public class Enemy : MonoBehaviour
         if (targetTile != null && targetTile != MapGenerator.endTile) {
             if (Vector3.Distance(transform.position, targetTile.transform.position) < 0.001f) {
                 try {
+                    Debug.Log("Enemy: " + gameObject.name + " has reached tile: " + targetTile.name);
                     int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
 
                     targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
+
+                    Debug.Log("Enemy: " + gameObject.name + " is now targeting tile: " + targetTile.name);
 
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = targetTile.GetComponent<SpriteRenderer>().sortingOrder;
                 } catch {
@@ -189,7 +179,7 @@ public class Enemy : MonoBehaviour
             applyStatus();
     }
 
-    private void applyStatus() {
+    protected void applyStatus() {
         List<Status> statusesToRemove = new List<Status>();
         foreach(Status status in statuses){
             switch(status.statusType){
