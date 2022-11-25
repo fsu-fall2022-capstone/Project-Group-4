@@ -5,24 +5,22 @@ using UnityEngine;
 public class SpawnerAbility : Ability {
     protected GameObject enemy;
     public int count { get; private set; }
-    public void ConstructAbility(GameObject enemy, int count, float duration, float cooldown) {
-        base.ConstructAbility(AbilityType.Spawn, duration, cooldown);
+    public void ConstructAbility(AbilityType abilityType, GameObject enemy, int count, float duration, float cooldown) {
+        base.ConstructAbility(abilityType, duration, cooldown);
         this.enemy = enemy;
         this.count = count;
     }
 
-    public void spawnEnemies(Vector3 position, GameObject target) {
-        if(isReady()) {
-            Debug.Log($"Spawning Enemies! {count} will spawn at {position} to target {target.transform.position}" );
-            IEnumerator coroutine = IAbilitySpawnEnemies(position, target);
-            StartCoroutine(coroutine);
-        }
+    public void spawnEnemies(Vector3 position, GameObject target, int pathID) {
+        Debug.Log($"Spawning Enemies! {count} will spawn at {position} to target {target.transform.position}" );
+        IEnumerator coroutine = IAbilitySpawnEnemies(position, target, pathID);
+        StartCoroutine(coroutine);
     }
 
-    private IEnumerator IAbilitySpawnEnemies(Vector3 position, GameObject target) {
+    private IEnumerator IAbilitySpawnEnemies(Vector3 position, GameObject target, int pathID) {
         for (int i = 0; i < count; i++) {
             GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
-            newEnemy.GetComponent<Enemy>().initializeTarget(target);
+            newEnemy.GetComponent<Enemy>().initializeEnemy(target, pathID);
             yield return new WaitForSeconds(0.3f);
         }
     }
