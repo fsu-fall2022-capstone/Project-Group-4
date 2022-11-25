@@ -23,18 +23,13 @@ public class SpecialEnemy : Enemy {
 
     private void initializeAbility() {
         switch (abilityType) {
+            case AbilityType.DeadSpawn:
             case AbilityType.Spawn:
                 specialAbility = gameObject.AddComponent(typeof(SpawnerAbility)) as SpawnerAbility;
-                (specialAbility as SpawnerAbility).ConstructAbility(abilityPrefab, abilityCount, maxDuration, maxCooldown);
-                break;
-            case AbilityType.DeadSpawn:
-                specialAbility = gameObject.AddComponent(typeof(DeadSpawnerAbility)) as DeadSpawnerAbility;
-                (specialAbility as DeadSpawnerAbility).ConstructAbility(abilityPrefab, abilityCount, maxDuration, maxCooldown);
+                (specialAbility as SpawnerAbility).ConstructAbility(abilityType, abilityPrefab, abilityCount, maxDuration, maxCooldown);
                 break;
             case AbilityType.Shield:
-                break;
             case AbilityType.Overcharge:
-                break;
             case AbilityType.Sprint:
                 specialAbility = gameObject.AddComponent(typeof(StatusCasterAbility)) as StatusCasterAbility;
                 (specialAbility as StatusCasterAbility).ConstructAbility(abilityType, abilityRange, maxDuration, maxCooldown);
@@ -52,15 +47,14 @@ public class SpecialEnemy : Enemy {
             HealthBar.lives -= damage;
             enemyFinished = false;
         }
-        if (enemyHealth <= 0 && abilityType == AbilityType.DeadSpawn){
-            MoneyManager.main.addMoney(killReward);
-            (specialAbility as DeadSpawnerAbility).spawnEnemies(gameObject.transform.position, targetTile);
-            specialAbility.startAbility();
-            Debug.Log("SPAWNING ENEMIES ON DEATH");
+        if (enemyHealth <= 0){
+            if (abilityType == AbilityType.DeadSpawn) {
+                Debug.Log("SPAWNING ENEMIES ON DEATH");
+                (specialAbility as SpawnerAbility).spawnEnemies(gameObject.transform.position, targetTile, pathID);
+            }
+            
             MoneyManager.main.addMoney(killReward);
         }
-        else
-            MoneyManager.main.addMoney(killReward);
 
         Counter.enemies.Remove(gameObject);
         Destroy(transform.gameObject);
@@ -79,13 +73,15 @@ public class SpecialEnemy : Enemy {
     public void useSpecialAbility() {
         switch (abilityType) {
             case AbilityType.Spawn:
-                (specialAbility as SpawnerAbility).spawnEnemies(gameObject.transform.position, targetTile);
+                (specialAbility as SpawnerAbility).spawnEnemies(gameObject.transform.position, targetTile, pathID);
                 break;
             case AbilityType.Shield:
             case AbilityType.Overcharge:
             case AbilityType.Sprint:
                 (specialAbility as StatusCasterAbility).castStatus(gameObject.transform.position);
                 break;
+            case AbilityType.DeadSpawn:
+                break; // handled in enemyDead()
             default:
                 Debug.Log($"Ability Can't be used/not implemented! {abilityType}");
                 break;

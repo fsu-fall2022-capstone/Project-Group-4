@@ -90,10 +90,10 @@ public class RoundController : MonoBehaviour
         {
             for(int j = 0; j < MapGenerator.spawnTiles.Count; j++)
             {
-                GameObject newEnemy = Instantiate(basicEnemy, MapGenerator.spawnTiles[j].transform.position, Quaternion.identity);
-                Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-                enemyScript.setPathID(j);
-                enemyScript.initializeTarget(MapGenerator.spawnTiles[j]);
+                GameObject newEnemy = Instantiate(basicEnemy, 
+                    MapGenerator.spawnTiles[j].transform.position, Quaternion.identity);
+                newEnemy.GetComponent<Enemy>().
+                    initializeEnemy(MapGenerator.spawnTiles[j], j);
             }
             yield return new WaitForSeconds(1f);
         }

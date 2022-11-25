@@ -26,11 +26,9 @@ public class StatusCasterAbility : Ability {
     }
 
     public void castStatus(Vector3 position) {
-        if(isReady()) {
-            Debug.Log($"Casting Status! {type} will be cast at {position} with range {range}" );
-            IEnumerator coroutine = IAbilityCastStatus(position);
-            StartCoroutine(coroutine);
-        }
+        Debug.Log($"Casting Status! {type} will be cast at {position} with range {range}" );
+        IEnumerator coroutine = IAbilityCastStatus(position);
+        StartCoroutine(coroutine);
     }
 
     private IEnumerator IAbilityCastStatus(Vector3 position) {
