@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour
     }
 
     //Modified to allow the updating of the health/lives bar 
-    private void enemyDead()
+    protected virtual void enemyDead()
     {
         if (enemyFinished) {
             HealthBar.lives -= damage;
@@ -207,7 +207,14 @@ public class Enemy : MonoBehaviour
                     break;
                 case StatusType.Electrocuted:
                 case StatusType.Burning:
-
+                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
+                    status.updateDuration(Time.time - timeCheck);
+                    if (status.duration <= 0f) {
+                        statusesToRemove.Add(status);
+                        Debug.Log($"{name} is no longer {status.statusType}");
+                    }
+                    else
+                        takeDamage(2);
                     break;
                 case StatusType.Overcharged:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
