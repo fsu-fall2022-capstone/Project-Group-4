@@ -26,6 +26,5 @@ public class ElementalTowers : Towers
         currentProjectile.Target = currentTarget;
         currentProjectile.Element = element;
         currentProjectile.EffectDuration = effectDuration;
-        //      base.shoot();
     }
 }

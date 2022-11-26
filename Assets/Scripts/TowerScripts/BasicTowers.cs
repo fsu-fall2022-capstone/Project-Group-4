@@ -21,6 +21,5 @@ public class BasicTowers : Towers
         Bullet currentBullet = newBullet.GetComponent<Bullet>();
         currentBullet.Damage = base.getDamage();
         currentBullet.Target = currentTarget;
-//      base.shoot();
     }
 }
