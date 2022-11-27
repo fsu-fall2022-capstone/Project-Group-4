@@ -30,3 +30,12 @@ public enum StatusType {
     Sprinting,
     Shielded
 }
+
+[System.Flags]
+public enum BoonType
+{
+    Power,
+    Swiftness,
+    Farsight,
+    Fortune
+}

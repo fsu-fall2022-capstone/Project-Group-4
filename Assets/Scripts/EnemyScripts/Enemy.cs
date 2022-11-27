@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public List<Status> Statuses { get { return statuses; } }
     protected bool allowDamage = true;     //Added to check if enemy can take damage
     protected bool overcharged = false;   //Added to check if enemy is overcharged
+    protected List<BoonType> boons = new List<BoonType>();
 
     protected float timeCheck;
 
@@ -239,5 +240,27 @@ public class Enemy : MonoBehaviour
         }
         statuses.RemoveAll(x => statusesToRemove.Contains(x));
         timeCheck = Time.time;
+    }
+
+    public void addBoon(BoonType boon)
+    {
+        boons.Add(boon);
+        switch (boon)
+        {
+            case BoonType.Fortune:
+                killReward += 15;
+                break;
+        }
+    }
+
+    public void removeBoon(BoonType boon)
+    {
+        switch (boon)
+        {
+            case BoonType.Fortune:
+                killReward -= 15;
+                break;
+        }
+        boons.Remove(boon);
     }
 }
