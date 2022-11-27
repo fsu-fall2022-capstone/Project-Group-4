@@ -88,13 +88,37 @@ public class Towers : MonoBehaviour
 
     public void addBoon(BoonType boon)
     {
+        Debug.Log("Boon Added To Tower!");
         boons.Add(boon);
-        //Add boon effects
+        switch (boon)
+        {
+            case BoonType.Power:
+                damage = damage * 2;
+                break;
+            case BoonType.Swiftness:
+                timeBtwShots = timeBtwShots / 2;
+                break;
+            case BoonType.Farsight:
+                range = range * 2;
+                break;
+        }
     }
 
     public void removeBoon(BoonType boon)
     {
-        //Remove boon effects
+        Debug.Log("Boon Removed From Tower");
+        switch (boon)
+        {
+            case BoonType.Power:
+                damage = damage / 2;
+                break;
+            case BoonType.Swiftness:
+                timeBtwShots = timeBtwShots * 2;
+                break;
+            case BoonType.Farsight:
+                range = range / 2;
+                break;
+        }
         boons.Remove(boon);
     }
 

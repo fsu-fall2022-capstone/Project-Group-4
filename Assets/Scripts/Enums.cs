@@ -34,8 +34,8 @@ public enum StatusType {
 [System.Flags]
 public enum BoonType
 {
-    AttackSpeed,
-    DamageBoost,
-    RangeBoost,
-    RewardBoost
+    Power,
+    Swiftness,
+    Farsight,
+    Fortune
 }
