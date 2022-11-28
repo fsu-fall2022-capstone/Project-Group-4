@@ -39,7 +39,8 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    protected virtual void OnBulletCollisionEffect() {
+    protected virtual void OnBulletCollisionEffect()
+    {
         Debug.Log("Target Hit!");
         Target.GetComponent<Enemy>().takeDamage(Damage);
     }

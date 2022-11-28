@@ -17,7 +17,7 @@ public class BasicTowers : Towers
 {
     protected override void shoot()
     {
-    	GameObject newBullet = Instantiate(base.projectile, barrel.position, pivot.rotation);
+        GameObject newBullet = Instantiate(base.projectile, barrel.position, pivot.rotation);
         Bullet currentBullet = newBullet.GetComponent<Bullet>();
         currentBullet.Damage = base.getDamage();
         currentBullet.Target = currentTarget;

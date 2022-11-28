@@ -66,7 +66,7 @@ public class PlacementManager : MonoBehaviour
     {
         Vector2 mousePosition = GetMousePosition();
 
-        RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector2(0,0), 0.1f, mask, -100, 100);
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector2(0, 0), 0.1f, mask, -100, 100);
 
         if (hit.collider != null)
         {
@@ -82,7 +82,7 @@ public class PlacementManager : MonoBehaviour
                     }
                 }
 
-                if(!isPathTile) hoverTile = hit.collider.gameObject;
+                if (!isPathTile) hoverTile = hit.collider.gameObject;
             }
         }
     }
@@ -93,8 +93,8 @@ public class PlacementManager : MonoBehaviour
 
         Vector2 mousePosition = GetMousePosition();
 
-        RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector2(0,0), 0.1f, towerMask, -100, 100);
-    
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector2(0, 0), 0.1f, towerMask, -100, 100);
+
         if (hit.collider != null)
             towerOnSlot = true;
 
@@ -112,7 +112,7 @@ public class PlacementManager : MonoBehaviour
                     GameObject newTowerObj = Instantiate(currTowerPlacing);
                     newTowerObj.layer = LayerMask.NameToLayer("Tower");
                     newTowerObj.GetComponent<SpriteRenderer>().sortingOrder = hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
-                    newTowerObj.transform.position= hoverTile.transform.position;
+                    newTowerObj.transform.position = hoverTile.transform.position;
 
                     EndBuilding();
                     shopManager.buyTower(currTowerPlacing);

@@ -42,7 +42,8 @@ public class Enemy : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if(!waitForTarget) {
+        if (!waitForTarget)
+        {
             checkPosition();
             checkStatuses();
             moveEnemy();
@@ -75,7 +76,8 @@ public class Enemy : MonoBehaviour
 
     public void overchargeHealth(float amount)
     {
-        if (!overcharged) {
+        if (!overcharged)
+        {
             enemyHealth = enemyHealth + amount;
             overcharged = true;
         }
@@ -91,7 +93,8 @@ public class Enemy : MonoBehaviour
 
     public void overchargeSpeed(float amount)
     {
-        if (!overcharged) {
+        if (!overcharged)
+        {
             movementSpeed = movementSpeed + amount;
             overcharged = true;
         }
@@ -105,7 +108,8 @@ public class Enemy : MonoBehaviour
     //Modified to allow the updating of the health/lives bar 
     protected virtual void enemyDead()
     {
-        if (enemyFinished) {
+        if (enemyFinished)
+        {
             HealthBar.lives -= damage;
             enemyFinished = false;
         }
@@ -124,19 +128,22 @@ public class Enemy : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * 1f);
             toMainMenu = 0;
         }
-        else 
+        else
         {
             transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * Time.deltaTime);
         }
-        
+
     }
 
     //Modified to check if an enemy has hit the endTile, then update player health
     public void checkPosition()
     {
-        if (targetTile != null && targetTile != MapGenerator.endTile) {
-            if (Vector3.Distance(transform.position, targetTile.transform.position) < 0.001f) {
-                try {
+        if (targetTile != null && targetTile != MapGenerator.endTile)
+        {
+            if (Vector3.Distance(transform.position, targetTile.transform.position) < 0.001f)
+            {
+                try
+                {
                     Debug.Log("Enemy: " + gameObject.name + " has reached tile: " + targetTile.name);
                     int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
 
@@ -145,14 +152,17 @@ public class Enemy : MonoBehaviour
                     Debug.Log("Enemy: " + gameObject.name + " is now targeting tile: " + targetTile.name);
 
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = targetTile.GetComponent<SpriteRenderer>().sortingOrder;
-                } catch {
+                }
+                catch
+                {
                     Debug.Log($"Error: Enemy has no path {pathID} for spawnTile {MapGenerator.spawnTiles[pathID].transform.position}");
                     enemyDead();
                 }
 
             }
         }
-        else if (targetTile == MapGenerator.endTile) {
+        else if (targetTile == MapGenerator.endTile)
+        {
             enemyFinished = true;
             enemyDead();
         }
@@ -175,20 +185,25 @@ public class Enemy : MonoBehaviour
         statuses.Remove(status);
     }
 
-    private void checkStatuses() {
+    private void checkStatuses()
+    {
         if (statuses.Count > 0)
             applyStatus();
     }
 
-    protected void applyStatus() {
+    protected void applyStatus()
+    {
         List<Status> statusesToRemove = new List<Status>();
-        foreach(Status status in statuses){
-            switch(status.statusType){
+        foreach (Status status in statuses)
+        {
+            switch (status.statusType)
+            {
                 case StatusType.Frozen:
                 case StatusType.Stunned:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
-                    if (status.duration <= 0f) {
+                    if (status.duration <= 0f)
+                    {
                         setToNormalSpeed();
                         statusesToRemove.Add(status);
                         Debug.Log($"{name} is no longer {status.statusType}");
@@ -200,7 +215,8 @@ public class Enemy : MonoBehaviour
                 case StatusType.Burning:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
-                    if (status.duration <= 0f) {
+                    if (status.duration <= 0f)
+                    {
                         statusesToRemove.Add(status);
                         Debug.Log($"{name} is no longer {status.statusType}");
                     }
@@ -210,9 +226,10 @@ public class Enemy : MonoBehaviour
                 case StatusType.Overcharged:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
-                    if (status.duration <= 0f) {
+                    if (status.duration <= 0f)
+                    {
                         overcharged = false;
-                        if(enemyHealth > maxEnemyHealth)
+                        if (enemyHealth > maxEnemyHealth)
                             enemyHealth = maxEnemyHealth;
                         Debug.Log($"{name} is no longer {status.statusType}");
                     }
@@ -222,7 +239,8 @@ public class Enemy : MonoBehaviour
                 case StatusType.Sprinting:
                     Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
-                    if (status.duration <= 0f) {
+                    if (status.duration <= 0f)
+                    {
                         setToNormalSpeed();
                         overcharged = false;
                         Debug.Log($"{name} is no longer {status.statusType}");

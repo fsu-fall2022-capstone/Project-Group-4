@@ -18,10 +18,11 @@ public class CostDisplay : MonoBehaviour
         Towers x = BasicTower.GetComponent<Towers>();//gets the data from the component
         nameTxt.text = x.getName();//So it can pull its name and cost
         costTxt.text = "$" + x.getCost().ToString();
-        
+
     }
 
-    private void Update(){
+    private void Update()
+    {
         //leave empty no need to update the labels constantly
     }
 

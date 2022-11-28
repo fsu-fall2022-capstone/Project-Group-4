@@ -9,25 +9,25 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-   [SerializeField] private Image health;
-   [SerializeField] private Text healthBarTxt;
+    [SerializeField] private Image health;
+    [SerializeField] private Text healthBarTxt;
 
-   public static float lives;
+    public static float lives;
 
-   private void Start()
-   {
+    private void Start()
+    {
         lives = 5f;
-   }
+    }
 
-   private void Update()
-   {
+    private void Update()
+    {
         updatePlayerHealth(lives);
-   }
+    }
 
-   public void updatePlayerHealth (float livesLeft, float max = 5)
-   {
+    public void updatePlayerHealth(float livesLeft, float max = 5)
+    {
         healthBarTxt.text = "Lives: ";
         health.fillAmount = livesLeft / max;
         healthBarTxt.text += livesLeft + "/" + max;
-   }
+    }
 }

@@ -37,7 +37,7 @@ public class RoundController : MonoBehaviour
         timeVar = 0f + timeBeforeRoundStarts;
 
         Debug.Log($"RoundController reports timescale as: {Time.timeScale}");
-        if(Time.timeScale == 0) TimeHandler.StartGameTime();
+        if (Time.timeScale == 0) TimeHandler.StartGameTime();
 
         round = 1;
     }
@@ -88,9 +88,9 @@ public class RoundController : MonoBehaviour
     {
         for (int i = 0; i < round; i++)
         {
-            for(int j = 0; j < MapGenerator.spawnTiles.Count; j++)
+            for (int j = 0; j < MapGenerator.spawnTiles.Count; j++)
             {
-                GameObject newEnemy = Instantiate(basicEnemy, 
+                GameObject newEnemy = Instantiate(basicEnemy,
                     MapGenerator.spawnTiles[j].transform.position, Quaternion.identity);
                 newEnemy.GetComponent<Enemy>().
                     initializeEnemy(MapGenerator.spawnTiles[j], j);

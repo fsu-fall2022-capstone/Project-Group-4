@@ -7,7 +7,8 @@ public class ElementalShot : Bullet
     public ElementType Element;
     public float EffectDuration;
 
-    protected override void OnBulletCollisionEffect() {
+    protected override void OnBulletCollisionEffect()
+    {
         Debug.Log("Target Hit!");
         Enemy enemyScript = Target.GetComponent<Enemy>();
         switch (Element)

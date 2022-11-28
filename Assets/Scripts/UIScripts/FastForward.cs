@@ -13,7 +13,7 @@ public class FastForward : MonoBehaviour
     //SpeedUp checks val of doubleTime and handles timeScale
     public void SpeedUp()
     {
-        if (!doubleTime )
+        if (!doubleTime)
         {
             Time.timeScale = 2.00f;
             doubleTime = true;

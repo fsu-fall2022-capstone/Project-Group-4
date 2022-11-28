@@ -9,15 +9,17 @@ public class TimeHandler : MonoBehaviour
 
     private void Start()
     {
-        if(main != null) main = this;
+        if (main != null) main = this;
     }
 
-    public static void StartGameTime() {
+    public static void StartGameTime()
+    {
         Time.timeScale = 1.0f;
         Debug.Log("Started/Resumed Game Time...");
     }
 
-    public static void PauseGameTime() {
+    public static void PauseGameTime()
+    {
         Time.timeScale = 0.0f;
         Debug.Log("Paused Game Time...");
     }

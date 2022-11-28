@@ -9,8 +9,8 @@ public class Scene2Handler : MonoBehaviour
     {
         clearListsFromGameScene();
         TimeHandler.PauseGameTime();
-    	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    	Debug.Log("Reset the Scene...");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Reset the Scene...");
         TimeHandler.StartGameTime();
         //SceneManager.LoadScene("Scene", LoadSceneMode.Single);
     }
@@ -19,14 +19,15 @@ public class Scene2Handler : MonoBehaviour
     {
         clearListsFromGameScene();
         TimeHandler.PauseGameTime();
-    	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         Enemy.resetForMainMenu();
         Debug.Log("Loading Menu...");
         TimeHandler.StartGameTime();
-    	//SceneManager.LoadScene("StartScene", LoadSceneMode.Single);
+        //SceneManager.LoadScene("StartScene", LoadSceneMode.Single);
     }
 
-    public static void clearListsFromGameScene() {
+    public static void clearListsFromGameScene()
+    {
         MapGenerator.clearMapGenerator();
         Counter.clearCounter();
     }

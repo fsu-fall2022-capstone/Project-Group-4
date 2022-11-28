@@ -2,25 +2,27 @@
 public enum ElementType
 {
     None,
-    Ice, 
-    Fire, 
-    Water, 
+    Ice,
+    Fire,
+    Water,
     Lightning
 }
 
 [System.Flags]
-public enum AbilityType {
+public enum AbilityType
+{
     None,
-    Spawn, 
+    Spawn,
     DeadSpawn,
-    Shield, 
-    Heal, 
-    Sprint, 
+    Shield,
+    Heal,
+    Sprint,
     Overcharge
 }
 
 [System.Flags]
-public enum StatusType {
+public enum StatusType
+{
     None,
     Frozen,
     Electrocuted,

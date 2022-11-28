@@ -4,11 +4,13 @@ using UnityEditor;
 [CustomEditor(typeof(MapRenderer))]
 public class MapRendererInspector : Editor
 {
-    public override void OnInspectorGUI(){
+    public override void OnInspectorGUI()
+    {
         DrawDefaultInspector();
 
         MapRenderer ren = (MapRenderer)target;
-        if(GUILayout.Button("Update Sorting Order")) {
+        if (GUILayout.Button("Update Sorting Order"))
+        {
             ren.UpdateSortingOrder();
         }
     }

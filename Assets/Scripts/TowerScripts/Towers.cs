@@ -41,7 +41,7 @@ public class Towers : MonoBehaviour
     private void FixedUpdate()
     {
         updateClosestEnemy();
-        
+
         if (Time.time >= nextTimeToShoot)
         {
             if (currentTarget != null)
@@ -122,7 +122,7 @@ public class Towers : MonoBehaviour
         boons.Remove(boon);
     }
 
-    public float getDamage() { return damage;}
+    public float getDamage() { return damage; }
 
     public int getCost() { return towerCost; }
 

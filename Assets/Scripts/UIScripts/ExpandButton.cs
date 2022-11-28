@@ -4,14 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExpandButton : MonoBehaviour{
+public class ExpandButton : MonoBehaviour
+{
     public MapLayout data { get; private set; }
 
     // Update is called once per frame
-    private void Update() {
+    private void Update()
+    {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit Hit;
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out Hit) && Hit.collider.gameObject == gameObject &&
@@ -19,10 +21,11 @@ public class ExpandButton : MonoBehaviour{
             {
                 UIExpandButtonController.trigger(data);
             }
-        }    
+        }
     }
 
-    public void setData(MapLayout newData) {
+    public void setData(MapLayout newData)
+    {
         data = newData;
     }
 }

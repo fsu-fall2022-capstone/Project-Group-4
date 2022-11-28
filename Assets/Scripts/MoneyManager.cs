@@ -17,7 +17,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] private Text playerMoneyTxt;
 
     public static MoneyManager main;
-    
+
     private static int currPlayerMoney;
     private int counter;
     public int startMoney;
@@ -49,7 +49,7 @@ public class MoneyManager : MonoBehaviour
     {
         currPlayerMoney -= amount;
         playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
-        Debug.Log($"Removed {amount} from {currPlayerMoney+amount} to {currPlayerMoney}");
+        Debug.Log($"Removed {amount} from {currPlayerMoney + amount} to {currPlayerMoney}");
     }
 
     public void Hide()

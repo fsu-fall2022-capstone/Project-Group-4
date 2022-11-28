@@ -9,16 +9,16 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-   public static bool GameIsPaused = false;
+    public static bool GameIsPaused = false;
 
-   public GameObject pauseMenuUI;
+    public GameObject pauseMenuUI;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(GameIsPaused)
+            if (GameIsPaused)
                 Resume();
             else
                 Pause();
