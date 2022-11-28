@@ -3,6 +3,7 @@
 actor Player as user
 entity Game as game 
 participant MapGenerator as map_gen
+participant MapRenderer as map_render
 participant TileSetGenerator as tile_gen
 
 user -> game : start game
@@ -27,12 +28,31 @@ activate map_gen
 map_gen -> map_gen : checkExpandability()
 map_gen -> tile_gen : if expandable, generateTileSet()
 activate tile_gen
-tile_gen -> tile_gen : generateTileSet()
-tile_gen -> tile_gen : generatePath()
+tile_gen -> tile_gen : generateTileSet(random paths count)
+tile_gen -> tile_gen : generatePath(), if random paths count > 1, generateAdditionalStarts()
 tile_gen -> tile_gen : PathingLogic(), cullLoopPaths(), patchPath()
+tile_gen -> tile_gen : if random paths count > 1, findOffshootPaths()
 deactivate tile_gen
 tile_gen -> map_gen : getTileSet()
-map_gen -> map_gen : drawMap()
+map_gen -> map_gen : drawMapTiles()
+map_gen -> map_render : get random map tile sprites
+activate map_render
+map_gen -> map_render : GetSpriteCount(string pattern)
+map_render -> map_gen : return count of sprite pattern
+map_gen -> map_render : GetSpriteByName()
+map_render -> map_gen : return sprite
+deactivate map_render
+map_gen -> map_gen : drawPathTiles()
+map_gen -> map_gen : updateSplitPathSprite(), selectPathSprite(), or stitchPathSprite()
+activate map_render
+map_gen -> map_render : GetSpriteByName()
+map_render -> map_gen : return sprite
+deactivate map_render
+map_gen -> map_gen : sort the map tiles by position
+activate map_render
+map_gen -> map_render : UpdateSortingLayer()
+map_render -> map_gen : updates sorting order in mapTiles
+deactivate map_render
 deactivate map_gen
 map_gen -> game : map is drawn
 game -> game : process loops until game is over

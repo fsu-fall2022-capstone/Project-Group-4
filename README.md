@@ -21,7 +21,7 @@ Each increment of the project requires a set of deliverables to be completed. On
 
 * [Software Implementation and Testing Document](/Docs/ITDoc.md)
 * [Software Requirements and Design Document](/Docs/RDDoc.md)
-* [Progress Report](/Docs/ProgReport.md)
+* [Increment Progress Report](/Docs/ProgReport.md)
 
 ### Group Members
 
@@ -32,4 +32,3 @@ Names and GitHub usernames of the members of **Group #4** are as follows:
 * **Nathan Granger** — [*ngranger22*](https://github.com/ngranger22)
 * **Tyler McLanahan** — [*tylermclanahan*](https://github.com/tylermclanahan)
 * **Tyler Pease** — [*SirTarragon*](https://github.com/SirTarragon)
-
