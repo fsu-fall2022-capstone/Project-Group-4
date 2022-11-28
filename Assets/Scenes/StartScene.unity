@@ -366,6 +366,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 131627881961361559, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288516859834079930, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5331079064644072094, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_Name

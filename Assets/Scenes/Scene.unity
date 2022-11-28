@@ -437,6 +437,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8204215623127655266}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1790295110 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8394855589369760812, guid: bea2ec32c55519942b83d3cc713bfc83,
+    type: 3}
+  m_PrefabInstance: {fileID: 5495955892525275028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1790295114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790295110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d147d0f81672c4288a29defaa46174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quadTime: 0
+  doubleTime: 0
 --- !u!1 &1844762253 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5495955891110527257, guid: bea2ec32c55519942b83d3cc713bfc83,
@@ -826,6 +846,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 180201131}
+    - target: {fileID: 8394855588831728349, guid: bea2ec32c55519942b83d3cc713bfc83,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1790295114}
+    - target: {fileID: 8394855588831728349, guid: bea2ec32c55519942b83d3cc713bfc83,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SpeedUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8394855588831728349, guid: bea2ec32c55519942b83d3cc713bfc83,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FastForward, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea2ec32c55519942b83d3cc713bfc83, type: 3}
 --- !u!1001 &5673330826204628803

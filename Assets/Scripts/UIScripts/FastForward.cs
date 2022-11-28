@@ -13,13 +13,13 @@ public class FastForward : MonoBehaviour
     //SpeedUp checks val of doubleTime and handles timeScale
     public void SpeedUp()
     {
-        if (doubleTime == false)
+        if (!doubleTime )
         {
             Time.timeScale = 2.00f;
             doubleTime = true;
             Debug.Log("Game Time Doubled...");
         }
-        else if (doubleTime == true)
+        else if (doubleTime && !quadTime)
         {
             TimeHandler.StartGameTime();
             doubleTime = false;
