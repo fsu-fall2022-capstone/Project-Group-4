@@ -17,10 +17,9 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      
-      - name: Pull
-        run: git pull origin main
+        uses: actions/checkout@v3
+        with:
+          lfs: 'true'
 
       - name: Install dotnet-format tool
         run: dotnet tool install -g dotnet-format

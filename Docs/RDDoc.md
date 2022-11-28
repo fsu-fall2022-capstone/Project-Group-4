@@ -34,6 +34,9 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 
 ### 2) Functional Requirements
 
+<details name="Functional Requirements List">
+<summary>List</summary>
+
 1) High - The system lets the user be able to click play and pick a game mode.
 2) High - The system lets the user be able to click quit and exit the game.
 3) High - The system lets the user select any tower they want from the buy menu.
@@ -92,7 +95,12 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 56) Medium - The system should allow the user to speed up game time.
 57) Medium - The system should contain various enemy types with different abilities and niches that make them unique.
 
+</details>
+
 ### 3) Non-functional Requirements
+
+<details name="List of Non-functional Requirements">
+<summary>List</summary>
 
 1) All code should be well documented and easily readable to any developer.
 2) Keep the number of calculations to a minimum so placing multiple towers doesn’t slow down the game.
@@ -104,14 +112,19 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 8) The game should have a simple to understand and clear UI that doesn’t distract as much from the main game.
 9) The game should be difficult enough to not allow the player to live forever.
 
+</details>
+
 ### 4) Use Case Diagram
 
 <details name="Use-Case Diagram">
-<summary>Use-Case Diagram</summary>
+<summary>Diagram</summary>
 
 [![Use-Case-Diagram](/Docs/Diagrams/UseCaseDiagram.png)](/Docs/Diagrams/UseCaseDiagram.png)
 
 </details>
+
+<details name="Use-Case Explanations">
+<summary>Technical Explanations</summary>
 
 Use Case: Playing an expansion game  
 Actors: Player, System  
@@ -120,7 +133,6 @@ Normal Flow: The player clicks start new expansion game
 Post condition: A new round is started along with a generating a map  
 Alternative Flows: When a game ends the player can choose to start again  
 Nonfunctional Requirements: The system is reliable and light on resources to quickly start a game
-
 
 Use Case: Place a tower  
 Actors: Player, System, Shop manager, Money manager  
@@ -183,7 +195,9 @@ Actors: System, Map System
 Pre condition: A new round has started  
 Normal Flow:Map generator uses expand Map to check if it is valid to expand and then creates a new tileset for enemies to follow and calls draw map again to recreate the map.  
 Alternative Flows: N/A  
-Nonfunctional Requirements: The system is reliable and light on resources 
+Nonfunctional Requirements: The system is reliable and light on resources
+
+</details>
 
 ### 5) Class Diagram and/or Sequence Diagrams
 

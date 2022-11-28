@@ -1,5 +1,12 @@
 <!-- vim: syntax=Markdown -->
-### Attributions
+## Attributions
+
+### Git Configuration
+
+* Credits to [bitinn](https://github.com/bitinn) for the .gitconfig and .gitattributes file work, you can see the original [here](https://gist.github.com/bitinn/4a82d7dbdaff62163031d318c57cd62d).
+* Credits to those at the [Github .gitignore](https://github.com/github/gitignore/blob/main/Unity.gitignore) repository for the standard Unity .gitignore file.
+
+### Assets
 
 Credits to "[Kenney.nl](https://www.kenney.nl/)" or "[www.kenney.nl](https://www.kenney.nl/)" for:
 

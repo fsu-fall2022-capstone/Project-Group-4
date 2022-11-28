@@ -1,5 +1,0 @@
-ClassDiagram.png filter=lfs diff=lfs merge=lfs -text
-UseCaseDiagram.png filter=lfs diff=lfs merge=lfs -text
-SequenceDiagram_Enemies.png filter=lfs diff=lfs merge=lfs -text
-SequenceDiagram_MapGen.png filter=lfs diff=lfs merge=lfs -text
-SequenceDiagram_PlaceMan.png filter=lfs diff=lfs merge=lfs -text
