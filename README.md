@@ -6,13 +6,13 @@
 
 ### How to Play
 
-With the project still in its development form, there is no executable file to run. The project can be run by opening the project in Unity, loading in the Scene.unity, and pressing the play button.
+With the project still in its development form, there is no executable file to run. The project can be run by opening the project in Unity, loading in the StartScene.unity or Scene.unity, and pressing the play button.
 
 ### Requirements
 
 The requirements for this project are as follows:
 
-* Unity 2021.3.1f1
+* Unity 2021.3.14f1
 * .NET Standard 2.1, C# 7.0
 
 ### Required Deliverables for the Project
@@ -22,6 +22,13 @@ Each increment of the project requires a set of deliverables to be completed. On
 * [Software Implementation and Testing Document](/Docs/ITDoc.md)
 * [Software Requirements and Design Document](/Docs/RDDoc.md)
 * [Increment Progress Report](/Docs/ProgReport.md)
+
+#### Videos
+
+Each increment required a video to be submitted. While each increment video can be found separately in the Increment Progress Report file in its specific increment branch, for the sake of bringing them all to one place, here are all the videos in one place:
+
+* [Increment 1](https://youtu.be/Yf-1_n07L5Q)
+* [Increment 2](https://youtu.be/-dYp8N3hTGU)
 
 ### Group Members
 
