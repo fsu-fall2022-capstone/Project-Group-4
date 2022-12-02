@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b69d9a6fab4bd94db1d7a7cbf1b63fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boonCost: 400
+  boonName: Swiftness Boon
   boonType: 1
   towersInRange: []
   enemiesInRange: []

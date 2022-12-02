@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Boon : MonoBehaviour
 {
+    [SerializeField] protected int boonCost;       //Saves Boon Cost
+    [SerializeField] protected string boonName;    //Saves Boon Name
+
     public BoonType boonType; //Boon Effect
     public List<GameObject> towersInRange;
     public List<GameObject> enemiesInRange;
@@ -140,5 +143,15 @@ public class Boon : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    public int getCost() 
+    {
+        return boonCost; 
+    }
+
+    public string getName() 
+    { 
+        return boonName; 
     }
 }

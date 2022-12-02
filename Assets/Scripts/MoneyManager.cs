@@ -15,6 +15,7 @@ using UnityEngine.UI;
 public class MoneyManager : MonoBehaviour
 {
     [SerializeField] private Text playerMoneyTxt;
+    [SerializeField] private Text playerScoreTxt;   //For player score on GO screen
 
     public static MoneyManager main;
 
@@ -35,21 +36,25 @@ public class MoneyManager : MonoBehaviour
     }
 
     //Modified to change and print out the players money when added to
+    //Modified to show player score on game over screen
     public void addMoney(int amount)
     {
-        if (counter == 0)
+        if (counter !> 0)
             currPlayerMoney = 1000;        //If startMoney changes, change this to match
         currPlayerMoney = GetCurrMoney() + amount;
         playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
+        playerScoreTxt.text = $"Score: {currPlayerMoney}";
         counter++;
     }
 
     //Modified to change and print out the players money when taken away
+    //Modified to show player score on game over screen
     public void removeMoney(int amount)
     {
+        counter = counter + 1;
         currPlayerMoney -= amount;
         playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
-        Debug.Log($"Removed {amount} from {currPlayerMoney + amount} to {currPlayerMoney}");
+        playerScoreTxt.text = $"Score: {currPlayerMoney}";
     }
 
     public void Hide()
