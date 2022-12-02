@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &933091447790040489
 Transform:
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.31, y: 0.83}
-  m_AdaptiveModeThreshold: 0.5
+  m_AdaptiveModeThreshold: 1
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.31, y: 0.99}
     newSize: {x: 1.31, y: 0.83}
-    adaptiveTilingThreshold: 0.5
+    adaptiveTilingThreshold: 1
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
