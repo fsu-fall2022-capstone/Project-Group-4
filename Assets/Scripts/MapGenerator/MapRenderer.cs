@@ -96,6 +96,10 @@ public class MapRenderer : MonoBehaviour
             else
                 mapTile.GetComponent<SpriteRenderer>().sortingOrder = layerCount;
         }
+
+        // get home tile and apply the same layer to the child gameobject
+        GameObject homeTile = MapGenerator.endTile;
+        homeTile.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = homeTile.GetComponent<SpriteRenderer>().sortingOrder;
     }
 
     public void UpdateSplitPathSprite(GameObject pathTile, Tile previous, Tile current)
