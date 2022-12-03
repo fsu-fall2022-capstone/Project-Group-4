@@ -20,7 +20,7 @@ public class ElementalTowers : Towers
 
     protected override void shoot()
     {
-        GameObject newProjectile = Instantiate(base.projectile, barrel.position, pivot.rotation);
+        GameObject newProjectile = Instantiate(base.projectile, barrel.position, base.barrelRotation.pivot);
         ElementalShot currentProjectile = newProjectile.GetComponent<ElementalShot>();
         currentProjectile.Damage = base.getDamage();
         currentProjectile.Target = currentTarget;

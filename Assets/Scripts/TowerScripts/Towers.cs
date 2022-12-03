@@ -18,13 +18,13 @@ public class Towers : MonoBehaviour
     [SerializeField] private float timeBtwShots;     //Time in between shots (in seconds)
     [SerializeField] protected int towerCost;       //Saves Tower Cost
     [SerializeField] protected string towerName;    //Saves Tower Name
+    [SerializeField] protected BarrelRotation barrelRotation;
     protected List<BoonType> boons = new List<BoonType>();
 
     private float nextTimeToShoot;
 
     public GameObject currentTarget;
 
-    public Transform pivot;
     public Transform barrel;
     public GameObject projectile;
 
@@ -81,9 +81,10 @@ public class Towers : MonoBehaviour
 
     protected virtual void shoot()
     {
-        Enemy enemyScript = currentTarget.GetComponent<Enemy>();
-
-        enemyScript.takeDamage(damage);
+        GameObject newBullet = Instantiate(projectile, barrel.position, barrelRotation.pivot);
+        Bullet currentBullet = newBullet.GetComponent<Bullet>();
+        currentBullet.Damage = getDamage();
+        currentBullet.Target = currentTarget;
     }
 
     public void addBoon(BoonType boon)

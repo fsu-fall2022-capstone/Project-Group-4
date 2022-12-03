@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-// this function is more like a sorting order renderer
-// most layers are dependent on the tile location
-
-public class MapRenderer : MonoBehaviour
+public class MapRenderer : SpriteLoader
 {
     public static MapRenderer main;
     private int previousMapCount = 0;
     public static bool activeRenderer = true;
 
-    [SerializeField] private Sprite[] tileSprites;
-    private Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
-
     protected void Start()
     {
         if (main == null) main = this;
-        LoadDictionary();
+        base.LoadDictionary();
     }
 
     protected void Update()
@@ -36,44 +30,13 @@ public class MapRenderer : MonoBehaviour
         activeRenderer = !activeRenderer;
     }
 
-    private void LoadDictionary()
-    {
-        Sprites = new Dictionary<string, Sprite>();
-
-        for (int i = 0; i < tileSprites.Length; i++)
-        {
-            Debug.Log("MapRenderer: Loaded sprite " + tileSprites[i].name);
-            Sprites.Add(tileSprites[i].name, tileSprites[i]);
-        }
-    }
-
-    public int GetSpriteCount(string name_pattern)
-    {
-        // count the number of sprites that match the name pattern
-        int count = 0;
-        foreach (KeyValuePair<string, Sprite> sprite in Sprites)
-        {
-            if (sprite.Key.Contains(name_pattern))
-            {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public Sprite GetSpriteByName(string name)
-    {
-        if (Sprites.ContainsKey(name))
-            return Sprites[name];
-        else
-            return null;
-    }
-
     public void UpdateSortingOrder()
     { // should only be utilized by the inspector
         updateSortingLayerValue();
     }
 
+    // this function is more like a sorting order renderer
+    // most layers are dependent on the tile location
     private void updateSortingLayerValue()
     {
         int layerCount = 32767;
@@ -85,7 +48,6 @@ public class MapRenderer : MonoBehaviour
             if (i > 0)
             {
                 GameObject previousMapTile = MapGenerator.mapTiles[i - 1];
-                //Debug.Log("MapRenderer: Comparing " + mapTile.transform.position + " to " + previousMapTile.transform.position);
                 if (mapTile.transform.position.y == previousMapTile.transform.position.y)
                 {
                     mapTile.GetComponent<SpriteRenderer>().sortingOrder = previousMapTile.GetComponent<SpriteRenderer>().sortingOrder;
@@ -118,7 +80,7 @@ public class MapRenderer : MonoBehaviour
 
         if (dir_count == 3)
         {
-            pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName("path_fourway");
+            pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_fourway");
             return;
         }
 
@@ -141,7 +103,7 @@ public class MapRenderer : MonoBehaviour
 
         Debug.Log($"new spriteName: {spriteName} pathTile Name: {pathTile.name}");
 
-        pathTile.GetComponent<SpriteRenderer>().sprite = MapRenderer.main.GetSpriteByName(spriteName);
+        pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName(spriteName);
         return;
     }
 
@@ -152,19 +114,19 @@ public class MapRenderer : MonoBehaviour
         if (random >= 80 && random < 95)
         { // tree
             random = UnityEngine.Random.Range(1, GetSpriteCount("tree_cluster"));
-            Sprite newSprite = GetSpriteByName($"tree_cluster_{random}");
+            Sprite newSprite = base.GetSpriteByName($"tree_cluster_{random}");
             newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
         }
         else if (random >= 95 && random < 98)
         { // rock
             random = UnityEngine.Random.Range(1, GetSpriteCount("rock_cluster"));
-            Sprite newSprite = GetSpriteByName($"rock_cluster_{random}");
+            Sprite newSprite = base.GetSpriteByName($"rock_cluster_{random}");
             newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
         }
         else if (random >= 98 && random < 100)
         {
             random = UnityEngine.Random.Range(1, GetSpriteCount("gem_cluster"));
-            Sprite newSprite = GetSpriteByName($"gem_cluster_{random}");
+            Sprite newSprite = base.GetSpriteByName($"gem_cluster_{random}");
             newTile.GetComponent<SpriteRenderer>().sprite = newSprite;
         }
     }
@@ -178,86 +140,73 @@ public class MapRenderer : MonoBehaviour
         if ((previous.position.y > current.position.y && current.position.y == next.position.y && current.position.x > next.position.x) ||
         (previous.position.x < current.position.x && current.position.x == next.position.x && current.position.y < next.position.y))
         {
-            pathTile.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_NW_NE");
-            //Debug.Log($"NW_NE {pathTile.name}");
+            pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_NW_NE");
         }
         else if ((previous.position.y > current.position.y && current.position.y == next.position.y && current.position.x < next.position.x) ||
         (previous.position.x > current.position.x && current.position.x == next.position.x && current.position.y < next.position.y))
         {
-            pathTile.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_NE_SE");
-            //Debug.Log($"NE_SE {pathTile.name}");
+            pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_NE_SE");
         }
         else if ((previous.position.y < current.position.y && current.position.y == next.position.y && current.position.x < next.position.x) ||
         (previous.position.x > current.position.x && current.position.x == next.position.x && current.position.y > next.position.y))
         {
-            pathTile.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_SW_SE");
-            //Debug.Log($"SW_SE {pathTile.name}");
+            pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_SW_SE");
         }
         else if ((previous.position.y < current.position.y && current.position.y == next.position.y && current.position.x > next.position.x) ||
         (previous.position.x < current.position.x && current.position.x == next.position.x && current.position.y > next.position.y))
         {
-            pathTile.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_NW_SW");
-            //Debug.Log($"NW_SW {pathTile.name}");
+            pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_NW_SW");
         }
         else if ((next.position.x > current.position.x || next.position.x < current.position.x) && next.position.y == current.position.y)
         {
-            Sprite newSprite = GetSpriteByName($"path_NW_SE");
-            pathTile.GetComponent<SpriteRenderer>().sprite = newSprite;
+            pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName($"path_NW_SE");
         }
         else if ((next.position.y > current.position.y || next.position.y < current.position.y) && next.position.x == current.position.x)
         {
-            Sprite newSprite = GetSpriteByName($"path_SW_NE");
-            pathTile.GetComponent<SpriteRenderer>().sprite = newSprite;
+            pathTile.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName($"path_SW_NE");
         }
     }
 
     // this is when we stitch paths and aren't sure about the lists, but have the actual GameObjects
     public void StitchPathSprite(GameObject newPath, GameObject stitch, Vector3 next)
     {
-        //Debug.Log($"newPath pos: {newPath.transform.position} stitch pos: {stitch.transform.position} next pos: {next}");
         if ((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y &&
         newPath.transform.position.x < next.x && newPath.transform.position.y > next.y) ||
         (stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
         next.x < newPath.transform.position.x && next.y < newPath.transform.position.y))
         {
-            newPath.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_SW_SE");
-            //Debug.Log($"Stitch SW_SE {newPath.name}");
+            newPath.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_SW_SE");
         }
         else if ((stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
         newPath.transform.position.x < next.x && newPath.transform.position.y > next.y) ||
         (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y &&
         newPath.transform.position.x < next.x && newPath.transform.position.y < next.y))
         {
-            newPath.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_NE_SE");
-            //Debug.Log($"Stitch NE_SE {newPath.name}");
+            newPath.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_NE_SE");
         }
         else if ((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
         newPath.transform.position.x < next.x && newPath.transform.position.y < next.y) ||
         (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
         newPath.transform.position.x > next.x && newPath.transform.position.y < next.y))
         {
-            newPath.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_NW_NE");
-            //Debug.Log($"Stitch NW_NE {newPath.name}");
+            newPath.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_NW_NE");
         }
         else if ((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y &&
         newPath.transform.position.x > next.x && newPath.transform.position.y < next.y) ||
         (stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y &&
         newPath.transform.position.x > next.x && newPath.transform.position.y > next.y))
         {
-            newPath.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_corner_NW_SW");
-            //Debug.Log($"Stitch NW_SW {newPath.name}");
+            newPath.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_corner_NW_SW");
         }
         else if ((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y) ||
         (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y))
         {
-            newPath.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_NW_SE");
-            //Debug.Log($"Stitch NW_SE {newPath.name}");
+            newPath.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_NW_SE");
         }
         else if ((stitch.transform.position.x < newPath.transform.position.x && stitch.transform.position.y < newPath.transform.position.y) ||
         (stitch.transform.position.x > newPath.transform.position.x && stitch.transform.position.y > newPath.transform.position.y))
         {
-            newPath.GetComponent<SpriteRenderer>().sprite = GetSpriteByName("path_SW_NE");
-            //Debug.Log($"Stitch SW_NE {newPath.name}");
+            newPath.GetComponent<SpriteRenderer>().sprite = base.GetSpriteByName("path_SW_NE");
         }
     }
 }
