@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f68be553a9e9e3f4cbe247b35846a95a
+guid: 866cd354736158548b44ff704e404cb6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,169 +105,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tripletsoldiers_W
+      name: wizard_SE
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 005b08dd916e08d4e89268d651cc3677
-      internalID: -1461747622
+      spriteID: 5db3cd931c6a18c43afe7a0e7e4484c2
+      internalID: -1451604688
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_N
+      name: wizard_S
       rect:
         serializedVersion: 2
-        x: 36
+        x: 31
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23c3deb9357f183478b82d98ca5cf6f6
-      internalID: -1993635402
+      spriteID: 037520a825e822d418639b1784f546d8
+      internalID: -1201913033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_NE
+      name: wizard_SW
       rect:
         serializedVersion: 2
-        x: 72
+        x: 62
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81fa767f8a8588a47b47f35811bc696a
-      internalID: -1091334614
+      spriteID: 5d41ff8a70a835f4aae525f3944df0c9
+      internalID: -864542419
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_NW
+      name: wizard_W
       rect:
         serializedVersion: 2
-        x: 108
+        x: 93
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47248d37ea8bb6d4db9eecfde5cb510e
-      internalID: 646232749
+      spriteID: 7b153defc930d444091f744e0a95e800
+      internalID: -1820067041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_S
+      name: wizard_NW
       rect:
         serializedVersion: 2
-        x: 144
+        x: 124
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df14d29f8d137b841ad5a1936e5cb7ca
-      internalID: 1602605658
+      spriteID: b106231e44c7b564f8d70f28d4c0e309
+      internalID: 251699933
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_SE
+      name: wizard_N
       rect:
         serializedVersion: 2
-        x: 180
+        x: 155
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62f5735dc1787d045960ebdf9e7d26eb
-      internalID: 1323899706
+      spriteID: d17a063db1f64dc4ebe35f61d0fac056
+      internalID: -1115576071
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_SW
+      name: wizard_NE
       rect:
         serializedVersion: 2
-        x: 216
+        x: 186
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d055ec21d1be654db83a661c85364d3
-      internalID: 1795725488
+      spriteID: 91916278cee60dc4bb96250644cb23e7
+      internalID: -460644334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_E
+      name: wizard_E
       rect:
         serializedVersion: 2
-        x: 252
+        x: 217
         y: 0
-        width: 36
-        height: 41
+        width: 31
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb60f27cd94d2904f9b9778c0a95e94d
-      internalID: -1248607083
+      spriteID: 8a7f0f9f7ded07c4ca4404edf4159da6
+      internalID: -1086931396
       vertices: []
       indices: 
       edges: []
@@ -283,14 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tripletsoldiers_N: -1993635402
-      tripletsoldiers_W: -1461747622
-      tripletsoldiers_SE: 1323899706
-      tripletsoldiers_NW: 646232749
-      tripletsoldiers_NE: -1091334614
-      tripletsoldiers_S: 1602605658
-      tripletsoldiers_E: -1248607083
-      tripletsoldiers_SW: 1795725488
+      wizard_SE: -1451604688
+      wizard_E: -1086931396
+      wizard_S: -1201913033
+      wizard_NE: -460644334
+      wizard_W: -1820067041
+      wizard_SW: -864542419
+      wizard_NW: 251699933
+      wizard_N: -1115576071
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

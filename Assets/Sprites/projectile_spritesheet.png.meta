@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f68be553a9e9e3f4cbe247b35846a95a
+guid: 4cdc61ac0a2935a4795674ea2bded1ed
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,169 +105,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tripletsoldiers_W
+      name: bolt
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 36
-        height: 41
+        x: 67
+        y: 40
+        width: 131
+        height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 005b08dd916e08d4e89268d651cc3677
-      internalID: -1461747622
+      spriteID: b708f1091c554b24f8d7babe5d263964
+      internalID: -939651456
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_N
+      name: stone
       rect:
         serializedVersion: 2
-        x: 36
-        y: 0
-        width: 36
-        height: 41
+        x: 8
+        y: 2
+        width: 70
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23c3deb9357f183478b82d98ca5cf6f6
-      internalID: -1993635402
+      spriteID: 6938be872067acc4b94da1e6bc48721b
+      internalID: 734631488
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_NE
+      name: arrows
       rect:
         serializedVersion: 2
-        x: 72
-        y: 0
-        width: 36
-        height: 41
+        x: 203
+        y: 37
+        width: 75
+        height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81fa767f8a8588a47b47f35811bc696a
-      internalID: -1091334614
+      spriteID: 11c6ee7b568b2434f91180503b42334e
+      internalID: 807183272
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_NW
+      name: ice_shard
       rect:
         serializedVersion: 2
-        x: 108
-        y: 0
-        width: 36
-        height: 41
+        x: 81
+        y: 2
+        width: 80
+        height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47248d37ea8bb6d4db9eecfde5cb510e
-      internalID: 646232749
+      spriteID: ce01f644960af9c439717bd0a799d178
+      internalID: -639382048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tripletsoldiers_S
+      name: fireball
       rect:
         serializedVersion: 2
-        x: 144
-        y: 0
-        width: 36
-        height: 41
+        x: 164
+        y: 1
+        width: 116
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df14d29f8d137b841ad5a1936e5cb7ca
-      internalID: 1602605658
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tripletsoldiers_SE
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 0
-        width: 36
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 62f5735dc1787d045960ebdf9e7d26eb
-      internalID: 1323899706
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tripletsoldiers_SW
-      rect:
-        serializedVersion: 2
-        x: 216
-        y: 0
-        width: 36
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d055ec21d1be654db83a661c85364d3
-      internalID: 1795725488
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tripletsoldiers_E
-      rect:
-        serializedVersion: 2
-        x: 252
-        y: 0
-        width: 36
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb60f27cd94d2904f9b9778c0a95e94d
-      internalID: -1248607083
+      spriteID: 056222c26cee1c24391d67c7b1d9efd1
+      internalID: 467423346
       vertices: []
       indices: 
       edges: []
@@ -283,14 +220,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tripletsoldiers_N: -1993635402
-      tripletsoldiers_W: -1461747622
-      tripletsoldiers_SE: 1323899706
-      tripletsoldiers_NW: 646232749
-      tripletsoldiers_NE: -1091334614
-      tripletsoldiers_S: 1602605658
-      tripletsoldiers_E: -1248607083
-      tripletsoldiers_SW: 1795725488
+      projectile_spritesheet_2: -95363381
+      projectile_spritesheet_5: 1327922735
+      bolt: -939651456
+      projectile_spritesheet_3: 1770949911
+      ice_shard: -639382048
+      fireball: 467423346
+      arrows: 807183272
+      stone: 734631488
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

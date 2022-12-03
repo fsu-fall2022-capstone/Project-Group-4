@@ -45,7 +45,7 @@ TagManager:
   - name: Ground
     uniqueID: 385378299
     locked: 0
-  - name: Tower
+  - name: Objects
     uniqueID: 499993499
     locked: 0
   - name: Bullet
@@ -53,7 +53,4 @@ TagManager:
     locked: 0
   - name: Tower Barrel
     uniqueID: 35680515
-    locked: 0
-  - name: Enemy
-    uniqueID: 315425611
     locked: 0

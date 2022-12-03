@@ -192,7 +192,7 @@ MonoBehaviour:
   barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}
   barrel: {fileID: 5898224288146333944}
-  projectile: {fileID: 2365716209250289182, guid: d8583979da7e1a44297c0865c89708b5,
+  projectile: {fileID: 2365716209250289182, guid: d06e99148ebb2e848a2b897835226031,
     type: 3}
 --- !u!114 &2663099874747289925
 MonoBehaviour:

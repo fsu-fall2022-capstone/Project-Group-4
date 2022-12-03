@@ -76,9 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 499993499
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: 5e26e8a42df863546850e561ebfb8b2d,
-    type: 3}
-  m_Color: {r: 0.4509804, g: 0.058823515, b: 0.07883011, a: 1}
+  m_Sprite: {fileID: 21300000, guid: fbdb78f11fc93e142a5987e639243dda, type: 3}
+  m_Color: {r: 0.5283019, g: 0.062299743, b: 0.062299743, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrel: {fileID: 1086172733646312286}
   tower: {fileID: 3039589224939032072}
-  spriteName: 
+  spriteName: wizard
 --- !u!114 &3039589224939032072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +122,7 @@ MonoBehaviour:
   barrelRotation: {fileID: -8439363905812302321}
   currentTarget: {fileID: 0}
   barrel: {fileID: 1086172733646312286}
-  projectile: {fileID: 6067875741507970028, guid: 8f7e84ece8402624d9871ee6000ade37,
+  projectile: {fileID: 6067875741507970028, guid: aa336d38ab34c7c4ba1667b2fbafec11,
     type: 3}
   element: 2
   effectDuration: 20
@@ -152,8 +151,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8646127252446177012}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.13, z: 1}
+  m_LocalPosition: {x: 0, y: 2.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2436806413268738117}
@@ -197,11 +196,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1393095347
-  m_SortingLayer: 3
+  m_SortingLayerID: 35680515
+  m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 113326e259f9cbf4fbae191a9f96d7df, type: 3}
-  m_Color: {r: 0.3584906, g: 0.3567996, b: 0.3567996, a: 1}
+  m_Sprite: {fileID: -1201913033, guid: 866cd354736158548b44ff704e404cb6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -112,6 +112,8 @@ public class PlacementManager : MonoBehaviour
                     GameObject newTowerObj = Instantiate(currTowerPlacing);
                     newTowerObj.layer = LayerMask.NameToLayer("Tower");
                     newTowerObj.GetComponent<SpriteRenderer>().sortingOrder = hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
+                    newTowerObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 
+                        hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
                     newTowerObj.transform.position = hoverTile.transform.position;
 
                     EndBuilding();
