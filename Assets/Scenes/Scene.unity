@@ -1107,6 +1107,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 403658487952572992, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: scrollSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 926384983642452662, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2608533355947497922, guid: e7471ecbca0838f4da72d2752a6228a4,
         type: 3}
       propertyPath: m_Colors.m_NormalColor.b
@@ -1177,6 +1187,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 180201131}
+    - target: {fileID: 3239410621729765092, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_Horizontal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239410621729765092, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_MovementType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4084229925563339178, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_Horizontal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4084229925563339178, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_MovementType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4902202801025028633, guid: e7471ecbca0838f4da72d2752a6228a4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1186,6 +1216,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308002671503116335, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 99.493
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590192837067595456, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: scrollSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7010561775846697759, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -99.493
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225012042770292945, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664629975098952762, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: distanceY
+      value: 147
       objectReference: {fileID: 0}
     - target: {fileID: 8992867208907497124, guid: e7471ecbca0838f4da72d2752a6228a4,
         type: 3}
@@ -1335,6 +1390,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PauseMenuHandler
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214915399620152608, guid: 10cde046e8a20d143acad9e2f851642e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9214915399620152609, guid: 10cde046e8a20d143acad9e2f851642e,
         type: 3}
