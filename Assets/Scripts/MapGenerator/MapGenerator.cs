@@ -37,6 +37,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private int maxDirectionalStraightness = 3;
 
     private static int straightLineCounter = 0; // counter for map path, to prevent too many straight lines
+    private static int lastSplitCounter = 0; // counter for map path, to prevent too many splits
     private int prevcount = 0;
 
     // may be needed
@@ -450,16 +451,20 @@ public class MapGenerator : MonoBehaviour
 
         int randomNum = UnityEngine.Random.Range(0, 100);
         int randomPathCount;
-        if (randomNum >= 0 && randomNum < 30)
+        if (lastSplitCounter > 3 && randomNum >= 0 && randomNum < 30)
         {
             randomPathCount = 2;
+            lastSplitCounter = 0;
         }
-        else if (randomNum >= 30 && randomNum < 40)
+        else if (lastSplitCounter > 3 && randomNum >= 30 && randomNum < 40)
         {
             randomPathCount = 3;
+            lastSplitCounter = 0;
         }
-        else
+        else {
             randomPathCount = 1;
+            lastSplitCounter++;
+        }
 
         int initPathID = locTileInfo.initPathID;
 

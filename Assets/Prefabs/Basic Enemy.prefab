@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxEnemyHealth: 50
-  maxMovementSpeed: 2
+  maxMovementSpeed: 1
   killReward: 100
 --- !u!61 &5255109614654396564
 BoxCollider2D:
