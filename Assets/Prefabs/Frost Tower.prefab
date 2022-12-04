@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4526964302820891827}
   - component: {fileID: -8439363905812302321}
   - component: {fileID: 3039589224939032072}
+  - component: {fileID: 7670342455211881158}
   m_Layer: 9
   m_Name: Frost Tower
   m_TagString: Untagged
@@ -126,6 +127,32 @@ MonoBehaviour:
     type: 3}
   element: 1
   effectDuration: 5
+--- !u!61 &7670342455211881158
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6426923241460702576}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.16610739}
+    oldSize: {x: 1.32, y: 2.98}
+    newSize: {x: 1, y: 0.8828125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &8646127252446177012
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8646127252446177012}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.025, z: 0}
+  m_LocalPosition: {x: 0, y: 1.785, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -196,8 +223,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1393095347
-  m_SortingLayer: 3
+  m_SortingLayerID: 35680515
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -1201913033, guid: 866cd354736158548b44ff704e404cb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

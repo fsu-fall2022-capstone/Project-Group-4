@@ -15,7 +15,7 @@ public class MapRenderer : SpriteLoader
         base.LoadDictionary();
     }
 
-    protected void Update()
+    protected void FixedUpdate()
     {
         if (previousMapCount != MapGenerator.mapTiles.Count && activeRenderer)
         {

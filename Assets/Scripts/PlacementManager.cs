@@ -116,6 +116,10 @@ public class PlacementManager : MonoBehaviour
                         hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
                     newTowerObj.transform.position = hoverTile.transform.position;
 
+                    Counter.towers.Add(newTowerObj);
+
+                    Counter.towers.Sort((x, y) => x.transform.position.y.CompareTo(y.transform.position.y));
+
                     EndBuilding();
                     shopManager.buyTower(currTowerPlacing);
                 }

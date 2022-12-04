@@ -28,11 +28,6 @@ public class Towers : MonoBehaviour
     public Transform barrel;
     public GameObject projectile;
 
-    private void Awake()
-    {
-        Counter.towers.Add(gameObject);
-    }
-
     private void Start()
     {
         nextTimeToShoot = Time.time;
