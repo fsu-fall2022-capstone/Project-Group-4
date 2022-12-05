@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4597057413689842805
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2709913976877612840}
-  m_Layer: 9
-  m_Name: Pivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2709913976877612840
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4597057413689842805}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5898224288146333944}
-  m_Father: {fileID: 8458615961773869018}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4888090388675808091
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +11,7 @@ GameObject:
   - component: {fileID: 5898224288146333944}
   - component: {fileID: 58721214881780464}
   m_Layer: 9
-  m_Name: Barrel
+  m_Name: Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,12 +24,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4888090388675808091}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.13, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.04, y: 0.777, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2709913976877612840}
+  m_Father: {fileID: 8458615961773869018}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &58721214881780464
@@ -102,11 +70,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1393095347
-  m_SortingLayer: 3
+  m_SortingLayerID: 35680515
+  m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 113326e259f9cbf4fbae191a9f96d7df, type: 3}
-  m_Color: {r: 0.3584906, g: 0.3567996, b: 0.3567996, a: 1}
+  m_Sprite: {fileID: 1602605658, guid: f68be553a9e9e3f4cbe247b35846a95a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -126,11 +94,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8458615961773869018}
   - component: {fileID: 8992549174313683115}
-  - component: {fileID: 9168102826584739461}
+  - component: {fileID: 3426618338538284008}
   - component: {fileID: 2663099874747289925}
   - component: {fileID: -5390301599299072348}
   m_Layer: 9
-  m_Name: Sniper Tower
+  m_Name: Archer Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,10 +113,10 @@ Transform:
   m_GameObject: {fileID: 5543805783916566734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2709913976877612840}
+  - {fileID: 5898224288146333944}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -193,8 +161,8 @@ SpriteRenderer:
   m_SortingLayerID: 499993499
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5e66e99456347fb48bce0b92f92e6a51, type: 3}
-  m_Color: {r: 1, g: 0.13054682, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 355d892c4e536fa4aa9e85576b1cbebe, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -204,7 +172,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9168102826584739461
+--- !u!114 &3426618338538284008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -213,16 +181,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5543805783916566734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 698c6a57cac1e0548a3812829b5f515c, type: 3}
+  m_Script: {fileID: 11500000, guid: 57e0db9e13f80184aa0aa9de3b8747ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
-  damage: 100
-  timeBtwShots: 3
-  towerCost: 500
-  towerName: Sniper Tower
+  range: 3
+  damage: 25
+  timeBtwShots: 1
+  towerCost: 200
+  towerName: Archer Tower
+  barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}
-  pivot: {fileID: 2709913976877612840}
   barrel: {fileID: 5898224288146333944}
   projectile: {fileID: 2365716209250289182, guid: d8583979da7e1a44297c0865c89708b5,
     type: 3}
@@ -238,9 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a0ddb3fd384a746ba7f037ac937af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot: {fileID: 2709913976877612840}
   barrel: {fileID: 5898224288146333944}
-  tower: {fileID: 9168102826584739461}
+  tower: {fileID: 3426618338538284008}
+  spriteName: tripletsoldiers
 --- !u!61 &-5390301599299072348
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -257,13 +225,13 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.27653632}
+    oldSize: {x: 1.32, y: 1.79}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.5}
   m_EdgeRadius: 0
