@@ -74,7 +74,6 @@ public class SpecialEnemy : Enemy
         {
             useSpecialAbility();
             specialAbility.startAbility();
-            Debug.Log("Special Ability Used!");
         }
         else
         {

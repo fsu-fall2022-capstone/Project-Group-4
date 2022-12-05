@@ -144,12 +144,9 @@ public class Enemy : MonoBehaviour
             {
                 try
                 {
-                    Debug.Log("Enemy: " + gameObject.name + " has reached tile: " + targetTile.name);
                     int currIndex = MapGenerator.pathTiles[pathID].IndexOf(targetTile);
 
                     targetTile = MapGenerator.pathTiles[pathID][currIndex - 1];
-
-                    Debug.Log("Enemy: " + gameObject.name + " is now targeting tile: " + targetTile.name);
 
                     gameObject.GetComponent<SpriteRenderer>().sortingOrder = targetTile.GetComponent<SpriteRenderer>().sortingOrder;
                 }
@@ -200,56 +197,47 @@ public class Enemy : MonoBehaviour
             {
                 case StatusType.Frozen:
                 case StatusType.Stunned:
-                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
                     {
                         setToNormalSpeed();
                         statusesToRemove.Add(status);
-                        Debug.Log($"{name} is no longer {status.statusType}");
                     }
                     else
                         changeMovementSpeed(0f);
                     break;
                 case StatusType.Electrocuted:
                 case StatusType.Burning:
-                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
                     {
                         statusesToRemove.Add(status);
-                        Debug.Log($"{name} is no longer {status.statusType}");
                     }
                     else
                         takeDamage(2);
                     break;
                 case StatusType.Overcharged:
-                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
                     {
                         overcharged = false;
                         if (enemyHealth > maxEnemyHealth)
                             enemyHealth = maxEnemyHealth;
-                        Debug.Log($"{name} is no longer {status.statusType}");
                     }
                     else
                         overchargeHealth(maxEnemyHealth * 0.25f);
                     break;
                 case StatusType.Sprinting:
-                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
                     {
                         setToNormalSpeed();
                         overcharged = false;
-                        Debug.Log($"{name} is no longer {status.statusType}");
                     }
                     else
                         overchargeSpeed(maxMovementSpeed * 0.25f);
                     break;
                 case StatusType.Shielded:
-                    Debug.Log($"{name} is {status.statusType} for {status.duration} seconds");
                     status.updateDuration(Time.time - timeCheck);
                     allowDamage = (status.duration <= 0f) ? true : false;
                     break;

@@ -149,9 +149,6 @@ public class TileSetGenerator
 
         tileSet.spawnTiles.Add(tileSet.tiles[startTileIndex]);
 
-        //Debug.Log($"StartTile Pos: {tileSet.spawnTiles[tileSet.spawnTiles.Count - 1].position}");
-        //Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
-
         // add the cardinals to the list
         tileSet.DirCardinals.Add(DirCardinals);
     }
@@ -183,7 +180,6 @@ public class TileSetGenerator
             tileSet.endTile.position.x = 0;
         }
 
-        //Debug.Log($"{DirCardinals.end}");
         int index = tileSet.tiles.FindIndex(tile => tile.position == tileSet.endTile.position);
         tileSet.tiles[index].type = 3;
         tileSet.endTile = tileSet.tiles[index];
@@ -217,8 +213,6 @@ public class TileSetGenerator
 
             DirCardinals.start = newStart;
 
-            //Debug.Log($"{DirCardinals.start}");
-
             coreStartGen();
         }
     }
@@ -230,8 +224,6 @@ public class TileSetGenerator
 
         DirCardinals.start = UnityEngine.Random.Range(0, 4); // get the cardinals
                                                              // 0 for bottom, 1 for right, 2 for top, 3 for left
-
-        //Debug.Log($"{DirCardinals.start}");
 
         switch (DirCardinals.start)
         {
@@ -254,8 +246,6 @@ public class TileSetGenerator
         {
             DirCardinals.end = UnityEngine.Random.Range(0, 4);
         }
-
-        //Debug.Log($"{DirCardinals.end}");
 
         switch (DirCardinals.end)
         {
@@ -293,9 +283,6 @@ public class TileSetGenerator
         tileSet.spawnTiles.Add(tileSet.tiles[startTileIndex]); // start tile
         tileSet.endTile = tileSet.tiles[endTileIndex];
 
-        //Debug.Log($"StartTile Pos: {tileSet.spawnTiles[0].position}");
-        //Debug.Log($"EndTile Pos: {tileSet.endTile.position}");
-
         // add the cardinals to the list
         tileSet.DirCardinals.Add(DirCardinals);
         if (numStartPoints > 1)
@@ -321,8 +308,6 @@ public class TileSetGenerator
             }
         }
 
-        //Debug.Log($"{DirCardinals.start}");
-
         coreStartGen();
 
         if (numStartPoints > 1)
@@ -331,50 +316,42 @@ public class TileSetGenerator
 
     private void moveDown(int pathID = 0)
     {
-        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = currIndex - tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
-        //Debug.Log("Moved Down.");
     }
 
     private void moveUp(int pathID = 0)
     {
-        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = currIndex + tileSetWidth;
         currentTile = tileSet.tiles[nextIndex];
-        //Debug.Log("Moved Up.");
     }
 
     private void moveRight(int pathID = 0)
     {
-        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = ++currIndex;
         currentTile = tileSet.tiles[nextIndex];
-        //Debug.Log("Moved Right.");
     }
 
     private void moveLeft(int pathID = 0)
     {
-        //Debug.Log($"Added {currentTile.position} as path.");
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
             tileSet.tiles[currIndex].type = 1;
         tileSet.pathTiles[pathID].Add(tileSet.tiles[currIndex]);
         nextIndex = --currIndex;
         currentTile = tileSet.tiles[nextIndex];
-        //Debug.Log("Moved Left.");
     }
 
     // Getting the different quadrants will require
@@ -475,7 +452,6 @@ public class TileSetGenerator
         {
             // need to reorganize the quadrantNodes to
             // point close to start - loner choice - point close to end
-            // 
             float closestDistance = tileSetWidth * tileSetHeight;
 
             for (int i = 0; i < quadrantNodes.Count; i++)
@@ -494,8 +470,6 @@ public class TileSetGenerator
             quadrantNodes.Clear();
             quadrantNodes.Add(closeStart);
             quadrantNodes.Add(lonerChoice);
-            //Debug.Log($"Node 1: {closeStart.position}");
-            //Debug.Log($"Node 2: {lonerChoice.position}");
         }
 
         return quadrantNodes;
@@ -546,7 +520,6 @@ public class TileSetGenerator
                             tileSet.pathTiles[pathID].RemoveAt(j);
                             positionList[i] = (positionList[i].position, positionList[i].count - 1);
                             loopCounter--;
-                            //Debug.Log($"Removed tile at {removedTile.position}");
                             break;
                         }
                         else
@@ -563,7 +536,6 @@ public class TileSetGenerator
                                 }
                             }
                             tileSet.pathTiles[pathID].RemoveAt(j);
-                            //Debug.Log($"Removed tile at {removedTile.position}");
                             j--;
                         }
                     }
@@ -583,16 +555,12 @@ public class TileSetGenerator
         {
             float distance = (float)Vector2.Distance(new Vector2(tileSet.pathTiles[pathID][i].position.x, tileSet.pathTiles[pathID][i].position.y),
                 new Vector2(previousTile.position.x, previousTile.position.y));
-            //Debug.Log($"Distance between {tileSet.pathTiles[pathID][i].position} and {previousTile.position} is {distance}");
             if (distance > 1)
             { // this means we'll have to patch the path
                 List<Tile> segmentTiles = new List<Tile>();
-                //Debug.Log("Need to patch path");
                 for (int j = i; j < tileSet.pathTiles[pathID].Count; j++)
                 {
-                    //Debug.Log($"Added tile to needed patching: {tileSet.pathTiles[pathID][j].position}");
                     segmentTiles.Add(tileSet.pathTiles[pathID][j]);
-                    //Debug.Log($"Attempting removal of index {j} of {tileSet.pathTiles[pathID].Count - 1}");
                     tileSet.pathTiles[pathID].RemoveAt(j);
                     j--;
                 }
@@ -615,7 +583,6 @@ public class TileSetGenerator
         while (moving)
         {
             counter++;
-            //Debug.Log($"CurrentTile: {currentTile.position}");
             if (counter == 1 && start)
             {
                 switch (tileSet.DirCardinals[pathID].start)
@@ -638,7 +605,7 @@ public class TileSetGenerator
 
             if (counter > 100)
             {
-                //Debug.Log("Loop ran too long, broke out of it.");
+                Debug.Log("Loop ran too long, broke out of it.");
                 break;
             }
             else if (!reached.y)
@@ -709,15 +676,10 @@ public class TileSetGenerator
                 }
             }
 
-            //Debug.Log($"{tileSet.spawnTiles[i].position}");
-
             for (int j = closestTileIndex; j < tileSet.pathTiles[0].Count; j++)
             {
-                //Debug.Log($"{tileSet.pathTiles[0][j].position}");
                 tileSet.pathTiles[i].Add(tileSet.pathTiles[0][j]);
             }
-
-            //Debug.Log($"{tileSet.endTile.position} - {tileSet.pathTiles[i][tileSet.pathTiles[i].Count - 1].position}");
 
             // the path will be generated from the pathPatch function
             patchPath(i);
@@ -733,12 +695,10 @@ public class TileSetGenerator
         pathingNodes.Add(tileSet.endTile);
         currentTile = tileSet.spawnTiles[0]; // start at the first spawn tile
 
-        //Debug.Log("Generating Path");
         PathingLogic(pathingNodes, true);
         cullLoopPaths(0);
         // a patch check is needed to see if the path is disconnected
         // checks the pathTiles list for any gaps in the path
-        // tileSet.pathTiles.RemoveAt(tileSet.pathTiles.Count - 2);
         patchPath(0);
 
         if (tileSet.spawnTiles.Count > 1)

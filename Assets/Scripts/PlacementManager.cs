@@ -17,7 +17,6 @@ public class PlacementManager : MonoBehaviour
 
     public ShopManager shopManager;
 
-    public GameObject basicTowerObject;
 
     private GameObject currTowerPlacing;
 

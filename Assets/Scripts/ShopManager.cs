@@ -17,10 +17,6 @@ public class ShopManager : MonoBehaviour
 
     public MoneyManager moneyManager;
 
-    public GameObject basicTowerPrefab;
-
-    public int basicTowerCost;
-
     private void Start()
     {
         if (main == null) main = this;
