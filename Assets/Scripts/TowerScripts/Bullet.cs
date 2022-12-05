@@ -16,12 +16,12 @@ public class Bullet : MonoBehaviour
     public float Damage;
     public GameObject Target;
 
-    protected void Start()
+    protected virtual void Start()
     {
         Destroy(gameObject, 10f);
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         transform.position += transform.right * 0.25f;
     }
