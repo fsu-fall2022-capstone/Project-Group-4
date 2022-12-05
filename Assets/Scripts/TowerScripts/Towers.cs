@@ -28,6 +28,8 @@ public class Towers : MonoBehaviour
     public Transform barrel;
     public GameObject projectile;
 
+    public bool aimReady { get; private set; } = false;
+
     private void Start()
     {
         nextTimeToShoot = Time.time;
@@ -39,12 +41,19 @@ public class Towers : MonoBehaviour
 
         if (Time.time >= nextTimeToShoot)
         {
-            if (currentTarget != null)
+            if (currentTarget != null && aimReady)
             {
                 shoot();
                 nextTimeToShoot = Time.time + timeBtwShots;
+            } else if (currentTarget == null && aimReady) {
+                aimReady = false;
             }
         }
+    }
+
+    public void triggerAim()
+    {
+        aimReady = !aimReady;
     }
 
     private void updateClosestEnemy()
@@ -84,7 +93,6 @@ public class Towers : MonoBehaviour
 
     public void addBoon(BoonType boon)
     {
-        Debug.Log("Boon Added To Tower!");
         boons.Add(boon);
         switch (boon)
         {
@@ -102,7 +110,6 @@ public class Towers : MonoBehaviour
 
     public void removeBoon(BoonType boon)
     {
-        Debug.Log("Boon Removed From Tower");
         switch (boon)
         {
             case BoonType.Power:
