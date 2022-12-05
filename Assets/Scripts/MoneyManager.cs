@@ -20,14 +20,12 @@ public class MoneyManager : MonoBehaviour
     public static MoneyManager main;
 
     private static int currPlayerMoney;
-    private int counter;
     public int startMoney;
 
     private void Start()
     {
         if (main == null) main = this;
         currPlayerMoney = startMoney;
-        counter = 0;
     }
 
     public int GetCurrMoney()
@@ -39,19 +37,15 @@ public class MoneyManager : MonoBehaviour
     //Modified to show player score on game over screen
     public void addMoney(int amount)
     {
-        if (counter !> 0)
-            currPlayerMoney = 1000;        //If startMoney changes, change this to match
         currPlayerMoney = GetCurrMoney() + amount;
         playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
         playerScoreTxt.text = $"Score: {currPlayerMoney}";
-        counter++;
     }
 
     //Modified to change and print out the players money when taken away
     //Modified to show player score on game over screen
     public void removeMoney(int amount)
     {
-        counter = counter + 1;
         currPlayerMoney -= amount;
         playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
         playerScoreTxt.text = $"Score: {currPlayerMoney}";
