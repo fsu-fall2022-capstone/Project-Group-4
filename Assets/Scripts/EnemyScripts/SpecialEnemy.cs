@@ -57,7 +57,6 @@ public class SpecialEnemy : Enemy
         {
             if (abilityType == AbilityType.DeadSpawn)
             {
-                Debug.Log("SPAWNING ENEMIES ON DEATH");
                 (specialAbility as SpawnerAbility).spawnEnemies(gameObject.transform.position, targetTile, pathID);
             }
 

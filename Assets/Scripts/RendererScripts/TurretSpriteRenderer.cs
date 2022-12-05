@@ -34,8 +34,6 @@ public class TurretSpriteRenderer : SpriteLoader
     private void updateSortingLayerValue()
     {
         int layerCount = 32767;
-        // how to find the length of a list
-        // https://answers.unity.com/questions/1015/how-do-i-get-the-length-of-a-list.html
 
         for (int i = 0; i < Counter.towers.Count && layerCount > -32767; i++)
         {

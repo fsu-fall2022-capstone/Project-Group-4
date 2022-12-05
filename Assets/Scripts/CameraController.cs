@@ -15,11 +15,9 @@ public class CameraController : MonoBehaviour
     private Vector3 MouseScrollStartPos;
     private Camera mainCamera;
 
-    //[SerializeField] private int BorderSize = 15;
 
     // different speed values, serialized for editor adjustment to save in the code
     [SerializeField] private float MoveSpeed = 20f;
-    //[SerializeField] private float EdgeScrollSpeed = 1f;
     [SerializeField] private float ZoomSpeed = 80f;
 
     private float spriteSize = 1f;
@@ -31,7 +29,6 @@ public class CameraController : MonoBehaviour
         mainCamera = GetComponent<Camera>();
         spriteSize = MapGenerator.main.getSpriteSize();
         mainCamera.orthographicSize = spriteSize * 5;
-        //gen = GetComponent<MapGenerator>();
     }
 
     // Update is called once per frame
@@ -42,41 +39,8 @@ public class CameraController : MonoBehaviour
             HandleMouseInput();
         }
         HandleWheelScroll();
-        //        RestrictToBoundaryLimits();
     }
 
-    /*
-        public Rect GetBoundaryLimits() // sets the maximum boundary the camera can roam
-        {   // this way people don't lost in the void
-            (int w, int h) size = MapGenerator.main.getMapSize();
-            GameObject cornerTile = MapGenerator.main.getCornerTile();
-            return new Rect(new Vector2(cornerTile.transform.position.x,
-                            cornerTile.transform.position.y/(size.h/2)), new Vector2(size.w, size.h));
-        }
-
-
-        private void RestrictToBoundaryLimits()
-        {
-            Rect boundaries = GetBoundaryLimits(); // limits are based on the rectangle generated
-            // around the map size
-            if (boundaries.xMin > mainCamera.transform.position.x){
-                mainCamera.transform.position = new Vector3(boundaries.xMin, 
-                    mainCamera.transform.position.y, mainCamera.transform.position.z);
-            }
-            if (boundaries.xMax < mainCamera.transform.position.x){
-                mainCamera.transform.position = new Vector3(boundaries.xMax, 
-                    mainCamera.transform.position.y, mainCamera.transform.position.z);
-            }
-            if (boundaries.yMin > mainCamera.transform.position.y){
-                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, 
-                    boundaries.yMin, mainCamera.transform.position.z);
-            }
-            if (boundaries.yMax < mainCamera.transform.position.y){
-                mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, 
-                    boundaries.yMax, mainCamera.transform.position.z);
-            }
-        }
-    */
     private bool HandleKeyInput()
     {
         Vector3 movement = Vector3.zero;

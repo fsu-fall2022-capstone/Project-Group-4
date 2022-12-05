@@ -9,7 +9,6 @@ public class ElementalShot : Bullet
 
     protected override void OnBulletCollisionEffect()
     {
-        Debug.Log("Target Hit!");
         Enemy enemyScript = Target.GetComponent<Enemy>();
         switch (Element)
         {

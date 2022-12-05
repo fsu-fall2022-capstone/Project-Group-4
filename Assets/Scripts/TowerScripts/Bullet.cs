@@ -28,7 +28,6 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision Detected!");
         if (Target != null)
         {
             if (collision.gameObject == Target)
@@ -41,7 +40,6 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnBulletCollisionEffect()
     {
-        Debug.Log("Target Hit!");
         Target.GetComponent<Enemy>().takeDamage(Damage);
     }
 }
