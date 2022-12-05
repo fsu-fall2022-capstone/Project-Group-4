@@ -39,7 +39,7 @@ public class MoneyManager : MonoBehaviour
     //Modified to show player score on game over screen
     public void addMoney(int amount)
     {
-        if (counter! > 0)
+        if (!(counter > 0))
             currPlayerMoney = 1000;        //If startMoney changes, change this to match
         currPlayerMoney = GetCurrMoney() + amount;
         playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
