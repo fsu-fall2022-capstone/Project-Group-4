@@ -391,6 +391,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1512421696963597605, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontSize
@@ -402,6 +407,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 97734de35283e0f4cb3f248509f42dd2,
         type: 2}
+    - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontColor.b
@@ -604,6 +614,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 97734de35283e0f4cb3f248509f42dd2,
         type: 2}
+    - target: {fileID: 6798897021671507840, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6798897021671507840, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontSizeBase
