@@ -410,7 +410,7 @@ PrefabInstance:
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontStyle
-      value: 0
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
@@ -438,6 +438,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2813826061164421950, guid: 97734de35283e0f4cb3f248509f42dd2,
         type: 2}
+    - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontColor32.rgba
@@ -617,7 +622,7 @@ PrefabInstance:
     - target: {fileID: 6798897021671507840, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontStyle
-      value: 0
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6798897021671507840, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
@@ -630,6 +635,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2813826061164421950, guid: 97734de35283e0f4cb3f248509f42dd2,
         type: 2}
+    - target: {fileID: 6798897021671507840, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798897021671507840, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_overrideHtmlColors
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798897021671507840, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8515840431458668698, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_SizeDelta.x
