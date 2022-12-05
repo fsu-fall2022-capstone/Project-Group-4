@@ -145,13 +145,13 @@ public class Boon : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public int getCost() 
+    public int getCost()
     {
-        return boonCost; 
+        return boonCost;
     }
 
-    public string getName() 
-    { 
-        return boonName; 
+    public string getName()
+    {
+        return boonName;
     }
 }

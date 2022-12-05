@@ -15,26 +15,32 @@ class UIScrollViewController : MonoBehaviour
 
     public void LeftButtonClick()
     {
-        if (scrollRect.horizontalNormalizedPosition >= 0.05f) {
+        if (scrollRect.horizontalNormalizedPosition >= 0.05f)
+        {
             scrollRect.horizontalNormalizedPosition -= scrollSpeed;
         }
     }
 
     public void RightButtonClick()
     {
-        if (scrollRect.horizontalNormalizedPosition <= 0.95f) {
+        if (scrollRect.horizontalNormalizedPosition <= 0.95f)
+        {
             scrollRect.horizontalNormalizedPosition += scrollSpeed;
         }
     }
 
-    public void DisplayButtonClick() {
-        if (isHidden) {
+    public void DisplayButtonClick()
+    {
+        if (isHidden)
+        {
             text.text = $"Hide {shopName}";
             leftButton.SetActive(true);
             rightButton.SetActive(true);
             gameObject.transform.position += new Vector3(0, distanceY, 0);
             isHidden = false;
-        } else {
+        }
+        else
+        {
             text.text = $"Show {shopName}";
             leftButton.SetActive(false);
             rightButton.SetActive(false);
