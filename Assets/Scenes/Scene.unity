@@ -633,6 +633,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4318382961170160379, guid: d09cb2aa991737044a5d3595d5ff54f9,
         type: 3}
+      propertyPath: startMoney
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318382961170160379, guid: d09cb2aa991737044a5d3595d5ff54f9,
+        type: 3}
       propertyPath: playerMoneyTxt
       value: 
       objectReference: {fileID: 1204682236}
@@ -1208,6 +1213,11 @@ PrefabInstance:
       propertyPath: m_ShowMaskGraphic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2378178235925833864, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Cost: $1500'
+      objectReference: {fileID: 0}
     - target: {fileID: 2608533355947497922, guid: e7471ecbca0838f4da72d2752a6228a4,
         type: 3}
       propertyPath: m_Colors.m_NormalColor.b
@@ -1303,6 +1313,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -82.6
       objectReference: {fileID: 0}
+    - target: {fileID: 5092376352574601647, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1653355971}
+    - target: {fileID: 5092376352574601647, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 5092376352574601647, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5543805783916566734, guid: 10a6777abdfa00843b13a44ef02b6139,
+        type: 3}
     - target: {fileID: 6074821348794164095, guid: e7471ecbca0838f4da72d2752a6228a4,
         type: 3}
       propertyPath: m_IsActive
@@ -1468,6 +1494,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1653355971}
+    - target: {fileID: 9197258888299545547, guid: e7471ecbca0838f4da72d2752a6228a4,
+        type: 3}
+      propertyPath: m_Text
+      value: Trebuchet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7471ecbca0838f4da72d2752a6228a4, type: 3}
 --- !u!1001 &9214915400796453560
