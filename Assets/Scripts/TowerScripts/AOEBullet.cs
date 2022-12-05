@@ -38,9 +38,11 @@ public class AOEBullet : Bullet
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D enemy in enemies)
         {
-            if (enemy.gameObject.tag == "Enemy")
-            {
-                enemy.GetComponent<Enemy>().takeDamage(base.Damage);
+            if(enemy != null) {
+                if (enemy.gameObject.tag == "Enemy")
+                {
+                    enemy.GetComponent<Enemy>().takeDamage(base.Damage);
+                }
             }
         }
     }
