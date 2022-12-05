@@ -69,7 +69,8 @@ public class PlacementManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            if (MapGenerator.mapTiles.Contains(hit.collider.gameObject))        //Check if obj is mapTile
+            if (MapGenerator.mapTiles.Contains(hit.collider.gameObject) &&
+                !Counter.towers.Contains(hit.collider.gameObject))        //Check if obj is mapTile
             {
                 bool isPathTile = false;
                 foreach (List<GameObject> path in MapGenerator.pathTiles)       //Check if obj is pathTile
@@ -152,7 +153,6 @@ public class PlacementManager : MonoBehaviour
 
         if (dummyPlacement != null)
         {
-            Debug.Log("Destroying dummyPlacement.. \n");
             Destroy(dummyPlacement);
         }
     }

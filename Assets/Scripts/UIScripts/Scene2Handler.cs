@@ -12,7 +12,6 @@ public class Scene2Handler : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("Reset the Scene...");
         TimeHandler.StartGameTime();
-        //SceneManager.LoadScene("Scene", LoadSceneMode.Single);
     }
 
     public static void mainMenu()
@@ -23,7 +22,6 @@ public class Scene2Handler : MonoBehaviour
         Enemy.resetForMainMenu();
         Debug.Log("Loading Menu...");
         TimeHandler.StartGameTime();
-        //SceneManager.LoadScene("StartScene", LoadSceneMode.Single);
     }
 
     public static void clearListsFromGameScene()
