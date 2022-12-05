@@ -33,7 +33,7 @@ public class TurretSpriteRenderer : SpriteLoader
     // most layers are dependent on the tile location
     private void updateSortingLayerValue()
     {
-        int layerCount = 32767;
+        int layerCount = 32766; // max is 32767
 
         for (int i = 0; i < Counter.towers.Count && layerCount > -32767; i++)
         {
@@ -47,16 +47,16 @@ public class TurretSpriteRenderer : SpriteLoader
                 {
                     tower.GetComponent<SpriteRenderer>().sortingOrder = previousTower.GetComponent<SpriteRenderer>().sortingOrder;
                     tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 
-                        previousTower.GetComponent<SpriteRenderer>().sortingOrder;
+                        previousTower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder ;
                 }
                 else {
                     tower.GetComponent<SpriteRenderer>().sortingOrder = --layerCount;
-                    tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = layerCount;
+                    tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = layerCount + 1;
                 }
             }
             else {
                 tower.GetComponent<SpriteRenderer>().sortingOrder = layerCount;
-                tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = layerCount;
+                tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = layerCount + 1;
             }
         }
     }
