@@ -10,6 +10,7 @@ public class FrameRateManager : MonoBehaviour
     {
         StartCoroutine(changeFramerate());
     }
+
     IEnumerator changeFramerate()
     {
         yield return new WaitForSeconds(1);
