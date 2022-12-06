@@ -18,7 +18,7 @@ public class PlacementManager : MonoBehaviour
     public ShopManager shopManager;
 
 
-    private GameObject currTowerPlacing;
+    private GameObject currObjPlacing;
 
     private GameObject dummyPlacement;
 
@@ -28,6 +28,8 @@ public class PlacementManager : MonoBehaviour
 
     public LayerMask mask;
     public LayerMask towerMask;
+
+    private bool flag = false;
 
     public bool isBuilding;
 
@@ -40,19 +42,19 @@ public class PlacementManager : MonoBehaviour
     {
         if (isBuilding == true)
         {
+            GetCurrentHoverTile();
+
             if (dummyPlacement != null)
             {
-                GetCurrentHoverTile();
-
                 if (hoverTile != null)
                     dummyPlacement.transform.position = hoverTile.transform.position;
             }
 
             if (Input.GetButtonDown("Fire1"))
-                PlaceBuilding();
+                Placement();
 
             if (Input.GetButtonDown("Fire2"))
-                EndBuilding();
+                EndPlacement();
         }
     }
 
@@ -89,16 +91,42 @@ public class PlacementManager : MonoBehaviour
 
     public bool checkForTower()
     {
-        bool towerOnSlot = false;
-
         Vector2 mousePosition = GetMousePosition();
-
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, new Vector2(0, 0), 0.1f, towerMask, -100, 100);
 
-        if (hit.collider != null)
-            towerOnSlot = true;
+        return (hit.collider != null) ? true : false;
+    }
 
-        return towerOnSlot;
+    public void Placement() {
+        if (flag)
+            PlaceBoon();
+        else
+            PlaceBuilding();
+    }
+
+    public void PlaceBoon()
+    {
+        if (hoverTile != null)
+        {
+            if (checkForTower() == false)
+            {
+                if (shopManager.canBuyBoon(currObjPlacing) == true)
+                {
+                    GameObject newTowerObj = Instantiate(currObjPlacing);
+                    newTowerObj.layer = LayerMask.NameToLayer("Tower");
+                    newTowerObj.GetComponent<SpriteRenderer>().sortingOrder = hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
+                    newTowerObj.transform.position = hoverTile.transform.position;
+
+                    EndPlacement();
+                    shopManager.buyBoon(currObjPlacing);
+                }
+                else
+                {
+                    Debug.Log("Not enough money for Boon.. \n");
+                    EndPlacement();
+                }
+            }
+        }
     }
 
     public void PlaceBuilding()
@@ -107,47 +135,56 @@ public class PlacementManager : MonoBehaviour
         {
             if (checkForTower() == false)
             {
-                if (shopManager.canBuyTower(currTowerPlacing) == true)
+                if (shopManager.canBuyTower(currObjPlacing) == true)
                 {
-                    GameObject newTowerObj = Instantiate(currTowerPlacing);
+                    GameObject newTowerObj = Instantiate(currObjPlacing);
                     newTowerObj.layer = LayerMask.NameToLayer("Tower");
                     newTowerObj.GetComponent<SpriteRenderer>().sortingOrder = hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
                     newTowerObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 
-                        hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
+                        hoverTile.GetComponent<SpriteRenderer>().sortingOrder + 1;
                     newTowerObj.transform.position = hoverTile.transform.position;
 
                     Counter.towers.Add(newTowerObj);
 
                     Counter.towers.Sort((x, y) => x.transform.position.y.CompareTo(y.transform.position.y));
 
-                    EndBuilding();
-                    shopManager.buyTower(currTowerPlacing);
+                    EndPlacement();
+                    shopManager.buyTower(currObjPlacing);
                 }
                 else
                 {
                     Debug.Log("Not enough money for Tower.. \n");
-                    EndBuilding();
+                    EndPlacement();
                 }
             }
         }
     }
 
-    public void StartBuilding(GameObject towerToBuild)
+    public void StartPlacing(GameObject towerToBuild)
     {
+        GetCurrentHoverTile();
+
         isBuilding = true;
 
-        currTowerPlacing = towerToBuild;
+        currObjPlacing = towerToBuild;
 
-        dummyPlacement = Instantiate(currTowerPlacing);
+        dummyPlacement = Instantiate(currObjPlacing);
 
         if (dummyPlacement.GetComponent<Towers>() != null)
             Destroy(dummyPlacement.GetComponent<Towers>());
 
+
         if (dummyPlacement.GetComponent<BarrelRotation>() != null)
             Destroy(dummyPlacement.GetComponent<BarrelRotation>());
+
+
+        if (dummyPlacement.GetComponent<Boon>() != null) {
+            Destroy(dummyPlacement.GetComponent<Boon>());
+            flag = true;
+        }
     }
 
-    public void EndBuilding()
+    public void EndPlacement()
     {
         isBuilding = false;
 
@@ -155,5 +192,7 @@ public class PlacementManager : MonoBehaviour
         {
             Destroy(dummyPlacement);
         }
+
+        flag = false;
     }
 }
