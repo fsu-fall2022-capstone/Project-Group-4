@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class SpriteLoader : MonoBehaviour {
+public class SpriteLoader : MonoBehaviour
+{
     [SerializeField] private Sprite[] importSprites;
     private Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
 

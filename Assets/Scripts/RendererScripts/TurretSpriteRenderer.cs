@@ -15,7 +15,8 @@ public class TurretSpriteRenderer : SpriteLoader
         base.LoadDictionary();
     }
 
-    protected void FixedUpdate() {
+    protected void FixedUpdate()
+    {
         if (previousMapCount != Counter.towers.Count && activeRenderer)
         {
             Debug.Log("TurretSpriteRenderer: Map count changed from " + previousMapCount + " to " + Counter.towers.Count);
@@ -46,15 +47,17 @@ public class TurretSpriteRenderer : SpriteLoader
                 if (tower.transform.position.y == previousTower.transform.position.y)
                 {
                     tower.GetComponent<SpriteRenderer>().sortingOrder = previousTower.GetComponent<SpriteRenderer>().sortingOrder;
-                    tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 
-                        previousTower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder ;
+                    tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder =
+                        previousTower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder;
                 }
-                else {
+                else
+                {
                     tower.GetComponent<SpriteRenderer>().sortingOrder = --layerCount;
                     tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = layerCount + 1;
                 }
             }
-            else {
+            else
+            {
                 tower.GetComponent<SpriteRenderer>().sortingOrder = layerCount;
                 tower.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = layerCount + 1;
             }

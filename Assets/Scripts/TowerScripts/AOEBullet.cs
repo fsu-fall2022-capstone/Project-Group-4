@@ -14,41 +14,50 @@ public class AOEBullet : Bullet
     {
         base.Start();
         finalPoint = base.Target.transform.position;
-        apexPoint = transform.position + (finalPoint - transform.position) / 2 
+        apexPoint = transform.position + (finalPoint - transform.position) / 2
                 + new Vector3(0, parabolicHeight, 0);
     }
 
     protected override void FixedUpdate()
     {
 
-        if(base.Target != null) {
-            if (t < 1.0f) {
+        if (base.Target != null)
+        {
+            if (t < 1.0f)
+            {
                 calcBoziersCurve();
             }
-    
+
             updateRotation();
             finalPoint = base.Target.transform.position;
-        } else {
-            if (t < 1.0f) {
+        }
+        else
+        {
+            if (t < 1.0f)
+            {
                 calcBoziersCurve();
-            } else {
+            }
+            else
+            {
                 OnBulletCollisionEffect();
                 Destroy(gameObject);
             }
-    
+
             updateRotation();
         }
     }
 
     // B(t) = (1-t)[(1-t)Po + tP1] + t[(1-t)P1 + tP2], 0 <= t <= 1
     // https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Quadratic_B%C3%A9zier_curves
-    private void calcBoziersCurve() {
+    private void calcBoziersCurve()
+    {
         t += Time.deltaTime;
-        gameObject.transform.position = (1-t)*((1-t)*transform.position + t*apexPoint) + 
-                t*((1-t)*apexPoint + t*finalPoint);
+        gameObject.transform.position = (1 - t) * ((1 - t) * transform.position + t * apexPoint) +
+                t * ((1 - t) * apexPoint + t * finalPoint);
     }
 
-    private void updateRotation() {
+    private void updateRotation()
+    {
         Vector3 relative = finalPoint - transform.position;
         float angle = Mathf.Atan2(relative.y, relative.x) * Mathf.Rad2Deg;
         Vector3 newRotation = new Vector3(0, 0, angle);
@@ -61,7 +70,8 @@ public class AOEBullet : Bullet
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D enemy in enemies)
         {
-            if(enemy != null) {
+            if (enemy != null)
+            {
                 if (enemy.gameObject.tag == "Enemy")
                 {
                     enemy.GetComponent<Enemy>().takeDamage(base.Damage);

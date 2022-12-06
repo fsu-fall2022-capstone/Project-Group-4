@@ -9,10 +9,11 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (HealthBar.lives == 0f && !isGameOver) {
+        if (HealthBar.lives == 0f && !isGameOver)
+        {
             GameOver.Show();
             isGameOver = true; // prevents the game over screen
-                                 // from being called multiple times
+                               // from being called multiple times
         }
     }
 }

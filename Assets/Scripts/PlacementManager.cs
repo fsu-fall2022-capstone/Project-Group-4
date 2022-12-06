@@ -97,7 +97,8 @@ public class PlacementManager : MonoBehaviour
         return (hit.collider != null) ? true : false;
     }
 
-    public void Placement() {
+    public void Placement()
+    {
         if (flag)
             PlaceBoon();
         else
@@ -140,7 +141,7 @@ public class PlacementManager : MonoBehaviour
                     GameObject newTowerObj = Instantiate(currObjPlacing);
                     newTowerObj.layer = LayerMask.NameToLayer("Tower");
                     newTowerObj.GetComponent<SpriteRenderer>().sortingOrder = hoverTile.GetComponent<SpriteRenderer>().sortingOrder;
-                    newTowerObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 
+                    newTowerObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder =
                         hoverTile.GetComponent<SpriteRenderer>().sortingOrder + 1;
                     newTowerObj.transform.position = hoverTile.transform.position;
 
@@ -178,7 +179,8 @@ public class PlacementManager : MonoBehaviour
             Destroy(dummyPlacement.GetComponent<BarrelRotation>());
 
 
-        if (dummyPlacement.GetComponent<Boon>() != null) {
+        if (dummyPlacement.GetComponent<Boon>() != null)
+        {
             Destroy(dummyPlacement.GetComponent<Boon>());
             flag = true;
         }

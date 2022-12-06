@@ -31,12 +31,13 @@ public class BarrelRotation : MonoBehaviour
         Vector3 newRotation = new Vector3(0, 0, angle);
         pivot = Quaternion.Euler(newRotation);
 
-        if(!tower.aimReady) {
+        if (!tower.aimReady)
+        {
             tower.triggerAim();
         }
 
         // then update the sprite if the angle has vastly changed
-        if(Math.Abs(oldAngle - angle) > 15)
+        if (Math.Abs(oldAngle - angle) > 15)
         {
             TurretSpriteRenderer.main.UpdateTurretUnitSprite(barrel, spriteName, angle);
             oldAngle = angle;

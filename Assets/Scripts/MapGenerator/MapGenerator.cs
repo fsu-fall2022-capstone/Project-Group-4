@@ -400,9 +400,9 @@ public class MapGenerator : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, expandableTiles.Count);
         MapLayout randomTile = expandableTiles[randomIndex];
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         Debug.Log($"Chosen mapLayout: {randomTile.ToString()}");
-        #endif
+#endif
 
         expandMap(randomTile);
     }
@@ -434,7 +434,8 @@ public class MapGenerator : MonoBehaviour
             randomPathCount = 3;
             lastSplitCounter = 0;
         }
-        else {
+        else
+        {
             randomPathCount = 1;
             lastSplitCounter++;
         }
@@ -462,9 +463,9 @@ public class MapGenerator : MonoBehaviour
 
         TileSet newTileSet = tileSetGen.getTileSet();
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         Debug.Log($"{tileSetGen.ToString()}");
-        #endif
+#endif
 
         tileSets.Add(newTileSet);
         locTileInfo.tileSetNum = tileSets.Count - 1;
@@ -526,9 +527,9 @@ public class MapGenerator : MonoBehaviour
         MapRenderer.triggerRenderer();
         TileSetGenerator tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, numStartPoints: 1);
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         Debug.Log($"{tileSetGen.ToString()}");
-        #endif
+#endif
 
         tileSets.Add(tileSetGen.getTileSet());
 

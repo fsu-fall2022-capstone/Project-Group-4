@@ -45,7 +45,9 @@ public class Towers : MonoBehaviour
             {
                 shoot();
                 nextTimeToShoot = Time.time + timeBtwShots;
-            } else if (currentTarget == null && aimReady) {
+            }
+            else if (currentTarget == null && aimReady)
+            {
                 aimReady = false;
             }
         }
