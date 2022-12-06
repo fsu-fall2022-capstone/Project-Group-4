@@ -7,15 +7,15 @@ public class GameOverBG : MonoBehaviour
 {
     public void Show()
     {
-        MoneyManager.main.Hide();
+        CanvasManager.main.Hide();
         gameObject.SetActive(true);
         TimeHandler.PauseGameTime();
     }
 
     public void Hide()
     {
+        CanvasManager.main.Show();
         TimeHandler.StartGameTime();
-        MoneyManager.main.Show();
         gameObject.SetActive(false);
     }
 }

@@ -50,14 +50,4 @@ public class MoneyManager : MonoBehaviour
         playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
         playerScoreTxt.text = $"Score: {currPlayerMoney}";
     }
-
-    public void Hide()
-    {
-        playerMoneyTxt.text = "";
-    }
-
-    public void Show()
-    {
-        playerMoneyTxt.text = $"Money: ${currPlayerMoney}";
-    }
 }
