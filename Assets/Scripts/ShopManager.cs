@@ -30,14 +30,38 @@ public class ShopManager : MonoBehaviour
         return tower.getCost();
     }
 
+    public int GetBoonCost(GameObject boonPrefab)
+    {
+        Boon boon = boonPrefab.GetComponent<Boon>();
+
+        return boon.getCost();
+    }
+
     public void buyTower(GameObject towerPrefab)
     {
         moneyManager.removeMoney(GetTowerCost(towerPrefab));
     }
 
+    public void buyBoon(GameObject boonPrefab)
+    {
+        moneyManager.removeMoney(GetBoonCost(boonPrefab));
+    }
+
     public bool canBuyTower(GameObject towerPrefab)
     {
         int cost = GetTowerCost(towerPrefab);
+
+        bool canBuy = false;
+
+        if (moneyManager.GetCurrMoney() >= cost)
+            canBuy = true;
+
+        return canBuy;
+    }
+
+    public bool canBuyBoon(GameObject boonPrefab)
+    {
+        int cost = GetBoonCost(boonPrefab);
 
         bool canBuy = false;
 
