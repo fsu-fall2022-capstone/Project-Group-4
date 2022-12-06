@@ -353,6 +353,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 131627881961361559, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 131627881961361559, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
@@ -393,13 +398,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1512421696963597605, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0d6dc333896842c47a9982086d8087a5,
+        type: 3}
+    - target: {fileID: 1512421696963597605, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
       propertyPath: m_PreserveAspect
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontSize
-      value: 21
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
@@ -430,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 21
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 1525395837368698078, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
@@ -472,6 +483,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StartBGCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331079064644072160, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 5331079064644072161, guid: cf320ab2721d47f4f980b322ad386c5a,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5331079064644072162, guid: cf320ab2721d47f4f980b322ad386c5a,
         type: 3}
