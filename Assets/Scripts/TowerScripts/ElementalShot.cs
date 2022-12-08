@@ -16,13 +16,11 @@ public class ElementalShot : Bullet
                 enemyScript.addStatus(new Status(StatusType.Frozen, EffectDuration));
                 break;
             case ElementType.Fire:
-                enemyScript.addStatus(new Status(StatusType.Burning, EffectDuration));
-                break;
-            case ElementType.Water:
-                //enemyScript.addStatus(new Status(StatusType.Frozen, EffectDuration));
+                enemyScript.addStatus(new Status(StatusType.Burning, EffectDuration, 2));
                 break;
             case ElementType.Lightning:
-                enemyScript.addStatus(new Status(StatusType.Electrocuted, EffectDuration));
+                enemyScript.addStatus(new Status(StatusType.Stunned, 1f));
+                enemyScript.addStatus(new Status(StatusType.Electrocuted, EffectDuration, Damage));
                 break;
             default:
                 Debug.Log($"Element not implemented! {Element}");

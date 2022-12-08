@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     protected bool allowDamage = true;     //Added to check if enemy can take damage
     protected bool overcharged = false;   //Added to check if enemy is overcharged
     protected List<BoonType> boons = new List<BoonType>();
+    [SerializeField] protected GameObject lightningBolt;
 
     protected float timeCheck;
 
@@ -196,6 +197,15 @@ public class Enemy : MonoBehaviour
             switch (status.statusType)
             {
                 case StatusType.Frozen:
+                    status.updateDuration(Time.time - timeCheck);
+                    if (status.duration <= 0f)
+                    {
+                        setToNormalSpeed();
+                        statusesToRemove.Add(status);
+                    }
+                    else
+                        changeMovementSpeed(movementSpeed / 2);
+                    break;
                 case StatusType.Stunned:
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
@@ -207,6 +217,26 @@ public class Enemy : MonoBehaviour
                         changeMovementSpeed(0f);
                     break;
                 case StatusType.Electrocuted:
+                    foreach (GameObject enemy in Counter.enemies)
+                    {
+                        float distance = (transform.position - enemy.transform.position).magnitude;
+                        // status.duration determines range of chaining
+                        if (distance < status.duration)
+                        {
+                            Vector2 relative = enemy.transform.position - transform.position;
+                            float angle = Mathf.Atan2(relative.y, relative.x) * Mathf.Rad2Deg;
+                            Vector3 newRotation = new Vector3(0, 0, angle);
+                            Quaternion pivot = Quaternion.Euler(newRotation);
+                            GameObject lightningChain = Instantiate(lightningBolt, transform.position, pivot);
+                            ElementalShot currentChain = lightningChain.GetComponent<ElementalShot>();
+                            currentChain.Target = enemy;
+                            currentChain.Damage = status.damage / 2;
+                            currentChain.Element = ElementType.Lightning;
+                            currentChain.EffectDuration = status.duration;
+                        }
+                    }
+                    statusesToRemove.Add(status);
+                    break;
                 case StatusType.Burning:
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
@@ -214,7 +244,7 @@ public class Enemy : MonoBehaviour
                         statusesToRemove.Add(status);
                     }
                     else
-                        takeDamage(2);
+                        takeDamage(status.damage);
                     break;
                 case StatusType.Overcharged:
                     status.updateDuration(Time.time - timeCheck);
@@ -247,6 +277,8 @@ public class Enemy : MonoBehaviour
         statuses.RemoveAll(x => statusesToRemove.Contains(x));
         timeCheck = Time.time;
     }
+
+    // ***** BOON FUNCTIONS *********************************************************************************************** 
 
     public void addBoon(BoonType boon)
     {
