@@ -41,6 +41,10 @@ public class ShopManager : MonoBehaviour
     {
         moneyManager.removeMoney(GetTowerCost(towerPrefab));
     }
+    
+    public void sellTower(GameObject towerPrefab){
+        moneyManager.addMoney(GetTowerCost(towerPrefab));
+    }
 
     public void buyBoon(GameObject boonPrefab)
     {

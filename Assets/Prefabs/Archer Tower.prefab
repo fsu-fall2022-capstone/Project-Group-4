@@ -191,6 +191,7 @@ MonoBehaviour:
   towerName: Archer Tower
   barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}
+  menu: {fileID: 113577225882155066, guid: 8a2566476a0e8320ebcc3d1bcd720f6e, type: 3}
   barrel: {fileID: 5898224288146333944}
   projectile: {fileID: 2365716209250289182, guid: d8583979da7e1a44297c0865c89708b5,
     type: 3}
