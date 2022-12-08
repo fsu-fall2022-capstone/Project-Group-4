@@ -27,6 +27,9 @@ public class Enemy : MonoBehaviour
     protected bool waitForTarget = true;
     protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
+    public Vector2 direction;
+    public Vector3 currScale;
+
     private void Awake()
     {
         Counter.enemies.Add(gameObject);
@@ -47,6 +50,20 @@ public class Enemy : MonoBehaviour
             checkPosition();
             checkStatuses();
             moveEnemy();
+
+            currScale = gameObject.transform.localScale;
+            if (direction.x < 0)
+            {
+                if (currScale.y > 0)
+                    currScale.y *= -1;
+                gameObject.transform.localScale = currScale;
+            }
+            else
+            {
+                if (currScale.y < 0)
+                    currScale.y *= -1;
+                gameObject.transform.localScale = currScale;
+            }
         }
     }
 
@@ -124,12 +141,24 @@ public class Enemy : MonoBehaviour
     {
         //Time.deltaTime is zero when new game is set so enemy speed is zero, need enemy speed to be positive
         if (Time.deltaTime == 0 || toMainMenu == 1)
-        {
+        {   
+            //Determine the movement direction and flip enemy sprite to face that way - Nathan Granger
+            direction = targetTile.transform.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (movementSpeed * 25) * Time.deltaTime);
+
             transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * 1f);
             toMainMenu = 0;
         }
         else
-        {
+        { 
+            //Determine the movement direction and flip enemy sprite to face that way - Nathan Granger
+            direction = targetTile.transform.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (movementSpeed * 25) * Time.deltaTime);
+
             transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * Time.deltaTime);
         }
 
