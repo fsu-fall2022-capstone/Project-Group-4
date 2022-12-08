@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ea08c507dc93d429e9a9fe834b1e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemyHealth: 1500
+  maxEnemyHealth: 3000
   maxMovementSpeed: 1
   killReward: 1000
   abilityType: 0

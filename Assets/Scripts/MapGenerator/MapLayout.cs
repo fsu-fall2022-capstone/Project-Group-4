@@ -17,7 +17,7 @@ public class MapLayout
     // each path will have the full length of the path up until it splits off
     // so the question would be to have a list of updatable expansion paths? lists of where the map generation can expand to?
 
-    public List<(int id, int start)> relevantPaths = new List<(int, int)>();
+    public List<(int id, byte start)> relevantPaths = new List<(int, byte)>();
 
     public MapLayout() { }
     public MapLayout((int x, int y) newPosition, int newTileSetNum, int newPathID)
