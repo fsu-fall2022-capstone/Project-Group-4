@@ -185,6 +185,7 @@ public class Enemy : MonoBehaviour
 
     private void checkStatuses()
     {
+        Debug.Log($"{statuses.Count}");
         if (statuses.Count > 0)
             applyStatus();
     }
@@ -204,35 +205,33 @@ public class Enemy : MonoBehaviour
                         statusesToRemove.Add(status);
                     }
                     else
-                        changeMovementSpeed(movementSpeed / 2);
+                        changeMovementSpeed(maxMovementSpeed / 2);
                     break;
                 case StatusType.Stunned:
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
                     {
+                        Debug.Log($"Movement Speed Before Stun Is Removed: {movementSpeed}");
                         setToNormalSpeed();
+                        Debug.Log($"Movement Speed After Stun Is Removed: {movementSpeed}");
                         statusesToRemove.Add(status);
                     }
                     else
                         changeMovementSpeed(0f);
                     break;
                 case StatusType.Electrocuted:
+                    takeDamage(status.damage);
                     foreach (GameObject enemy in Counter.enemies)
                     {
-                        float distance = (transform.position - enemy.transform.position).magnitude;
-                        // status.duration determines range of chaining
-                        if (distance < status.duration)
+                        if (enemy.GetComponent<Enemy>() != this && enemy != null)
                         {
-                            Vector2 relative = enemy.transform.position - transform.position;
-                            float angle = Mathf.Atan2(relative.y, relative.x) * Mathf.Rad2Deg;
-                            Vector3 newRotation = new Vector3(0, 0, angle);
-                            Quaternion pivot = Quaternion.Euler(newRotation);
-                            GameObject lightningChain = Instantiate(lightningBolt, transform.position, pivot);
-                            ElementalShot currentChain = lightningChain.GetComponent<ElementalShot>();
-                            currentChain.Target = enemy;
-                            currentChain.Damage = status.damage / 2;
-                            currentChain.Element = ElementType.Lightning;
-                            currentChain.EffectDuration = status.duration;
+                            float distance = (transform.position - enemy.transform.position).magnitude;
+                            // status.duration determines range of chaining
+                            if (distance < 1)
+                            {
+                                enemy.GetComponent<Enemy>().addStatus(new Status(StatusType.Stunned, status.duration));
+                                enemy.GetComponent<Enemy>().addStatus(new Status(StatusType.Electrocuted, status.duration, status.damage / 2));
+                            }
                         }
                     }
                     statusesToRemove.Add(status);
