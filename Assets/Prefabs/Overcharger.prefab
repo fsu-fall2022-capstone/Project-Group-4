@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4005966978316539209}
   - component: {fileID: 8351016996730276304}
   m_Layer: 0
-  m_Name: Spawner Enemy
+  m_Name: Overcharger
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 113326e259f9cbf4fbae191a9f96d7df, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.24454266, g: 0.09803921, b: 0.7647059, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -149,11 +149,11 @@ MonoBehaviour:
   maxEnemyHealth: 75
   maxMovementSpeed: 1
   killReward: 75
-  abilityType: 1
+  abilityType: 6
   abilityPrefab: {fileID: 2082375029304972468, guid: df606d8329f546948af73a169a5c3b0b,
     type: 3}
   maxDuration: 5
-  maxCooldown: 10
+  maxCooldown: 50
   abilityCount: 3
-  abilityRange: 0
+  abilityRange: 1
   randomizeAbility: 0

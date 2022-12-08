@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e0db9e13f80184aa0aa9de3b8747ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  range: 10
   damage: 35
   timeBtwShots: 10
   towerCost: 1500

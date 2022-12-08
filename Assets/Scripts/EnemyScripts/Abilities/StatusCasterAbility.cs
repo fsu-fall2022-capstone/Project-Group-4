@@ -41,8 +41,10 @@ public class StatusCasterAbility : Ability
         List<GameObject> enemiesInRange = getEnemiesInRange(position, range);
         foreach (GameObject enemy in enemiesInRange)
         {
-            enemy.GetComponent<Enemy>().addStatus(new Status(type, duration));
-            yield return new WaitForSeconds(0.1f);
+            if(enemy != null) {
+                enemy.GetComponent<Enemy>().addStatus(new Status(type, duration));
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 }
