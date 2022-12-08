@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
 
@@ -18,16 +18,20 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (GameIsPaused) {
                 Resume();
-            else
+            }
+            else {
                 Pause();
+            }
         }
     }
 
     public void Resume()
     {
+        
         pauseMenuUI.SetActive(false);
+        
         TimeHandler.StartGameTime();
         GameIsPaused = false;
     }
@@ -35,6 +39,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
+        
         TimeHandler.PauseGameTime();
         GameIsPaused = true;
     }

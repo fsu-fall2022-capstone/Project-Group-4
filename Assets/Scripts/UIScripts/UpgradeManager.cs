@@ -7,25 +7,26 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager main;
     public ShopManager shopManager;
+
     public GameObject menuUi;
 
     private static GameObject currentTower; 
-
-    public bool isUpgrading;
-    public bool isSelling;
 
     // Start is called before the first frame update
     private void Start()
     {
         if (main == null) main = this;
         currentTower = null;
+        Debug.Log(menuUi);
+        //menuUi.SetActive(false);
     }
 
     //This trys to open the UI panel for upgrading and selling towers
     public void Open(GameObject T) {
         currentTower = T;
         Debug.Log("Tower " + currentTower.GetComponent<Towers>().getName() + " loaded");
-        menuUi.SetActive(true);//makes UI appear
+        Debug.Log(menuUi);
+        //menuUi.SetActive(true);//makes UI appear
     }
 
     public void Upgrade() {
@@ -44,7 +45,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     public void Close() {
-        menuUi.SetActive(false);
+        //menuUi.SetActive(false);
     }
 
     // Update is called once per frame

@@ -45,6 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopManager: {fileID: 0}
-  menu: {fileID: 0}
-  isUpgrading: 0
-  isSelling: 0
+  menuUi: {fileID: 0}
