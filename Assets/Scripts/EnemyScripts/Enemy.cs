@@ -185,7 +185,6 @@ public class Enemy : MonoBehaviour
 
     private void checkStatuses()
     {
-        Debug.Log($"{statuses.Count}");
         if (statuses.Count > 0)
             applyStatus();
     }
@@ -211,13 +210,11 @@ public class Enemy : MonoBehaviour
                     status.updateDuration(Time.time - timeCheck);
                     if (status.duration <= 0f)
                     {
-                        Debug.Log($"Movement Speed Before Stun Is Removed: {movementSpeed}");
                         setToNormalSpeed();
-                        Debug.Log($"Movement Speed After Stun Is Removed: {movementSpeed}");
                         statusesToRemove.Add(status);
                     }
                     else
-                        changeMovementSpeed(0f);
+                        changeMovementSpeed(0);
                     break;
                 case StatusType.Electrocuted:
                     takeDamage(status.damage);
@@ -229,7 +226,6 @@ public class Enemy : MonoBehaviour
                             // status.duration determines range of chaining
                             if (distance < 1)
                             {
-                                enemy.GetComponent<Enemy>().addStatus(new Status(StatusType.Stunned, status.duration));
                                 enemy.GetComponent<Enemy>().addStatus(new Status(StatusType.Electrocuted, status.duration, status.damage / 2));
                             }
                         }
@@ -243,6 +239,7 @@ public class Enemy : MonoBehaviour
                         statusesToRemove.Add(status);
                     }
                     else
+                        Debug.Log("Burn Damage Applied");
                         takeDamage(status.damage);
                     break;
                 case StatusType.Overcharged:

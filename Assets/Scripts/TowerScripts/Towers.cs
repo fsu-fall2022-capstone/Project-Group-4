@@ -30,9 +30,12 @@ public class Towers : MonoBehaviour
 
     public bool aimReady { get; private set; } = false;
 
+    public bool upgraded;
+
     private void Start()
     {
         nextTimeToShoot = Time.time;
+        upgraded = false;
     }
 
     private void FixedUpdate()
@@ -91,6 +94,12 @@ public class Towers : MonoBehaviour
         Bullet currentBullet = newBullet.GetComponent<Bullet>();
         currentBullet.Damage = getDamage();
         currentBullet.Target = currentTarget;
+    }
+
+    protected virtual void upgrade()
+    {
+        upgraded = true;
+        return;
     }
 
     public void addBoon(BoonType boon)

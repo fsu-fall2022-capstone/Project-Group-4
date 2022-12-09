@@ -11,6 +11,10 @@ public class ElementalTowers : Towers
     {
         GameObject newProjectile = Instantiate(base.projectile, barrel.position, base.barrelRotation.pivot);
         ElementalShot currentProjectile = newProjectile.GetComponent<ElementalShot>();
+        if (upgraded)
+        {
+            currentProjectile.upgraded = true;
+        }
         currentProjectile.Damage = base.getDamage();
         currentProjectile.Target = currentTarget;
         currentProjectile.Element = element;
