@@ -25,7 +25,7 @@ public class SpecialEnemy : Enemy
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        checkSpecialAbility();
+        StartCoroutine(checkSpecialAbility());
     }
 
     private void initializeAbility()
@@ -74,7 +74,7 @@ public class SpecialEnemy : Enemy
         Destroy(transform.gameObject);
     }
 
-    private void checkSpecialAbility()
+    private IEnumerator checkSpecialAbility()
     {
         if (specialAbility.isReady())
         {
@@ -85,6 +85,8 @@ public class SpecialEnemy : Enemy
         {
             specialAbility.updateAbility(Time.deltaTime);
         }
+
+        yield return null;
     }
 
     public void useSpecialAbility()

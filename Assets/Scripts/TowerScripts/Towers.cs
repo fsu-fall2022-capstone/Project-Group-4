@@ -52,7 +52,11 @@ public class Towers : MonoBehaviour
 
     private void FixedUpdate()
     {
-        updateClosestEnemy();
+        StartCoroutine(TowerLogic());
+    }
+
+    private IEnumerator TowerLogic() {
+        StartCoroutine(updateClosestEnemy());
 
         if (Time.time >= nextTimeToShoot)
         {
@@ -66,6 +70,8 @@ public class Towers : MonoBehaviour
                 aimReady = false;
             }
         }
+
+        yield return null;
     }
 
     public void triggerAim()
@@ -73,7 +79,7 @@ public class Towers : MonoBehaviour
         aimReady = !aimReady;
     }
 
-    private void updateClosestEnemy()
+    private IEnumerator updateClosestEnemy()
     {
         GameObject currClosestEnemy = null;
 
@@ -98,6 +104,8 @@ public class Towers : MonoBehaviour
         {
             currentTarget = null;
         }
+
+        yield return null;
     }
 
     protected virtual void shoot()
