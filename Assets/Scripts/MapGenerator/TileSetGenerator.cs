@@ -223,7 +223,7 @@ public class TileSetGenerator
         List<Tile> endEdgeTiles = new List<Tile>();
 
         DirCardinals.start = (byte)UnityEngine.Random.Range(0, 4); // get the cardinals
-                                                             // 0 for bottom, 1 for right, 2 for top, 3 for left
+                                                                   // 0 for bottom, 1 for right, 2 for top, 3 for left
 
         switch (DirCardinals.start)
         {

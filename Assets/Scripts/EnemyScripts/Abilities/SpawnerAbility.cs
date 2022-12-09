@@ -10,7 +10,7 @@ public class SpawnerAbility : Ability
     {
         base.ConstructAbility(abilityType, duration, cooldown);
         this.enemy = enemy;
-        this.count = (count > 255) ? (byte)255 : (byte) count;
+        this.count = (count > 255) ? (byte)255 : (byte)count;
     }
 
     public void spawnEnemies(Vector3 position, GameObject target, int pathID)

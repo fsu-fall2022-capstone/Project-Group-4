@@ -17,7 +17,7 @@ public class SpecialEnemy : Enemy
     protected override void Start()
     {
         base.Start();
-        if(randomizeAbility)
+        if (randomizeAbility)
             abilityType = (AbilityType)UnityEngine.Random.Range(1, Enum.GetNames(typeof(AbilityType)).Length);
         initializeAbility();
     }
