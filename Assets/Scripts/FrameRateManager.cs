@@ -4,14 +4,15 @@ using System.Collections;
 public class FrameRateManager : MonoBehaviour
 {
 
-    public byte frameRate = 60;
+    [SerializeField]
+    private byte frameRate = 60;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(changeFramerate());
     }
 
-    IEnumerator changeFramerate()
+    private IEnumerator changeFramerate()
     {
         yield return new WaitForSeconds(1);
         Application.targetFrameRate = frameRate;

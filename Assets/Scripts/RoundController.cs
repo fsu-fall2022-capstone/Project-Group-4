@@ -30,10 +30,11 @@ public class RoundController : MonoBehaviour
 
     public int round;
 
-    private byte minionValue = 1;
-    private byte specialValue = 3;
-    private byte tankValue = 5;
-    private byte spawnerValue = 7;
+    private const byte minionValue = 1;
+    private const byte specialValue = 3;
+    private const byte tankValue = 5;
+    private const byte spawnerValue = 7;
+    private int spawnerCount = 0;
 
     private void Start()
     {
@@ -104,12 +105,12 @@ public class RoundController : MonoBehaviour
         {
             while (points > 0)
             {
-                if (points >= spawnerValue && minionCount >= (3 + (byte)(round / 5)))
+                if (points >= (spawnerValue + (spawnerCount * spawnerValue)) && minionCount >= (3 + (byte)(round / 5)))
                 {
                     GameObject enemy = enemyPrefabs[1];
                     enemies.Add(enemy);
                     points -= spawnerValue;
-                    spawnerValue += 7;
+                    spawnerCount++;
                 }
                 else if (points >= tankValue && minionCount >= (3 + (byte)(round / 5)))
                 {   // should be tank type
@@ -141,7 +142,7 @@ public class RoundController : MonoBehaviour
         StartCoroutine("ISpawnEnemies");
     }
 
-    IEnumerator ISpawnEnemies()
+    private IEnumerator ISpawnEnemies()
     {
         List<GameObject> enemies = getEnemySpawnOrder();
 
