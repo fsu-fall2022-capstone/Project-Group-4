@@ -543,6 +543,53 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2082375029304972468, guid: 7ea307bae7fc3f74aa07def5fdd26d5a,
         type: 3}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: bossPrefab
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: 9d0d2540ad416694b9e58cebbae3ea57,
+        type: 3}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: 7ea307bae7fc3f74aa07def5fdd26d5a,
+        type: 3}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: 4dfe58e16ed55004b9a531146a739ef1,
+        type: 3}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: d95bea653ae32e7d389ee31b55f0be95,
+        type: 3}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: 664d9a20c6f13ad4a9416a8660ec8a50,
+        type: 3}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: f8381f71cda6bcf46be8715f82215e22,
+        type: 3}
+    - target: {fileID: 113577225882155067, guid: 49269ad5d00ca85499efb394e0961593,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 2082375029304972468, guid: 06a71148d16a51e4ab315ecddc33a663,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49269ad5d00ca85499efb394e0961593, type: 3}
 --- !u!114 &2514566742035889411 stripped

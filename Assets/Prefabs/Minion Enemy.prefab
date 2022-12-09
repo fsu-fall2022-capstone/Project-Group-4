@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 113326e259f9cbf4fbae191a9f96d7df, type: 3}
-  m_Color: {r: 0.9339623, g: 0.039649326, b: 0.039649326, a: 1}
+  m_Color: {r: 0.8679245, g: 0.30880442, b: 0.10234957, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxEnemyHealth: 25
-  maxMovementSpeed: 1
-  killReward: 10
+  maxMovementSpeed: 1.5
+  killReward: 0
 --- !u!61 &5255109614654396564
 BoxCollider2D:
   m_ObjectHideFlags: 0

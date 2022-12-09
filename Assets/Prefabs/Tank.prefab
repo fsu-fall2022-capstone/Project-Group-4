@@ -146,13 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ea08c507dc93d429e9a9fe834b1e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemyHealth: 50
-  maxMovementSpeed: 0.5
-  killReward: 0
+  maxEnemyHealth: 150
+  maxMovementSpeed: 1
+  killReward: 100
   abilityType: 2
   abilityPrefab: {fileID: 2082375029304972468, guid: df606d8329f546948af73a169a5c3b0b,
     type: 3}
   maxDuration: 10
   maxCooldown: 1
-  abilityCount: 10
+  abilityCount: 1
   abilityRange: 0
+  randomizeAbility: 0

@@ -8,6 +8,6 @@ public class TileSet
     public List<List<Tile>> pathTiles = new List<List<Tile>>();
     public List<Tile> spawnTiles = new List<Tile>();
     public Tile endTile;
-    public List<(int start, int end)> DirCardinals = new List<(int start, int end)>();
-    public int height, width;
+    public List<(byte start, byte end)> DirCardinals = new List<(byte start, byte end)>();
+    public byte height, width;
 }
