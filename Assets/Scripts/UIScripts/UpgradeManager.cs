@@ -31,9 +31,15 @@ public class UpgradeManager : MonoBehaviour
         dummyUi.SetActive(true);//makes UI appear
     }
 
-    public void Upgrade() {
-        
+    public void Upgrade() 
+    {
+        if ((shopManager.canUpgradeTower(currentTower)) && (currentTower.GetComponent<Towers>().canUpgrade()))
+        {
+            shopManager.upgradeTower(currentTower);
+            currentTower.GetComponent<Towers>().upgrade();
+        }
         this.Close();
+        Debug.Log("Upgraded tower");
     }
     
     //This sells a tower and gives money back to the player
