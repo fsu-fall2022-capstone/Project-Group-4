@@ -24,6 +24,7 @@ public class Towers : MonoBehaviour
     private float nextTimeToShoot;
 
     public GameObject currentTarget;
+    public GameObject menu;
 
     public Transform barrel;
     public GameObject projectile;
@@ -33,6 +34,14 @@ public class Towers : MonoBehaviour
     private void Start()
     {
         nextTimeToShoot = Time.time;
+    }
+    
+    //Loads in the tower prefab that was selected for the upgrade manager
+    private void OnMouseDown(){
+        if (Input.GetMouseButtonDown(0)) {
+            menu.GetComponent<UpgradeManager>().Open(this.gameObject);
+            Debug.Log("Clicked on a tower");
+        }
     }
 
     private void FixedUpdate()

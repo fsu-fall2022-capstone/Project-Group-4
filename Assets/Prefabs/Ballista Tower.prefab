@@ -191,6 +191,7 @@ MonoBehaviour:
   towerName: Ballista Tower
   barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}
+  menu: {fileID: 113577225882155066, guid: 8a2566476a0e8320ebcc3d1bcd720f6e, type: 3}
   barrel: {fileID: 5898224288146333944}
   projectile: {fileID: 2365716209250289182, guid: d06e99148ebb2e848a2b897835226031,
     type: 3}
