@@ -11,6 +11,9 @@ public class UpgradeManager : MonoBehaviour
     public GameObject menuUi;
     public static GameObject dummyUi;
 
+    public GameObject upgradeButton;
+    public static GameObject dummyUpgradeButton;
+
     private static GameObject currentTower; 
 
     // Start is called before the first frame update
@@ -20,6 +23,8 @@ public class UpgradeManager : MonoBehaviour
         currentTower = null;
         Debug.Log(menuUi);
         menuUi.SetActive(false);
+        upgradeButton.SetActive(false);
+        dummyUpgradeButton = upgradeButton;
         dummyUi = menuUi;//To make sure i dont lose track of the Tower Menu UI
     }
 
@@ -27,8 +32,13 @@ public class UpgradeManager : MonoBehaviour
     public void Open(GameObject T) {
         currentTower = T;
         Debug.Log("Tower " + currentTower.GetComponent<Towers>().getName() + " loaded");
-        Debug.Log(dummyUi);
+        Debug.Log(dummyUpgradeButton);
         dummyUi.SetActive(true);//makes UI appear
+        if(!currentTower.GetComponent<Towers>().canUpgrade()){//makes upgrade disappear if its already upgraded
+            dummyUpgradeButton.SetActive(false);
+        }
+        else
+            dummyUpgradeButton.SetActive(true);
     }
 
     public void Upgrade() 
@@ -37,6 +47,7 @@ public class UpgradeManager : MonoBehaviour
         {
             shopManager.upgradeTower(currentTower);
             currentTower.GetComponent<Towers>().upgrade();
+            Debug.Log("Upgraded tower");
         }
         this.Close();
         Debug.Log("Upgraded tower");
@@ -53,11 +64,17 @@ public class UpgradeManager : MonoBehaviour
     }
 
     public void Close() {
+        dummyUpgradeButton.SetActive(false);
         dummyUi.SetActive(false);
     }
 
     // Update is called once per frame
     private void Update() {
+        if(!currentTower.GetComponent<Towers>().canUpgrade()){//makes upgrade disappear if its already upgraded
+            dummyUpgradeButton.SetActive(false);
+        }
+        else
+            dummyUpgradeButton.SetActive(true);
         if (Input.GetMouseButtonDown(1)) {
             this.Close();
             Debug.Log("Unclicked a tower");
