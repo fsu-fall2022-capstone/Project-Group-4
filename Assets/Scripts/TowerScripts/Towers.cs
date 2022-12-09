@@ -55,7 +55,8 @@ public class Towers : MonoBehaviour
         StartCoroutine(TowerLogic());
     }
 
-    private IEnumerator TowerLogic() {
+    private IEnumerator TowerLogic()
+    {
         StartCoroutine(updateClosestEnemy());
 
         if (Time.time >= nextTimeToShoot)

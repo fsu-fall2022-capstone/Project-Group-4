@@ -52,7 +52,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected IEnumerator EnemyLogic() {
+    protected IEnumerator EnemyLogic()
+    {
         checkPosition();
         StartCoroutine(checkStatuses());
         moveEnemy();
