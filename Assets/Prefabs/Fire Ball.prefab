@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae902804dc3660d40bc24cf767c06fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 2
   Target: {fileID: 0}
   Element: 2
   EffectDuration: 5

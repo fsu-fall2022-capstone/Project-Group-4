@@ -193,4 +193,4 @@ MonoBehaviour:
   Damage: 0
   Target: {fileID: 0}
   Element: 1
-  EffectDuration: 5
+  EffectDuration: 3
