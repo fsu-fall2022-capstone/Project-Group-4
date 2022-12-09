@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float maxEnemyHealth;
     [SerializeField] protected float maxMovementSpeed;
 
-    public float enemyHealth { get; private set; }
-    public float movementSpeed { get; private set; }
+    [field: SerializeField] public float enemyHealth { get; private set; }
+    [field: SerializeField] public float movementSpeed { get; private set; }
 
     [SerializeField] protected int killReward;     //Money for killing enemy
     public static float damage = 1f;       //Damage enemy does when hitting the endTile
@@ -48,24 +48,30 @@ public class Enemy : MonoBehaviour
     {
         if (!waitForTarget)
         {
-            checkPosition();
-            checkStatuses();
-            moveEnemy();
-
-            currScale = gameObject.transform.localScale;
-            if (direction.x < 0)
-            {
-                if (currScale.y > 0)
-                    currScale.y *= -1;
-                gameObject.transform.localScale = currScale;
-            }
-            else
-            {
-                if (currScale.y < 0)
-                    currScale.y *= -1;
-                gameObject.transform.localScale = currScale;
-            }
+            StartCoroutine(EnemyLogic());
         }
+    }
+
+    protected IEnumerator EnemyLogic() {
+        checkPosition();
+        StartCoroutine(checkStatuses());
+        moveEnemy();
+
+        currScale = gameObject.transform.localScale;
+        if (direction.x < 0)
+        {
+            if (currScale.y > 0)
+                currScale.y *= -1;
+            gameObject.transform.localScale = currScale;
+        }
+        else
+        {
+            if (currScale.y < 0)
+                currScale.y *= -1;
+            gameObject.transform.localScale = currScale;
+        }
+
+        yield return null;
     }
 
     public void initializeEnemy(GameObject _targetTile, int _pathID)
@@ -227,10 +233,11 @@ public class Enemy : MonoBehaviour
         statuses.Remove(status);
     }
 
-    private void checkStatuses()
+    private IEnumerator checkStatuses()
     {
         if (statuses.Count > 0)
             applyStatus();
+        yield return null;
     }
 
     protected void applyStatus()

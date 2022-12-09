@@ -31,7 +31,7 @@ public class PlacementManager : MonoBehaviour
 
     private bool flag = false;
 
-    public bool isBuilding;
+    public bool isPlacing;
 
     private void Start()
     {
@@ -40,9 +40,9 @@ public class PlacementManager : MonoBehaviour
 
     private void Update()
     {
-        if (isBuilding == true)
+        if (isPlacing == true)
         {
-            GetCurrentHoverTile();
+            StartCoroutine(GetCurrentHoverTile());
 
             if (dummyPlacement != null)
             {
@@ -63,7 +63,7 @@ public class PlacementManager : MonoBehaviour
         return cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    public void GetCurrentHoverTile()
+    public IEnumerator GetCurrentHoverTile()
     {
         Vector2 mousePosition = GetMousePosition();
 
@@ -87,6 +87,8 @@ public class PlacementManager : MonoBehaviour
                 if (!isPathTile) hoverTile = hit.collider.gameObject;
             }
         }
+
+        yield return null;
     }
 
     public bool checkForTower()
@@ -165,7 +167,7 @@ public class PlacementManager : MonoBehaviour
     {
         GetCurrentHoverTile();
 
-        isBuilding = true;
+        isPlacing = true;
 
         currObjPlacing = towerToBuild;
 
@@ -188,7 +190,7 @@ public class PlacementManager : MonoBehaviour
 
     public void EndPlacement()
     {
-        isBuilding = false;
+        isPlacing = false;
 
         if (dummyPlacement != null)
         {
