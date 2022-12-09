@@ -1,6 +1,6 @@
 <div align="center">
 
-## Software Requirements and Design Document <br> <br> For Group #4 <br> <br> Version 0.4
+## Software Requirements and Design Document <br> <br> For Group #4 <br> <br> Version 0.5
 
 <br>
 <br>
@@ -94,6 +94,13 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 55) Low - The system should let the user change difficulty.
 56) Medium - The system should allow the user to speed up game time.
 57) Medium - The system should contain various enemy types with different abilities and niches that make them unique.
+58) High - Clicking on a tower will open a menu to upgrade or sell towers.
+59) High - Clicking "Sell Tower" removes the tower from the game and adds funds to the player's current money.
+60) High - Clicking "Upgrade Tower" upgrades the tower and pulls the necessary funds from the player's current money.
+61) Medium - Trying to upgrade a tower with insufficient funds will not allow an upgrade.
+62) Medium - Trying to upgrade a tower that's already upgraded will not allow an upgrade.
+63) Low - Status effects should have a visual indicator on the enemy.
+64) Medium - Upgrading elemental towers also upgrades their elemental effect.
 
 </details>
 
@@ -239,7 +246,7 @@ Nonfunctional Requirements: The system is reliable and light on resources
 
 ### 6) Operating Environment
 
-Our game could at its finish theoretically operate on any of the main operating systems; Windows, Linux, macOS. Most machines hardware wise will be able to handle running our game, though for best operation it would be suggested that the machine have at least 8GB Ram, and a processor equivalent or better than an intel i5 or extended buffering/glitches might occur. It may be worth mentioning that as our game grows in size through the increments that these operating environment specs will most likely still hold the ability to run our game, but machines with better processors, more RAM, and possible additional GPU’s will be able to run our game much more smoothly.
+Our game could at its finish should theoretically operate on any of the main operating systems; Windows, Linux, macOS. Most machines hardware wise will be able to handle running our game, though for best operation it would be suggested that the machine have at least 8GB Ram, and a processor equivalent or better than an intel i5 or extended buffering/glitches might occur. It may be worth mentioning that as our game grows in size through the increments that these operating environment specs will most likely still hold the ability to run our game, but machines with better processors, more RAM, and possible additional GPU’s will be able to run our game much more smoothly. Now at the end of this project we are seeing some of this lag/slowing effect because of how heavy the game has become, we would encourage those who play our game to do so on a well spec-ed out machine. 
 
 ### 7) Assumptions and Dependencies
   
@@ -256,6 +263,7 @@ All, non-Editor related packages are assumed to be dependencies for the project.
 * 2D Sprite
 * 2D Tilemap Editor
 * TextMeshPro
+* 2D Orc sprite Art (free unity asset)
 
 #### c) C-Sharp Libraries
 

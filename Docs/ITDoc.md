@@ -1,6 +1,6 @@
 <div align="center">
 
-## Software Implementation and Testing Document <br> <br> For Group #4 <br> <br> Version 0.4
+## Software Implementation and Testing Document <br> <br> For Group #4 <br> <br> Version 0.5
 
 <br>
 <br>
