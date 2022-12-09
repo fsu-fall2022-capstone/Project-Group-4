@@ -68,12 +68,14 @@ public class UpgradeManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update() {
-        if(!currentTower.GetComponent<Towers>().canUpgrade()){//makes upgrade disappear if its already upgraded
-            dummyUpgradeButton.SetActive(false);
-        }
-        else
-            dummyUpgradeButton.SetActive(true);
+    private void FixedUpdate() {
+        if(currentTower != null) {
+            if(!currentTower.GetComponent<Towers>().canUpgrade()){//makes upgrade disappear if its already upgraded
+                dummyUpgradeButton.SetActive(false);
+            }
+            else
+                dummyUpgradeButton.SetActive(true);
+            }
         if (Input.GetMouseButtonDown(1)) {
             this.Close();
             Debug.Log("Unclicked a tower");
