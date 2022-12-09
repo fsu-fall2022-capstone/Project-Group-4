@@ -101,6 +101,9 @@ In short, our *system* is a tower defense game. A tower defense game for the uni
 62) Medium - Trying to upgrade a tower that's already upgraded will not allow an upgrade.
 63) Low - Status effects should have a visual indicator on the enemy.
 64) Medium - Upgrading elemental towers also upgrades their elemental effect.
+65) Medium - When a tower can't be upgraded the UI element for upgrading doesn't pop up.
+66) Medium - When the user hits the escape key the game pauses/resumes.
+  
 
 </details>
 
