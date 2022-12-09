@@ -17,6 +17,7 @@ public class Towers : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] private float timeBtwShots;     //Time in between shots (in seconds)
     [SerializeField] protected int towerCost;       //Saves Tower Cost
+    [SerializeField] protected int upgradeCost;     //Saves Upgrade Cost
     [SerializeField] protected string towerName;    //Saves Tower Name
     [SerializeField] protected BarrelRotation barrelRotation;
     protected List<BoonType> boons = new List<BoonType>();
@@ -105,10 +106,16 @@ public class Towers : MonoBehaviour
         currentBullet.Target = currentTarget;
     }
 
-    protected virtual void upgrade()
+    public virtual void upgrade()
     {
         upgraded = true;
-        return;
+    }
+
+    public bool canUpgrade()
+    {
+        if (!upgraded)
+            return true;
+        return false;
     }
 
     public void addBoon(BoonType boon)
@@ -150,4 +157,6 @@ public class Towers : MonoBehaviour
     public int getCost() { return towerCost; }
 
     public string getName() { return towerName; }
+
+    public int getUpgradeCost() { return upgradeCost; }
 }
