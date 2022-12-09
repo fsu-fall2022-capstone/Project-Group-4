@@ -29,6 +29,7 @@ Each increment required a video to be submitted. While each increment video can 
 
 * [Increment 1](https://youtu.be/Yf-1_n07L5Q)
 * [Increment 2](https://youtu.be/-dYp8N3hTGU)
+* [Increment 3](https://youtu.be/1_TmROROKFw)
 
 ### Group Members
 
