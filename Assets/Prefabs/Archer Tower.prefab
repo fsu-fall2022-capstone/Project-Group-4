@@ -188,6 +188,7 @@ MonoBehaviour:
   damage: 25
   timeBtwShots: 1
   towerCost: 200
+  upgradeCost: 100
   towerName: Archer Tower
   barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}
@@ -195,6 +196,7 @@ MonoBehaviour:
   barrel: {fileID: 5898224288146333944}
   projectile: {fileID: 2365716209250289182, guid: d8583979da7e1a44297c0865c89708b5,
     type: 3}
+  upgraded: 0
 --- !u!114 &2663099874747289925
 MonoBehaviour:
   m_ObjectHideFlags: 0

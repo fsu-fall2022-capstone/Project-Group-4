@@ -188,7 +188,7 @@ MonoBehaviour:
   damage: 50
   timeBtwShots: 3
   towerCost: 500
-  upgradeCost: 0
+  upgradeCost: 250
   towerName: Ballista Tower
   barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}

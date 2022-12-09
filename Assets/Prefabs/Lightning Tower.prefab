@@ -119,11 +119,11 @@ MonoBehaviour:
   damage: 40
   timeBtwShots: 3
   towerCost: 1000
-  upgradeCost: 0
+  upgradeCost: 500
   towerName: Lightning Tower
   barrelRotation: {fileID: -8439363905812302321}
   currentTarget: {fileID: 0}
-  menu: {fileID: 0}
+  menu: {fileID: 113577225882155066, guid: 8a2566476a0e8320ebcc3d1bcd720f6e, type: 3}
   barrel: {fileID: 1086172733646312286}
   projectile: {fileID: 950479408036291976, guid: d9d458b0952a3b448a94d2d5588d6bc4,
     type: 3}

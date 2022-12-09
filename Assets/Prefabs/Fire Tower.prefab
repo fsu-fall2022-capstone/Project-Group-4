@@ -119,6 +119,7 @@ MonoBehaviour:
   damage: 5
   timeBtwShots: 1
   towerCost: 750
+  upgradeCost: 375
   towerName: Fire Tower
   barrelRotation: {fileID: -8439363905812302321}
   currentTarget: {fileID: 0}
@@ -126,6 +127,7 @@ MonoBehaviour:
   barrel: {fileID: 1086172733646312286}
   projectile: {fileID: 6067875741507970028, guid: aa336d38ab34c7c4ba1667b2fbafec11,
     type: 3}
+  upgraded: 0
   element: 2
   effectDuration: 20
 --- !u!61 &-4369136852514738379

@@ -50,7 +50,6 @@ public class UpgradeManager : MonoBehaviour
             Debug.Log("Upgraded tower");
         }
         this.Close();
-        Debug.Log("Upgraded tower");
     }
     
     //This sells a tower and gives money back to the player
