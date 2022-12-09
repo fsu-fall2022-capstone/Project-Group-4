@@ -37,9 +37,9 @@ public class UpgradeManager : MonoBehaviour
         {
             shopManager.upgradeTower(currentTower);
             currentTower.GetComponent<Towers>().upgrade();
+            Debug.Log("Upgraded tower");
         }
         this.Close();
-        Debug.Log("Upgraded tower");
     }
     
     //This sells a tower and gives money back to the player

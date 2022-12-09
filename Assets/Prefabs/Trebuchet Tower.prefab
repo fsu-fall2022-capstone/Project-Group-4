@@ -104,6 +104,7 @@ MonoBehaviour:
   damage: 35
   timeBtwShots: 10
   towerCost: 1500
+  upgradeCost: 750
   towerName: Trebuchet
   barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}
@@ -111,6 +112,7 @@ MonoBehaviour:
   barrel: {fileID: 5560244314183189841}
   projectile: {fileID: 2365716209250289182, guid: 1f6f62ee82848c44695d1595734e7382,
     type: 3}
+  upgraded: 0
 --- !u!114 &2663099874747289925
 MonoBehaviour:
   m_ObjectHideFlags: 0

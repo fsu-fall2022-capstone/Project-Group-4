@@ -119,6 +119,7 @@ MonoBehaviour:
   damage: 20
   timeBtwShots: 2
   towerCost: 750
+  upgradeCost: 375
   towerName: Ice Tower
   barrelRotation: {fileID: -8439363905812302321}
   currentTarget: {fileID: 0}
@@ -126,6 +127,7 @@ MonoBehaviour:
   barrel: {fileID: 1086172733646312286}
   projectile: {fileID: 6067875741507970028, guid: 8f7e84ece8402624d9871ee6000ade37,
     type: 3}
+  upgraded: 0
   element: 1
   effectDuration: 5
 --- !u!61 &7670342455211881158
