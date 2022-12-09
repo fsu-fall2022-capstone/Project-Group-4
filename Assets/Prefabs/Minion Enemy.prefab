@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 499993499
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 113326e259f9cbf4fbae191a9f96d7df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 885d544f830441143add38ff32bea41d, type: 3}
   m_Color: {r: 0.8679245, g: 0.30880442, b: 0.10234957, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,6 +102,8 @@ MonoBehaviour:
   maxEnemyHealth: 25
   maxMovementSpeed: 1.5
   killReward: 0
+  direction: {x: 0, y: 0}
+  currScale: {x: 0, y: 0, z: 0}
 --- !u!61 &5255109614654396564
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -119,7 +121,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10.24, y: 10.24}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
