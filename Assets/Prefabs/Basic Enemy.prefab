@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxEnemyHealth: 50
   maxMovementSpeed: 1
-  killReward: 100
+  killReward: 50
   direction: {x: 0, y: 0}
   currScale: {x: 0, y: 0, z: 0}
 --- !u!61 &5255109614654396564

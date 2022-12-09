@@ -91,6 +91,11 @@ public class Enemy : MonoBehaviour
             enemyHealth = maxEnemyHealth;
     }
 
+    public void levelUpMaxHealth(float amount)
+    {
+        maxEnemyHealth += ((maxEnemyHealth/10) * amount);
+    }
+
     public void overchargeHealth(float amount)
     {
         if (!overcharged)
@@ -120,6 +125,16 @@ public class Enemy : MonoBehaviour
     public void setToNormalSpeed()
     {
         movementSpeed = maxMovementSpeed;
+    }
+
+    public float getMaxHealth()
+    {
+        return maxEnemyHealth;
+    }
+
+    public float getMaxSpeed()
+    {
+        return maxMovementSpeed;
     }
 
     //Modified to allow the updating of the health/lives bar 
@@ -254,7 +269,7 @@ public class Enemy : MonoBehaviour
                             enemyHealth = maxEnemyHealth;
                     }
                     else
-                        overchargeHealth(maxEnemyHealth * 0.25f);
+                        overchargeHealth(enemyHealth * 0.25f);
                     break;
                 case StatusType.Sprinting:
                     status.updateDuration(Time.time - timeCheck);
