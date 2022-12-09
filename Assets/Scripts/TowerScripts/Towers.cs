@@ -109,13 +109,13 @@ public class Towers : MonoBehaviour
     public virtual void upgrade()
     {
         upgraded = true;
+        damage = damage * UnityEngine.Random.Range(1.1f, 2f);
+        range = range * UnityEngine.Random.Range(1.1f, 2f);
     }
 
     public bool canUpgrade()
     {
-        if (!upgraded)
-            return true;
-        return false;
+        return !upgraded;
     }
 
     public void addBoon(BoonType boon)
