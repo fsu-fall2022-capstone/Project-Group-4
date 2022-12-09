@@ -100,13 +100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e0db9e13f80184aa0aa9de3b8747ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  range: 10
   damage: 35
   timeBtwShots: 10
   towerCost: 1500
   towerName: Trebuchet
   barrelRotation: {fileID: 2663099874747289925}
   currentTarget: {fileID: 0}
+  menu: {fileID: 113577225882155066, guid: 8a2566476a0e8320ebcc3d1bcd720f6e, type: 3}
   barrel: {fileID: 5560244314183189841}
   projectile: {fileID: 2365716209250289182, guid: 1f6f62ee82848c44695d1595734e7382,
     type: 3}

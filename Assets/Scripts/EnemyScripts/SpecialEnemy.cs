@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,13 @@ public class SpecialEnemy : Enemy
     [SerializeField] protected float maxCooldown;
     [SerializeField] protected int abilityCount;
     [SerializeField] protected float abilityRange;
+    [SerializeField] protected bool randomizeAbility = false;
 
     protected override void Start()
     {
         base.Start();
+        if(randomizeAbility)
+            abilityType = (AbilityType)UnityEngine.Random.Range(1, Enum.GetNames(typeof(AbilityType)).Length);
         initializeAbility();
     }
 
@@ -38,6 +42,10 @@ public class SpecialEnemy : Enemy
             case AbilityType.Sprint:
                 specialAbility = gameObject.AddComponent(typeof(StatusCasterAbility)) as StatusCasterAbility;
                 (specialAbility as StatusCasterAbility).ConstructAbility(abilityType, abilityRange, maxDuration, maxCooldown);
+                break;
+            case AbilityType.Heal:
+                specialAbility = gameObject.AddComponent(typeof(HealerAbility)) as HealerAbility;
+                (specialAbility as HealerAbility).ConstructAbility(abilityType, abilityRange, maxDuration, maxCooldown);
                 break;
             default:
                 Debug.Log($"Ability not implemented! {abilityType}");
@@ -94,6 +102,9 @@ public class SpecialEnemy : Enemy
                 break;
             case AbilityType.DeadSpawn:
                 break; // handled in enemyDead()
+            case AbilityType.Heal:
+                (specialAbility as HealerAbility).castHealing(gameObject.transform.position);
+                break;
             default:
                 Debug.Log($"Ability Can't be used/not implemented! {abilityType}");
                 break;

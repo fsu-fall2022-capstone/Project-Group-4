@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 499993499
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 113326e259f9cbf4fbae191a9f96d7df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 885d544f830441143add38ff32bea41d, type: 3}
   m_Color: {r: 0.058873247, g: 0.06238659, b: 0.066037714, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10.24, y: 10.24}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -146,13 +146,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ea08c507dc93d429e9a9fe834b1e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemyHealth: 50
-  maxMovementSpeed: 0.5
-  killReward: 0
+  maxEnemyHealth: 150
+  maxMovementSpeed: 1
+  killReward: 100
+  direction: {x: 0, y: 0}
+  currScale: {x: 0, y: 0, z: 0}
   abilityType: 2
   abilityPrefab: {fileID: 2082375029304972468, guid: df606d8329f546948af73a169a5c3b0b,
     type: 3}
   maxDuration: 10
   maxCooldown: 1
-  abilityCount: 10
+  abilityCount: 1
   abilityRange: 0
+  randomizeAbility: 0

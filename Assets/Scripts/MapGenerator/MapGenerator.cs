@@ -16,8 +16,8 @@ public class MapGenerator : MonoBehaviour
     public GameObject portalTile; // enemy spawn tile
     public GameObject homeTile; // player home point tile
 
-    [SerializeField] private int tilesetWidth;
-    [SerializeField] private int tilesetHeight;
+    [SerializeField] private byte tilesetWidth;
+    [SerializeField] private byte tilesetHeight;
 
     [SerializeField] private bool generateAsIsometric = true;
     [SerializeField] private float spriteWidth = 1f;
@@ -423,7 +423,7 @@ public class MapGenerator : MonoBehaviour
         MapRenderer.triggerRenderer();
 
         int randomNum = UnityEngine.Random.Range(0, 100);
-        int randomPathCount;
+        byte randomPathCount;
         if (lastSplitCounter > 3 && randomNum >= 0 && randomNum < 30)
         {
             randomPathCount = 2;
@@ -456,8 +456,8 @@ public class MapGenerator : MonoBehaviour
         }
         else
         {
-            int rand = UnityEngine.Random.Range(0, availableDirections.Count);
-            int randDir = availableDirections[rand];
+            randomNum = UnityEngine.Random.Range(0, availableDirections.Count);
+            byte randDir = (byte)availableDirections[randomNum];
             tileSetGen = new TileSetGenerator(tilesetWidth, tilesetHeight, genStitchTile, givenStartCardinal: randDir, numStartPoints: randomPathCount);
         }
 

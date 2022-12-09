@@ -28,6 +28,9 @@ public class Enemy : MonoBehaviour
     protected bool waitForTarget = true;
     protected bool enemyFinished = false;  //Added to check if enemy has crossed the finish
 
+    public Vector2 direction;
+    public Vector3 currScale;
+
     private void Awake()
     {
         Counter.enemies.Add(gameObject);
@@ -48,6 +51,20 @@ public class Enemy : MonoBehaviour
             checkPosition();
             checkStatuses();
             moveEnemy();
+
+            currScale = gameObject.transform.localScale;
+            if (direction.x < 0)
+            {
+                if (currScale.y > 0)
+                    currScale.y *= -1;
+                gameObject.transform.localScale = currScale;
+            }
+            else
+            {
+                if (currScale.y < 0)
+                    currScale.y *= -1;
+                gameObject.transform.localScale = currScale;
+            }
         }
     }
 
@@ -73,6 +90,11 @@ public class Enemy : MonoBehaviour
 
         if (enemyHealth > maxEnemyHealth)
             enemyHealth = maxEnemyHealth;
+    }
+
+    public void levelUpMaxHealth(float amount)
+    {
+        maxEnemyHealth += ((maxEnemyHealth/10) * amount);
     }
 
     public void overchargeHealth(float amount)
@@ -106,6 +128,16 @@ public class Enemy : MonoBehaviour
         movementSpeed = maxMovementSpeed;
     }
 
+    public float getMaxHealth()
+    {
+        return maxEnemyHealth;
+    }
+
+    public float getMaxSpeed()
+    {
+        return maxMovementSpeed;
+    }
+
     //Modified to allow the updating of the health/lives bar 
     protected virtual void enemyDead()
     {
@@ -125,12 +157,24 @@ public class Enemy : MonoBehaviour
     {
         //Time.deltaTime is zero when new game is set so enemy speed is zero, need enemy speed to be positive
         if (Time.deltaTime == 0 || toMainMenu == 1)
-        {
+        {   
+            //Determine the movement direction and flip enemy sprite to face that way - Nathan Granger
+            direction = targetTile.transform.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (movementSpeed * 25) * Time.deltaTime);
+
             transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * 1f);
             toMainMenu = 0;
         }
         else
-        {
+        { 
+            //Determine the movement direction and flip enemy sprite to face that way - Nathan Granger
+            direction = targetTile.transform.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, (movementSpeed * 25) * Time.deltaTime);
+
             transform.position = Vector3.MoveTowards(transform.position, targetTile.transform.position, movementSpeed * Time.deltaTime);
         }
 
@@ -251,7 +295,7 @@ public class Enemy : MonoBehaviour
                             enemyHealth = maxEnemyHealth;
                     }
                     else
-                        overchargeHealth(maxEnemyHealth * 0.25f);
+                        overchargeHealth(enemyHealth * 0.25f);
                     break;
                 case StatusType.Sprinting:
                     status.updateDuration(Time.time - timeCheck);

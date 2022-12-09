@@ -6,15 +6,15 @@ using UnityEngine;
 public class TileSetGenerator
 {
     private TileSet tileSet = new TileSet();
-    private int tileSetHeight, tileSetWidth;
+    private byte tileSetHeight, tileSetWidth;
     private Tile currentTile;
     private (bool x, bool y) reached = (false, false);
-    private (int start, int end) DirCardinals = (-1, -1); // 0 for bottom, 1 for right, 2 for top, 3 for left
+    private (byte start, byte end) DirCardinals = (255, 255); // 0 for bottom, 1 for right, 2 for top, 3 for left
     private int numStartPoints;
 
     private int currIndex, nextIndex;
 
-    public TileSetGenerator(int tilesHeight, int tilesWidth, int numStartPoints = 1)
+    public TileSetGenerator(byte tilesHeight, byte tilesWidth, int numStartPoints = 1)
     {
         tileSetHeight = tilesHeight;
         tileSetWidth = tilesWidth;
@@ -24,7 +24,7 @@ public class TileSetGenerator
         generateTileset();
     }
 
-    public TileSetGenerator(int tilesHeight, int tilesWidth, Tile previousTileSetStart, int numStartPoints = 1)
+    public TileSetGenerator(byte tilesHeight, byte tilesWidth, Tile previousTileSetStart, int numStartPoints = 1)
     {
         tileSetHeight = tilesHeight;
         tileSetWidth = tilesWidth;
@@ -35,7 +35,7 @@ public class TileSetGenerator
         generateTileset();
     }
 
-    public TileSetGenerator(int tilesHeight, int tilesWidth, Tile previousTileSetStart, int givenStartCardinal, int numStartPoints = 1)
+    public TileSetGenerator(byte tilesHeight, byte tilesWidth, Tile previousTileSetStart, byte givenStartCardinal, int numStartPoints = 1)
     {
         tileSetHeight = tilesHeight;
         tileSetWidth = tilesWidth;
@@ -162,7 +162,7 @@ public class TileSetGenerator
         if (tileSet.endTile.position.y == 0)
         {
             DirCardinals.end = 2;
-            tileSet.endTile.position.y = tileSetHeight - 1;
+            tileSet.endTile.position.y = (byte)(tileSetHeight - 1);
         }
         else if (tileSet.endTile.position.y == (tileSetHeight - 1))
         {
@@ -172,7 +172,7 @@ public class TileSetGenerator
         else if (tileSet.endTile.position.x == 0)
         {
             DirCardinals.end = 1;
-            tileSet.endTile.position.x = tileSetWidth - 1;
+            tileSet.endTile.position.x = (byte)(tileSetWidth - 1);
         }
         else if (tileSet.endTile.position.x == (tileSetWidth - 1))
         {
@@ -192,7 +192,7 @@ public class TileSetGenerator
         for (int i = 1; i < numStartPoints && errorCounter < 100; i++, errorCounter++)
         {
             // check to see which start cardinals aren't used
-            List<int> startCardinals = new List<int>();
+            List<byte> startCardinals = new List<byte>();
             for (int j = 0; j < 4; j++)
             {
                 bool flag = true;
@@ -205,11 +205,11 @@ public class TileSetGenerator
                     }
                 }
                 if (flag)
-                    startCardinals.Add(j);
+                    startCardinals.Add((byte)j);
             }
 
             // randomly select from the available start cardinals
-            int newStart = startCardinals[UnityEngine.Random.Range(0, startCardinals.Count)];
+            byte newStart = startCardinals[UnityEngine.Random.Range(0, startCardinals.Count)];
 
             DirCardinals.start = newStart;
 
@@ -222,7 +222,7 @@ public class TileSetGenerator
         List<Tile> startEdgeTiles = new List<Tile>();
         List<Tile> endEdgeTiles = new List<Tile>();
 
-        DirCardinals.start = UnityEngine.Random.Range(0, 4); // get the cardinals
+        DirCardinals.start = (byte)UnityEngine.Random.Range(0, 4); // get the cardinals
                                                              // 0 for bottom, 1 for right, 2 for top, 3 for left
 
         switch (DirCardinals.start)
@@ -241,10 +241,10 @@ public class TileSetGenerator
                 break;
         }
 
-        DirCardinals.end = UnityEngine.Random.Range(0, 4);
+        DirCardinals.end = (byte)UnityEngine.Random.Range(0, 4);
         while (DirCardinals.end == DirCardinals.start)
         {
-            DirCardinals.end = UnityEngine.Random.Range(0, 4);
+            DirCardinals.end = (byte)UnityEngine.Random.Range(0, 4);
         }
 
         switch (DirCardinals.end)
@@ -296,15 +296,15 @@ public class TileSetGenerator
         // edge tiles for tile selection randomness
         List<Tile> startEdgeTiles = new List<Tile>();
 
-        if (DirCardinals.start == -1)
+        if (DirCardinals.start == 255)
         { // start cardinal can be set by MapGenerator
           // if random start is not desired
           // this is to keep the same capability as before
-            DirCardinals.start = UnityEngine.Random.Range(0, 4); // get the cardinals
+            DirCardinals.start = (byte)UnityEngine.Random.Range(0, 4); // get the cardinals
 
             while (DirCardinals.start == DirCardinals.end)
             {
-                DirCardinals.start = UnityEngine.Random.Range(0, 4);
+                DirCardinals.start = (byte)UnityEngine.Random.Range(0, 4);
             }
         }
 
@@ -314,7 +314,7 @@ public class TileSetGenerator
             generateAdditionalStarts();
     }
 
-    private void moveDown(int pathID = 0)
+    private void moveDown(byte pathID = 0)
     {
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
@@ -324,7 +324,7 @@ public class TileSetGenerator
         currentTile = tileSet.tiles[nextIndex];
     }
 
-    private void moveUp(int pathID = 0)
+    private void moveUp(byte pathID = 0)
     {
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
@@ -334,7 +334,7 @@ public class TileSetGenerator
         currentTile = tileSet.tiles[nextIndex];
     }
 
-    private void moveRight(int pathID = 0)
+    private void moveRight(byte pathID = 0)
     {
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
@@ -344,7 +344,7 @@ public class TileSetGenerator
         currentTile = tileSet.tiles[nextIndex];
     }
 
-    private void moveLeft(int pathID = 0)
+    private void moveLeft(byte pathID = 0)
     {
         currIndex = tileSet.tiles.IndexOf(currentTile);
         if (tileSet.tiles[currIndex].type == 0)
@@ -545,7 +545,7 @@ public class TileSetGenerator
         }
     }
 
-    private void patchPath(int pathID = 0)
+    private void patchPath(byte pathID = 0)
     {
         // need to fix up any gaps in the path
         Tile previousTile = tileSet.spawnTiles[pathID];
@@ -573,7 +573,7 @@ public class TileSetGenerator
         }
     }
 
-    private void PathingLogic(List<Tile> pathingNodes, bool start = false, int pathID = 0)
+    private void PathingLogic(List<Tile> pathingNodes, bool start = false, byte pathID = 0)
     {
         int counter = 0;
         reached = (false, false);
@@ -682,7 +682,7 @@ public class TileSetGenerator
             }
 
             // the path will be generated from the pathPatch function
-            patchPath(i);
+            patchPath((byte)i);
 
             if (tileSet.pathTiles[i][0].type != 2) // not sure where exactly a tile is being added in front of start (it's always been only one tile)  
                 tileSet.pathTiles[i].RemoveAt(0);
@@ -709,9 +709,9 @@ public class TileSetGenerator
 
     private void generateTileset()
     {
-        for (int y = 0; y < tileSetHeight; y++)
+        for (byte y = 0; y < tileSetHeight; y++)
         {
-            for (int x = 0; x < tileSetWidth; x++)
+            for (byte x = 0; x < tileSetWidth; x++)
             {
                 Tile newTile = new Tile();
                 newTile.position.x = x;
@@ -767,7 +767,7 @@ public class TileSetGenerator
         }
 
         output += "\n\nCardinals Driections\n";
-        foreach ((int start, int end) cardinal in tileSet.DirCardinals)
+        foreach ((byte start, byte end) cardinal in tileSet.DirCardinals)
         {
             output += $"{cardinal}\n";
         }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class SpawnerAbility : Ability
 {
     protected GameObject enemy;
-    public int count { get; private set; }
+    public byte count { get; private set; }
     public void ConstructAbility(AbilityType abilityType, GameObject enemy, int count, float duration, float cooldown)
     {
         base.ConstructAbility(abilityType, duration, cooldown);
         this.enemy = enemy;
-        this.count = count;
+        this.count = (count > 255) ? (byte)255 : (byte) count;
     }
 
     public void spawnEnemies(Vector3 position, GameObject target, int pathID)
