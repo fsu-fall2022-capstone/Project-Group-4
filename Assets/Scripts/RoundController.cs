@@ -88,19 +88,24 @@ public class RoundController : MonoBehaviour
     }
 
     private List<GameObject> getEnemySpawnOrder()
-    {       
+    {
         List<GameObject> enemies = new List<GameObject>();
         int points = round;
         byte minionCount = 0;
 
-        if (points < 5) {
-            for (int i = 0; i < points; i++) {
+        if (points < 5)
+        {
+            for (int i = 0; i < points; i++)
+            {
                 enemies.Add(enemyPrefabs[0]);
             }
-        } else {
+        }
+        else
+        {
             while (points > 0)
             {
-                if (points >= spawnerValue && minionCount >= (3 + (byte)(round / 5))) {
+                if (points >= spawnerValue && minionCount >= (3 + (byte)(round / 5)))
+                {
                     GameObject enemy = enemyPrefabs[1];
                     enemies.Add(enemy);
                     points -= spawnerValue;
@@ -155,9 +160,10 @@ public class RoundController : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
-        if(round % 10 == 0) {
+        if (round % 10 == 0)
+        {
             // time to spawn boss prefab
-            GameObject boss = Instantiate(bossPrefab, 
+            GameObject boss = Instantiate(bossPrefab,
                 MapGenerator.spawnTiles[0].transform.position, Quaternion.identity);
             Enemy bossEnemy = boss.GetComponent<Enemy>();
             bossEnemy.levelUpMaxHealth(round / 10);

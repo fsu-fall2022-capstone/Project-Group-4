@@ -39,10 +39,12 @@ public class Towers : MonoBehaviour
         nextTimeToShoot = Time.time;
         upgraded = false;
     }
-    
+
     //Loads in the tower prefab that was selected for the upgrade manager
-    private void OnMouseDown(){
-        if (Input.GetMouseButtonDown(0)) {
+    private void OnMouseDown()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             menu.GetComponent<UpgradeManager>().Open(this.gameObject);
             Debug.Log("Clicked on a tower");
         }

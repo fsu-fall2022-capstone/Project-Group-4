@@ -23,7 +23,8 @@ public class HealerAbility : Ability
         List<GameObject> enemiesInRange = getEnemiesInRange(position, range);
         foreach (GameObject enemy in enemiesInRange)
         {
-            if(enemy != null) {
+            if (enemy != null)
+            {
                 Enemy script = enemy.GetComponent<Enemy>();
                 script.healDamage((script.getMaxHealth() - script.enemyHealth) / 4);
                 yield return new WaitForSeconds(0.1f);

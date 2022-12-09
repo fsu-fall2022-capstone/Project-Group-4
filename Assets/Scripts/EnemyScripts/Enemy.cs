@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
 
     public void levelUpMaxHealth(float amount)
     {
-        maxEnemyHealth += ((maxEnemyHealth/10) * amount);
+        maxEnemyHealth += ((maxEnemyHealth / 10) * amount);
     }
 
     public void overchargeHealth(float amount)
@@ -157,7 +157,7 @@ public class Enemy : MonoBehaviour
     {
         //Time.deltaTime is zero when new game is set so enemy speed is zero, need enemy speed to be positive
         if (Time.deltaTime == 0 || toMainMenu == 1)
-        {   
+        {
             //Determine the movement direction and flip enemy sprite to face that way - Nathan Granger
             direction = targetTile.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -168,7 +168,7 @@ public class Enemy : MonoBehaviour
             toMainMenu = 0;
         }
         else
-        { 
+        {
             //Determine the movement direction and flip enemy sprite to face that way - Nathan Granger
             direction = targetTile.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -284,7 +284,7 @@ public class Enemy : MonoBehaviour
                     }
                     else
                         Debug.Log("Burn Damage Applied");
-                        takeDamage(status.damage);
+                    takeDamage(status.damage);
                     break;
                 case StatusType.Overcharged:
                     status.updateDuration(Time.time - timeCheck);

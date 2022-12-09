@@ -63,7 +63,8 @@ public class Ability : MonoBehaviour
         List<GameObject> enemiesInRange = new List<GameObject>();
         foreach (GameObject enemy in Counter.enemies)
         {
-            if(enemy != null) {
+            if (enemy != null)
+            {
                 if (Vector3.Distance(position, enemy.transform.position) <= range)
                 {
                     enemiesInRange.Add(enemy);

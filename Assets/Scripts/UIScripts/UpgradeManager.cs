@@ -14,7 +14,7 @@ public class UpgradeManager : MonoBehaviour
     public GameObject upgradeButton;
     public static GameObject dummyUpgradeButton;
 
-    private static GameObject currentTower; 
+    private static GameObject currentTower;
 
     // Start is called before the first frame update
     private void Start()
@@ -29,19 +29,21 @@ public class UpgradeManager : MonoBehaviour
     }
 
     //This trys to open the UI panel for upgrading and selling towers
-    public void Open(GameObject T) {
+    public void Open(GameObject T)
+    {
         currentTower = T;
         Debug.Log("Tower " + currentTower.GetComponent<Towers>().getName() + " loaded");
         Debug.Log(dummyUpgradeButton);
         dummyUi.SetActive(true);//makes UI appear
-        if(!currentTower.GetComponent<Towers>().canUpgrade()){//makes upgrade disappear if its already upgraded
+        if (!currentTower.GetComponent<Towers>().canUpgrade())
+        {//makes upgrade disappear if its already upgraded
             dummyUpgradeButton.SetActive(false);
         }
         else
             dummyUpgradeButton.SetActive(true);
     }
 
-    public void Upgrade() 
+    public void Upgrade()
     {
         if ((shopManager.canUpgradeTower(currentTower)) && (currentTower.GetComponent<Towers>().canUpgrade()))
         {
@@ -51,9 +53,10 @@ public class UpgradeManager : MonoBehaviour
         }
         this.Close();
     }
-    
+
     //This sells a tower and gives money back to the player
-    public void Sell() {
+    public void Sell()
+    {
         Debug.Log(currentTower.GetComponent<Towers>().getName());
         shopManager.sellTower(currentTower);
         Counter.towers.Remove(currentTower);
@@ -62,21 +65,26 @@ public class UpgradeManager : MonoBehaviour
         Debug.Log("Sold tower");//makes UI disappear
     }
 
-    public void Close() {
+    public void Close()
+    {
         dummyUpgradeButton.SetActive(false);
         dummyUi.SetActive(false);
     }
 
     // Update is called once per frame
-    private void FixedUpdate() {
-        if(currentTower != null) {
-            if(!currentTower.GetComponent<Towers>().canUpgrade()){//makes upgrade disappear if its already upgraded
+    private void FixedUpdate()
+    {
+        if (currentTower != null)
+        {
+            if (!currentTower.GetComponent<Towers>().canUpgrade())
+            {//makes upgrade disappear if its already upgraded
                 dummyUpgradeButton.SetActive(false);
             }
             else
                 dummyUpgradeButton.SetActive(true);
-            }
-        if (Input.GetMouseButtonDown(1)) {
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
             this.Close();
             Debug.Log("Unclicked a tower");
         }
